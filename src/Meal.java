@@ -5,34 +5,31 @@ public class Meal {
     String ingredients;
     float price;
     String imgSrc;
-    ImageIcon img ;
+    ImageIcon img;
 
     public Meal(String mealName, String ingredients, float price, String imgSrc) {
         this.mealName = mealName;
         this.ingredients = ingredients;
         this.price = price;
-        this.imgSrc=imgSrc;
+        this.imgSrc = imgSrc;
         this.img = new ImageIcon(imgSrc);
     }
 
-    Meal fromFileFormat(String str){
-        String[] mealStrings=str.split("&@");
-        mealName = mealStrings[0];
-        ingredients = mealStrings[1];
-        price = Float.parseFloat(mealStrings[2]);
-        imgSrc = mealStrings[3];
-        return new Meal(mealName,ingredients,price,imgSrc);
-    }
-    String toFileFormat(Meal meal){
-        String mealString = "";
-        mealString += meal.mealName + "&@";
-        mealString += meal.ingredients + "&@";
-        mealString += meal.price + "&@";
-        mealString += meal.imgSrc ;
-
-        return mealString;
-
-
+    public static Meal fromFileFormat(String str) {
+        try {
+            String[] mealStrings = str.split("&@");
+            String mealName = mealStrings[0];
+            String ingredients = mealStrings[1];
+            float price = Float.parseFloat(mealStrings[2]);
+            String imgSrc = mealStrings[3];
+            return new Meal(mealName, ingredients, price, imgSrc);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
+    public String toFileFormat() {
+        return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
+    }
 }
