@@ -1,3 +1,5 @@
+package BHswing;
+
 import javax.swing.*;
 import java.awt.*;
 

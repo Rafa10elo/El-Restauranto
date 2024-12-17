@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 
 public class Order {
@@ -17,15 +19,21 @@ public class Order {
         }
         totalPrice += tip;
     }
+    public Order(ArrayList<Meal> meals,float totalPrice, float tip, Status state) {
+        this.meals = meals;
+        this.tip = tip;
+        this.state = state;
+        this.totalPrice=totalPrice;
+    }
 
     public String toFileFormat() {
         String orderString = "";
 
-        for (Meal meal : meals) {
+        for (Meal meal : meals)
             orderString += meal.toFileFormat() + "##";
-        }
 
-        orderString += "@@" + tip + "@@" + state.name();
+
+        orderString += "@@" +totalPrice+ "@@" + tip + "@@" + state.name();
 
         return orderString;
     }
@@ -42,11 +50,12 @@ public class Order {
                     meals.add(meal);
                 }
             }
+            float totalPrice = Float.parseFloat(orderParts[1]);
+            float tip = Float.parseFloat(orderParts[2]);
+            Status state = Status.valueOf(orderParts[3]);
 
-            float tip = Float.parseFloat(orderParts[1]);
-            Status state = Status.valueOf(orderParts[2]);
-
-            return new Order(meals, tip, state);
+            return new Order(meals,totalPrice, tip, state);
+            //t3rb al ka3beh
 
         } catch (Exception e) {
             System.out.println(e);

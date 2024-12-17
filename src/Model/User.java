@@ -1,16 +1,18 @@
+package Model;
+
 import java.util.ArrayList;
 
 public class User {
     private String userName;
     private String password;
-    private boolean isEmployee;
+    private int userType;
 
     public ArrayList<Order> getOrders() {
         return orders;
     }
 
-    public boolean isEmployee() {
-        return isEmployee;
+    public int getUserType() {
+        return userType;
     }
 
     public String getPassword() {
@@ -23,10 +25,10 @@ public class User {
 
     private ArrayList<Order> orders;
 
-    public User(String userName, String password, boolean isEmployee) {
+    public User(String userName, String password, int userType) {
         this.userName = userName;
         this.password = password;
-        this.isEmployee = isEmployee;
+        this.userType = userType;
         this.orders = new ArrayList<>();
     }
 
@@ -35,7 +37,7 @@ public class User {
     }
 
     public String toFileFormat() {
-        String userString = userName + "***" + password + "***" + isEmployee + "***";
+        String userString = userName + "***" + password + "***" + userType + "***";
 
         for (Order order : orders) {
             userString += order.toFileFormat() + "###";
@@ -49,9 +51,9 @@ public class User {
             String[] userParts = str.split("\\*\\*\\*");
             String userName = userParts[0];
             String password = userParts[1];
-            boolean isEmployee = Boolean.parseBoolean(userParts[2]);
+            int userType= Integer.parseInt(userParts[2]);
 
-            User user = new User(userName, password, isEmployee);
+            User user = new User(userName, password, userType);
 
             if (userParts.length > 3) {
                 String[] orderStrings = userParts[3].split("###");

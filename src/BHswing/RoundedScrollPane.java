@@ -1,17 +1,15 @@
+package BHswing;
+
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
-public class RoundedComboBox<E> extends JComboBox<E> {
+public class RoundedScrollPane extends JScrollPane {
 
-    public RoundedComboBox(E[] items) {
-        super(items);
+    public RoundedScrollPane(Component view) {
+        super(view);
         setOpaque(false);
-        setBackground(Color.WHITE);
-        setForeground(Color.BLACK);
         setBorder(new RoundedBorder(15));
-        setRenderer(new CustomComboBoxRenderer());
-
+        getViewport().setOpaque(false);
     }
 
     @Override
@@ -19,7 +17,8 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setColor(getBackground());
+
+        g2d.setColor(Color.BLACK);
         g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
 
         g2d.dispose();
@@ -34,6 +33,4 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
         g2d.dispose();
     }
-
-
 }

@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class Users {
     }
 
     public void loadFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Users.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Model.Users.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 User user = User.fromFileFormat(line);
@@ -42,7 +44,7 @@ public class Users {
     }
 
     public void saveToFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Users.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Model.Users.txt"))) {
             for (User user : users) {
                 bw.write(user.toFileFormat());
                 bw.newLine();

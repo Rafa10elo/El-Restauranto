@@ -1,3 +1,5 @@
+package Model;
+
 import javax.swing.*;
 
 public class Meal {
@@ -28,6 +30,7 @@ public class Meal {
             return null;
         }
     }
+
 
     public String toFileFormat() {
         return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
