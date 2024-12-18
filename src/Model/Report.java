@@ -58,8 +58,8 @@ public class Report {
         return list;
     }
 
-    public void saveToFile(String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+    public void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Reports.txt"))) {
             writer.write(String.valueOf(numberOfOrders));
             writer.newLine();
             writer.write(String.valueOf(totalMoney));
@@ -81,8 +81,8 @@ public class Report {
         }
     }
 
-    public static Report loadFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+    public static Report loadFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
             int numberOfOrders = Integer.parseInt(reader.readLine());
             double totalMoney = Double.parseDouble(reader.readLine());
             Report report = new Report(numberOfOrders, totalMoney);
