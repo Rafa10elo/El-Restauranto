@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class Meal {
     String mealName;
@@ -8,6 +9,47 @@ public class Meal {
     float price;
     String imgSrc;
     ImageIcon img;
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
+
+    public void setImg(ImageIcon img) {
+        this.img = img;
+    }
+
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public ImageIcon getImg() {
+        return img;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getMealName() {
+        return mealName;
+    }
 
     public Meal(String mealName, String ingredients, float price, String imgSrc) {
         this.mealName = mealName;
@@ -35,4 +77,7 @@ public class Meal {
     public String toFileFormat() {
         return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
     }
+
+
+
 }
