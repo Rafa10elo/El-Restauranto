@@ -1,6 +1,9 @@
 import Model.Meal;
 import Model.Report;
+import View.LoginAndRegistrationFrame;
 import View.MainFrame;
+
+import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -19,6 +22,9 @@ public class Main {
         report.incrementMealCount(meal,10000);
         System.out.println(report.getMostSoldMeal().getMealName());
 
+        SwingUtilities.invokeLater(MainFrame :: new);
+        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+        loginAndRegistrationFrame.setVisible(true);
 
     }
 }
