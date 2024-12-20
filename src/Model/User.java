@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class User {
     private String userName;
+    private String email;
     private String password;
     private int userType;
 
@@ -23,10 +24,13 @@ public class User {
         return userName;
     }
 
+    public String getEmail() { return email; }
+
     private ArrayList<Order> orders;
 
-    public User(String userName, String password, int userType) {
+    public User(String userName, String email,String password, int userType) {
         this.userName = userName;
+        this.email = email;
         this.password = password;
         this.userType = userType;
         this.orders = new ArrayList<>();
@@ -37,7 +41,7 @@ public class User {
     }
 
     public String toFileFormat() {
-        String userString = userName + "***" + password + "***" + userType + "***";
+        String userString = userName + "***" + email + "***"+ password + "***" + userType + "***";
 
         for (Order order : orders) {
             userString += order.toFileFormat() + "###";
@@ -50,12 +54,13 @@ public class User {
         try {
             String[] userParts = str.split("\\*\\*\\*");
             String userName = userParts[0];
-            String password = userParts[1];
-            int userType= Integer.parseInt(userParts[2]);
+            String email = userParts[1];
+            String password = userParts[2];
+            int userType= Integer.parseInt(userParts[3]);
 
-            User user = new User(userName, password, userType);
+            User user = new User(userName,email,password, userType);
 
-            if (userParts.length > 3) {
+            if (userParts.length > 4) {
                 String[] orderStrings = userParts[3].split("###");
                 for (String orderStr : orderStrings) {
                     Order order = Order.fromFileFormat(orderStr);

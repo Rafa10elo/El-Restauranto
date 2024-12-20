@@ -1,4 +1,5 @@
 package View;
+import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
 import javax.swing.*;
 import java.awt.*;
@@ -73,6 +74,10 @@ public class MainFrame extends JFrame {
 
 
 
+        //for run purposes
+        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+        add(new ProfilePanel(user),BorderLayout.CENTER);
+        //will get deleted
 
     }
 
