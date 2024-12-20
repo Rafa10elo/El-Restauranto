@@ -96,7 +96,7 @@ public class ProfilePanel extends JPanel {
         cardPanel = new JPanel(cardLayout);
         add(cardPanel, BorderLayout.CENTER);
 
-        // Main Panel
+        //main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBackground(darkGray);
@@ -165,13 +165,12 @@ public class ProfilePanel extends JPanel {
         gbc.gridy = 3;
         mainPanel.add(userTypeValue, gbc);
 
-        //Edit Panel
-        // Edit Panel
+        //edit panel
         JPanel editPanel = new JPanel();
         editPanel.setLayout(new GridBagLayout());
         editPanel.setBackground(darkGray);
 
-// Username TextField
+
         JLabel editUsernameLabel = new JLabel("Username:");
         editUsernameLabel.setFont(fontBold);
         editUsernameLabel.setForeground(orange);
@@ -216,11 +215,10 @@ public class ProfilePanel extends JPanel {
         gbc.gridy = 2;
         editPanel.add(editPasswordField, gbc);
 
-        // Add panels to the cardPanel
         cardPanel.add(mainPanel, "main");
         cardPanel.add(editPanel, "edit");
 
-        // Action Listener for Edit Profile Button
+        //to switch between edit and main panel
         editProfileButton.addActionListener(new ActionListener() {
             private boolean inEditMode = false;
 
@@ -239,14 +237,5 @@ public class ProfilePanel extends JPanel {
                 }
             }
         });
-
-        // Action Listener for Logout Button (optional)
-//        logoutButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JOptionPane.showMessageDialog(ProfilePanel.this, "Logged out successfully!");
-//            }
-//        });
-
     }
 }
