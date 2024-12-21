@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
+    public MealsPanel mealsPanel;
 
-    public static Color lightGray = new Color(43, 45, 48) ;
     public static Color darkGray = new Color(30, 31, 34) ;
+    public static Color lightGray = new Color(43, 45, 48) ;
+    public static Color extraLightGray = new Color(57, 59, 64) ;
     public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
@@ -33,7 +35,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public   MainFrame(){
+    public  MainFrame(int userType){
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -48,7 +50,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         // The top panel, which contains the buttons : Meals, Profile, and All Orders
-        JPanel navigationBarPanel = new JPanel(new FlowLayout(0)) ;
+        JPanel navigationBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)) ;
         navigationBarPanel.setBackground(lightGray);
         navigationBarPanel.setPreferredSize(new Dimension(this.getWidth() , 50));
         navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, orange));
@@ -64,19 +66,17 @@ public class MainFrame extends JFrame {
 
         add(navigationBarPanel, BorderLayout.NORTH) ;
 
-        // Meals panel, which contains all the meals
-        // I'm working on it 🐿️🥜
+        // cards panel
+        JPanel cardsPanel = new JPanel(new CardLayout());
+        mealsPanel = new MealsPanel(userType) ;
+        cardsPanel.add(mealsPanel) ;
 
-
-        // Side panel, which differs depending on the user. If costumer : it contains the current order info. If worker : it contains buttons to add a meal.
-        //also working on it 🐰🥕
-
-
+        add(cardsPanel, BorderLayout.CENTER) ;
 
 
     }
 
-    JButton creatButton (String buttonText) {
+    static JButton creatButton (String buttonText) {
         JButton button = new JButton(buttonText);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);

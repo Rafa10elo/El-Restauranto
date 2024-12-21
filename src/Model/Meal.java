@@ -35,4 +35,20 @@ public class Meal {
     public String toFileFormat() {
         return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
     }
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
 }
