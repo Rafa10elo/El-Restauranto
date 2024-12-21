@@ -28,6 +28,21 @@ public class Meals {
         return false;
     }
 
+    public void writerThread(){
+
+        new Thread(()->{
+            saveToFile();
+        });
+
+    }
+    public void readerThread(){
+
+        new Thread(()->{
+            loadFromFile();
+        });
+
+    }
+
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader("MealsFile.txt"))) {
             String line;

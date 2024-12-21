@@ -1,4 +1,5 @@
 package View;
+import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
 import javax.swing.*;
 import java.awt.*;
@@ -54,10 +55,10 @@ public class MainFrame extends JFrame {
         navigationBarPanel.setBackground(lightGray);
         navigationBarPanel.setPreferredSize(new Dimension(this.getWidth() , 50));
         navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, orange));
-        JButton profileButton = creatButton("Your Profile");
-        JButton mainMenuButton = creatButton("Main Menu") ;
-        JButton allOrdersButton = creatButton("All Orders") ;
-        JButton reportButton = creatButton("Report") ;
+        JButton profileButton = createButton("Your Profile");
+        JButton mainMenuButton = createButton("Main Menu") ;
+        JButton allOrdersButton = createButton("All Orders") ;
+        JButton reportButton = createButton("Report") ;
 
         navigationBarPanel.add(profileButton);
         navigationBarPanel.add(mainMenuButton);
@@ -73,10 +74,15 @@ public class MainFrame extends JFrame {
 
         add(cardsPanel, BorderLayout.CENTER) ;
 
+        //for run purposes
+        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+        add(new ProfilePanel(user),BorderLayout.CENTER);
+        //will get deleted
 
     }
 
-    static JButton creatButton (String buttonText) {
+
+    JButton createButton(String buttonText) {
         JButton button = new JButton(buttonText);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
