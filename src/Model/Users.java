@@ -29,6 +29,22 @@ public class Users {
         return false;
     }
 
+
+    public void writerThread(){
+
+    new Thread(()->{
+        saveToFile();
+    });
+
+    }
+    public void readerThread(){
+
+        new Thread(()->{
+            loadFromFile();
+        });
+
+    }
+
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader("Model.Users.txt"))) {
             String line;

@@ -19,6 +19,21 @@ public class Payments {
         return null;
     }
 
+    public void writerThread(){
+
+        new Thread(()->{
+            saveToFile();
+        });
+
+    }
+    public void readerThread(){
+
+        new Thread(()->{
+            loadFromFile();
+        });
+
+    }
+
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader("Payments.txt"))) {
             String line;

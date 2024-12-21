@@ -58,6 +58,21 @@ public class Report {
         return list;
     }
 
+    public void writerThread(){
+
+        new Thread(()->{
+            saveToFile();
+        });
+
+    }
+    public void readerThread(){
+
+        new Thread(()->{
+            loadFromFile();
+        });
+
+    }
+
     public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Reports.txt"))) {
             writer.write(String.valueOf(numberOfOrders));

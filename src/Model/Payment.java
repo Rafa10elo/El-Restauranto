@@ -64,6 +64,20 @@ public class Payment {
             return null;
         }
     }
+    public void writerThread(){
+
+        new Thread(()->{
+            saveCounterToFile();
+        });
+
+    }
+    public void readerThread(){
+
+        new Thread(()->{
+            loadCounterFromFile();
+        });
+
+    }
 
     private static void saveCounterToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("CounterOfIDS.txt"))) {
