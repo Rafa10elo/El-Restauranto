@@ -18,6 +18,14 @@ public class Report {
         this.orderingUsers = new HashMap<>();
     }
 
+    public int getNumberOfOrders() {
+        return numberOfOrders;
+    }
+
+    public double getTotalMoney() {
+        return totalMoney;
+    }
+
     public void incrementMealCount(Meal meal, int cnt) {
         orderedMeals.put(meal, orderedMeals.getOrDefault(meal, 0) + cnt);
     }

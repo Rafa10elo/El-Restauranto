@@ -170,7 +170,6 @@ public class ProfilePanel extends JPanel {
         editPanel.setLayout(new GridBagLayout());
         editPanel.setBackground(darkGray);
 
-
         JLabel editUsernameLabel = new JLabel("Username:");
         editUsernameLabel.setFont(fontBold);
         editUsernameLabel.setForeground(orange);
