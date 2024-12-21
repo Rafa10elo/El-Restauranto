@@ -13,6 +13,8 @@ public class LoginPanel extends JPanel {
     public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
+    public static Font fieldsFont = null ;
+
 
     static {
         try {
@@ -30,6 +32,13 @@ public class LoginPanel extends JPanel {
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static {
+        try {
+            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(20f);
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -60,6 +69,21 @@ public class LoginPanel extends JPanel {
         JPasswordField passField = new JPasswordField(15);
         gbc.gridx = 1;
         centralPanel.add(passField, gbc);
+
+        JCheckBox showPasswordCheckbox = new JCheckBox();
+        showPasswordCheckbox.setForeground(orange);
+        showPasswordCheckbox.setFont(fontRegular);
+        showPasswordCheckbox.setOpaque(false);
+        gbc.gridx = 2;
+        centralPanel.add(showPasswordCheckbox, gbc);
+
+        showPasswordCheckbox.addActionListener(e -> {
+            if (showPasswordCheckbox.isSelected()) {
+                passField.setEchoChar((char) 0);
+            } else {
+                passField.setEchoChar('•');
+            }
+        });
 
         // Login Button
         JButton loginButton = new JButton("Login");

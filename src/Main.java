@@ -2,9 +2,8 @@ import Control.OrderTimerManager;
 import Model.Meal;
 import Model.Report;
 import Model.Order;
-import View.LoginAndRegistrationFrame;
-import View.MainFrame;
-import View.ReportPanel;
+import View.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -20,6 +19,7 @@ public class Main {
 
         // sarah test
         MainFrame mainFrame = new MainFrame(0);
+        mainFrame.add(new RegisterPanel(new JPanel(),new CardLayout()));
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
         mainFrame.setVisible(true);

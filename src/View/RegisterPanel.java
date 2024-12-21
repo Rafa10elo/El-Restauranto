@@ -8,33 +8,38 @@ import java.io.File;
 import java.io.IOException;
 
 public class RegisterPanel extends JPanel {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
+    public static Color lightGray = new Color(43, 45, 48);
+    public static Color darkGray = new Color(30, 31, 34);
+    public static Color orange = new Color(206, 129, 76);
+    public static Font fontBold = null;
+    public static Font fontRegular = null;
+    public static Font fieldsFont = null;
 
     static {
         try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f);
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     static {
         try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(20f);
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public RegisterPanel(JPanel mainPanel, CardLayout cardLayout){
+    static {
+        try {
+            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(20f);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public RegisterPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new GridBagLayout());
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
@@ -46,7 +51,7 @@ public class RegisterPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel userLabel =  createJLabel("Username:",gbc,0,0);
+        JLabel userLabel = createJLabel("Username:", gbc, 0, 0);
         gbc.gridwidth = 1;
         centralPanel.add(userLabel, gbc);
 
@@ -54,28 +59,58 @@ public class RegisterPanel extends JPanel {
         gbc.gridx = 1;
         centralPanel.add(userField, gbc);
 
-        JLabel emailLabel = createJLabel("Email:",gbc,0,1);
+        JLabel emailLabel = createJLabel("Email:", gbc, 0, 1);
         centralPanel.add(emailLabel, gbc);
 
         JTextField emailField = new JTextField(15);
         gbc.gridx = 1;
         centralPanel.add(emailField, gbc);
 
-        JLabel passLabel = createJLabel("Password:",gbc,0,2);
+        JLabel passLabel = createJLabel("Password:", gbc, 0, 2);
         centralPanel.add(passLabel, gbc);
 
         JPasswordField passField = new JPasswordField(15);
         gbc.gridx = 1;
         centralPanel.add(passField, gbc);
 
-        JLabel confirmPassLabel = createJLabel("Confirm Password:",gbc,0,3);
+        JCheckBox showPasswordCheckbox = new JCheckBox();
+        showPasswordCheckbox.setForeground(orange);
+        showPasswordCheckbox.setFont(fontRegular);
+        showPasswordCheckbox.setOpaque(false);
+        gbc.gridx = 2;
+        centralPanel.add(showPasswordCheckbox, gbc);
+
+        showPasswordCheckbox.addActionListener(e -> {
+            if (showPasswordCheckbox.isSelected()) {
+                passField.setEchoChar((char) 0);
+            } else {
+                passField.setEchoChar('•');
+            }
+        });
+
+        JLabel confirmPassLabel = createJLabel("Confirm Password:", gbc, 0, 3);
         centralPanel.add(confirmPassLabel, gbc);
 
         JPasswordField confirmPassField = new JPasswordField(15);
         gbc.gridx = 1;
         centralPanel.add(confirmPassField, gbc);
 
-        JLabel chooseUserLabel = createJLabel("User:",gbc,0,4);
+        JCheckBox showConfirmPasswordCheckbox = new JCheckBox();
+        showConfirmPasswordCheckbox.setForeground(orange);
+        showConfirmPasswordCheckbox.setFont(fontRegular);
+        showConfirmPasswordCheckbox.setOpaque(false);
+        gbc.gridx = 2;
+        centralPanel.add(showConfirmPasswordCheckbox, gbc);
+
+        showConfirmPasswordCheckbox.addActionListener(e -> {
+            if (showConfirmPasswordCheckbox.isSelected()) {
+                confirmPassField.setEchoChar((char) 0);
+            } else {
+                confirmPassField.setEchoChar('•');
+            }
+        });
+
+        JLabel chooseUserLabel = createJLabel("User:", gbc, 0, 4);
         centralPanel.add(chooseUserLabel, gbc);
 
         JRadioButton chooseCustomerButton = new JRadioButton("Customer");
@@ -91,18 +126,16 @@ public class RegisterPanel extends JPanel {
         userChoice.add(chooseManagerButton);
 
         JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        radioPanel.setBackground(new Color(43,43,43));
+        radioPanel.setBackground(darkGray);
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
         radioPanel.add(chooseManagerButton);
-        radioPanel.setBackground(darkGray);
-
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
         centralPanel.add(radioPanel, gbc);
 
-        JLabel optionalFieldLabel =createJLabel("Employee/Manager Code:",gbc,0,6);
+        JLabel optionalFieldLabel = createJLabel("Employee/Manager Code:", gbc, 0, 6);
         centralPanel.add(optionalFieldLabel, gbc);
 
         JTextField optionalField = new JTextField(5);
@@ -125,19 +158,15 @@ public class RegisterPanel extends JPanel {
         gbc.gridy = 8;
         centralPanel.add(backButton, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=0;
-        add(centralPanel,gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(centralPanel, gbc);
 
-        // Enable optional text field when "Employee" or "Manager" is selected
-        ActionListener radioActionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (chooseEmployeeButton.isSelected() || chooseManagerButton.isSelected()) {
-                    optionalField.setEnabled(true);
-                } else {
-                    optionalField.setEnabled(false);
-                }
+        ActionListener radioActionListener = e -> {
+            if (chooseEmployeeButton.isSelected() || chooseManagerButton.isSelected()) {
+                optionalField.setEnabled(true);
+            } else {
+                optionalField.setEnabled(false);
             }
         };
 
@@ -145,21 +174,14 @@ public class RegisterPanel extends JPanel {
         chooseEmployeeButton.addActionListener(radioActionListener);
         chooseManagerButton.addActionListener(radioActionListener);
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(mainPanel, "Login");
-            }
-        });
+        backButton.addActionListener(e -> cardLayout.show(mainPanel, "Login"));
     }
 
-    JLabel createJLabel(String message,GridBagConstraints gbc,int gridx,int gridy){
+    JLabel createJLabel(String message, GridBagConstraints gbc, int gridx, int gridy) {
         JLabel label = new JLabel(message);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         label.setFont(fontRegular);
         return label;
     }
-
-
 }
