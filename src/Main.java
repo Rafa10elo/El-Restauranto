@@ -3,8 +3,10 @@ import Model.Meal;
 import Model.Report;
 import Model.Order;
 import View.LoginAndRegistrationFrame;
-
 import View.MainFrame;
+import View.ReportPanel;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,7 +17,14 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         // sarah test
+        MainFrame mainFrame = new MainFrame(0);
+//        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
+//        mainFrame.add(reportPanel, BorderLayout.CENTER);
+        mainFrame.setVisible(true);
+        //sorrryy bhhh
+
 //        ArrayList<Meal> meals = new ArrayList<>();
 //        meals.add(new Meal("Burger", "213",321,"3"));
 //        meals.add(new Meal("Fries", "31",231,"213"));
@@ -37,6 +46,7 @@ public class Main {
 //        System.out.println("Order status: " + order.getState());
 //        timerManager.showRemainingTime(order);
 //        timerManager.showRemainingTime(order1);
+
 //
 //        try {
 //            Thread.sleep(10000);
@@ -45,6 +55,19 @@ public class Main {
 //        }
 //
 //        System.out.println("Final order status: " + order.getState());
+
+
+
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println("Final order status: " + order.getState());
+
+
 
 //        Report report = new Report(2,333);
 //        Meal meal = new Meal("piz123","21321",33,"21321");
@@ -73,9 +96,6 @@ public class Main {
 //        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
 //        MainFrame mainFrame = new MainFrame(1);
 //        mainFrame.mealsPanel.fillMainMenu(mealsAya);
-
-
-
 
     }
 }

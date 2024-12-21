@@ -75,8 +75,10 @@ public class MainFrame extends JFrame {
         add(cardsPanel, BorderLayout.CENTER) ;
 
         //for run purposes
-        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
-        add(new ProfilePanel(user),BorderLayout.CENTER);
+//        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+//        add(new ProfilePanel(user),BorderLayout.CENTER);
+        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+        add(reportPanel, BorderLayout.CENTER);
         //will get deleted
 
     }
