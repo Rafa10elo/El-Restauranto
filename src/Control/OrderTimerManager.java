@@ -35,12 +35,12 @@ public class OrderTimerManager {
             if (remainingTime <= 0) {
                 order.setState(Order.Status.DELIVERED);
 
-                System.out.println("Order delivered!");
+                System.out.println("order delivired");
 
                 taskHolder[0].cancel(false);
             } else {
                 order.setState(Order.Status.PREPARED);
-                System.out.println("Time remaining for Order: " + remainingTime + " seconds.");
+                System.out.println("time remaining for Order" + remainingTime );
             }
         }, 0, 1, TimeUnit.SECONDS);
     }

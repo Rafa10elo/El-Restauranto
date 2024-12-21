@@ -1,10 +1,12 @@
 package Model;
 
+import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
-    private ArrayList<Meal> meals;
+    private HashMap<Meal, Integer> meals;
     private float totalPrice = 0;
     private float tip;
     private Status state;
@@ -13,19 +15,16 @@ public class Order {
 
     public enum Status {PREPARED, DELIVERED, CANCELED}
 
-    public Order(ArrayList<Meal> meals, float tip, Status state) {
+    public Order(HashMap<Meal, Integer> meals, float tip, Status state) {
         this.meals = meals;
         this.tip = tip;
         this.state = state;
-        for (Meal meal : meals) {
-            this.totalPrice += meal.price;
-        }
-        this.totalPrice += tip;
+        calculateTotalPrice();
         this.timeOfDelivery = null;
         this.paymentId = null;
     }
 
-    public Order(ArrayList<Meal> meals, float totalPrice, float tip, Status state,
+    public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state,
                  LocalDateTime timeOfDelivery, String paymentId) {
         this.meals = meals;
         this.totalPrice = totalPrice;
@@ -33,6 +32,13 @@ public class Order {
         this.state = state;
         this.timeOfDelivery = timeOfDelivery;
         this.paymentId = paymentId;
+    }
+
+    private void calculateTotalPrice() {
+        totalPrice = tip;
+        for (Map.Entry<Meal, Integer> entry : meals.entrySet()) {
+            totalPrice += entry.getKey().price * entry.getValue();
+        }
     }
 
     public synchronized void setState(Status state) {
@@ -54,15 +60,43 @@ public class Order {
     public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
-    public Status getState(){
+
+    public Status getState() {
         return this.state;
+    }
+
+    public void addMeal(Meal meal, int count) {
+        meals.put(meal, meals.getOrDefault(meal, 0) + count);
+        calculateTotalPrice();
+    }
+
+    public boolean removeMeal(Meal meal) {
+        if (meals.containsKey(meal)) {
+            meals.remove(meal);
+            calculateTotalPrice();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean modifyMealCnt(Meal meal, int cnt) {
+        if (meals.containsKey(meal)) {
+            if (cnt > 0) {
+                meals.put(meal, cnt);
+            } else {
+                meals.remove(meal);
+            }
+            calculateTotalPrice();
+            return true;
+        }
+        return false;
     }
 
     public String toFileFormat() {
         String orderString = "";
 
-        for (Meal meal : this.meals) {
-            orderString += meal.toFileFormat() + "##";
+        for (Map.Entry<Meal, Integer> entry : meals.entrySet()) {
+            orderString += entry.getKey().toFileFormat() + "##" + entry.getValue() + "||";
         }
 
         orderString += "@@" + this.totalPrice;
@@ -87,13 +121,15 @@ public class Order {
     public static Order fromFileFormat(String str) {
         try {
             String[] orderParts = str.split("@@");
-            String[] mealStrings = orderParts[0].split("##");
-            ArrayList<Meal> meals = new ArrayList<Meal>();
+            String[] mealStrings = orderParts[0].split("\\|\\|");
+            HashMap<Meal, Integer> meals = new HashMap<>();
 
             for (String mealStr : mealStrings) {
-                Meal meal = Meal.fromFileFormat(mealStr);
-                if (meal != null) {
-                    meals.add(meal);
+                if (!mealStr.isEmpty()) {
+                    String[] mealData = mealStr.split("##");
+                    Meal meal = Meal.fromFileFormat(mealData[0]);
+                    int count = Integer.parseInt(mealData[1]);
+                    meals.put(meal, count);
                 }
             }
 
