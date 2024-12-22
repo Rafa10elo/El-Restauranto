@@ -77,4 +77,21 @@ public class Meal {
     public String toFileFormat() {
         return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meal meal = (Meal) o;
+        return Float.compare(meal.price, price) == 0 &&
+                Objects.equals(mealName, meal.mealName) &&
+                Objects.equals(ingredients, meal.ingredients) &&
+                Objects.equals(imgSrc, meal.imgSrc);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mealName, ingredients, price, imgSrc);
+    }
+
 }

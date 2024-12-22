@@ -9,6 +9,7 @@ import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 //import java.util.Timer;
 
 
@@ -17,12 +18,32 @@ public class Main {
 
     public static void main(String[] args) {
 
+        HashMap<Meal, Integer> map = new HashMap<>();
+
+        Meal meal=  new Meal("213","21321",213,"213");
+        Meal meal1=  new Meal("213","21321",213,"213");
+
+        map.put(meal,map.getOrDefault(meal,0)+1);
+        map.put(meal1,map.getOrDefault(meal1,0)+1);
+
+
+        System.out.println(map.get(new Meal("213","21321",213,"213")));
+
+
+
+
+
         // sarah test
         MainFrame mainFrame = new MainFrame(0);
-        mainFrame.add(new RegisterPanel(new JPanel(),new CardLayout()));
+        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
+
+
+
+
+
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
-        mainFrame.setVisible(true);
+        //mainFrame.setVisible(true);
         //sorrryy bhhh
 
 //        ArrayList<Meal> meals = new ArrayList<>();
