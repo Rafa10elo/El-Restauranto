@@ -1,9 +1,13 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -61,22 +65,43 @@ public class LoginPanel extends JPanel {
 
         JTextField userField = new JTextField(15);
         gbc.gridx = 1;
+        userField.setFont(fieldsFont);
+        userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+
         centralPanel.add(userField, gbc);
 
         JLabel passLabel = createJLabel("Password:",gbc,0,1);
         centralPanel.add(passLabel, gbc);
 
-        JPasswordField passField = new JPasswordField(15);
-        gbc.gridx = 1;
-        centralPanel.add(passField, gbc);
+        JPanel passwordEntryPanel = new JPanel(new GridBagLayout());
+
+        JPasswordField passField = new JPasswordField(14);
+        passField.setFont(fieldsFont);
+        passField.setBorder(new LineBorder(new Color(70,73,75)));
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx = 0;
+        gbc1.gridy = 0;
+        gbc1.insets = new Insets( 0, 0, 0 ,0);
+        gbc1.weightx = 8;
+        gbc1.weighty= 1;
+        gbc1.gridwidth = 10;
+        gbc1.gridheight = 1;
+        gbc1.fill=GridBagConstraints.BOTH;
+        passwordEntryPanel.add(passField,gbc1);
+
+//        centralPanel.add(passField, gbc);
 
         JCheckBox showPasswordCheckbox = new JCheckBox();
         showPasswordCheckbox.setForeground(orange);
         showPasswordCheckbox.setFont(fontRegular);
         showPasswordCheckbox.setOpaque(false);
-        gbc.gridx = 2;
-        centralPanel.add(showPasswordCheckbox, gbc);
+//        gbc.gridx = 2;
+        gbc1.gridx = 10;
+        gbc1.weightx = 0.2;
+        gbc1.gridwidth = 1;
+        gbc1.anchor = GridBagConstraints.EAST;
 
+        showPasswordCheckbox.setSize(8,8);
         showPasswordCheckbox.addActionListener(e -> {
             if (showPasswordCheckbox.isSelected()) {
                 passField.setEchoChar((char) 0);
@@ -84,6 +109,13 @@ public class LoginPanel extends JPanel {
                 passField.setEchoChar('•');
             }
         });
+        passwordEntryPanel.add(showPasswordCheckbox,gbc1);
+        passwordEntryPanel.setBackground(new Color(70,73,75));
+        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+//        gbc.insets= new Insets (0 , 0 , 0 , 1);
+        gbc.gridx = 1;
+        centralPanel.add(passwordEntryPanel, gbc);
+//        gbc.insets = new Insets(20, 20, 20, 20);
 
         // Login Button
         JButton loginButton = new JButton("Login");
