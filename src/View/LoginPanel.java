@@ -19,6 +19,11 @@ public class LoginPanel extends JPanel {
     public static Font fontRegular = null ;
     public static Font fieldsFont = null ;
 
+   public JTextField userField;
+   public JPasswordField passField;
+   public JButton loginButton;
+
+
 
     static {
         try {
@@ -63,7 +68,7 @@ public class LoginPanel extends JPanel {
         JLabel userLabel = createJLabel("Username:",gbc,0,0);
         centralPanel.add(userLabel, gbc);
 
-        JTextField userField = new JTextField(15);
+         userField = new JTextField(15);
         gbc.gridx = 1;
         userField.setFont(fieldsFont);
         userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
@@ -75,7 +80,7 @@ public class LoginPanel extends JPanel {
 
         JPanel passwordEntryPanel = new JPanel(new GridBagLayout());
 
-        JPasswordField passField = new JPasswordField(14);
+         passField = new JPasswordField(14);
         passField.setFont(fieldsFont);
         passField.setBorder(new LineBorder(new Color(70,73,75)));
         GridBagConstraints gbc1 = new GridBagConstraints();
@@ -118,7 +123,7 @@ public class LoginPanel extends JPanel {
 //        gbc.insets = new Insets(20, 20, 20, 20);
 
         // Login Button
-        JButton loginButton = new JButton("Login");
+        loginButton = new JButton("Login");
         loginButton.setFont(fontBold);
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -160,6 +165,12 @@ public class LoginPanel extends JPanel {
         gbc.gridy = gridy;
         label.setFont(fontRegular);
         return label;
+    }
+    public String getUsername(){
+        return userField.getText();
+    }
+    public String getPassword(){
+        return passField.getText();
     }
 
 

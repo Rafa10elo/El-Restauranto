@@ -14,6 +14,10 @@ public class LoginAndRegistrationFrame extends JFrame {
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
 
+    public CardLayout cardLayout ;
+    public JPanel mainPanel;
+    public  LoginPanel loginPanel ;
+    public RegisterPanel registerPanel ;
     static {
         try {
             fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(35f) ;
@@ -39,17 +43,18 @@ public class LoginAndRegistrationFrame extends JFrame {
         setLocationRelativeTo(null);
 
         // Create CardLayout to switch between panels
-        CardLayout cardLayout = new CardLayout();
-        JPanel mainPanel = new JPanel(cardLayout);
+         cardLayout = new CardLayout();
+         mainPanel = new JPanel(cardLayout);
 
-        LoginPanel login = new LoginPanel(mainPanel, cardLayout);
-        RegisterPanel register = new RegisterPanel(mainPanel, cardLayout);
+         loginPanel = new LoginPanel(mainPanel, cardLayout);
+         registerPanel = new RegisterPanel(mainPanel, cardLayout);
 
-        mainPanel.add(login, "Login");
-        mainPanel.add(register, "Register");
+        mainPanel.add(loginPanel, "Login");
+        mainPanel.add(registerPanel, "Register");
 
         cardLayout.show(mainPanel, "Login");
 
         add(mainPanel);
+        this.setVisible(true);
     }
 }

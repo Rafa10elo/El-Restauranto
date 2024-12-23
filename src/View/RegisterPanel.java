@@ -22,6 +22,20 @@ public class RegisterPanel extends JPanel {
     public static Font fontRegular = null;
     public static Font fieldsFont = null;
 
+    JTextField userField ;
+    JTextField emailField;
+    JPasswordField passField;
+    JPasswordField passCheckField;
+    JRadioButton chooseCustomerButton;
+    JRadioButton chooseManagerButton;
+    JRadioButton chooseEmployeeButton;
+    JButton registerButton;
+    JTextField optionalField;
+    JButton backButton;
+
+
+
+
     static {
         try {
             fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f);
@@ -62,7 +76,7 @@ public class RegisterPanel extends JPanel {
         gbc.gridwidth = 1;
         centralPanel.add(userLabel, gbc);
 
-        JTextField userField = new JTextField(15);
+        userField = new JTextField(15);
         gbc.gridx = 1;
         userField.setFont(fieldsFont);
         userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
@@ -72,12 +86,11 @@ public class RegisterPanel extends JPanel {
 
         centralPanel.add(emailLabel, gbc);
 
-        JTextField emailField = new JTextField(15);
+         emailField = new JTextField(15);
         emailField.setFont(fieldsFont);
 
         gbc.gridx = 1;
         emailField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
-
         emailField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -104,6 +117,7 @@ public class RegisterPanel extends JPanel {
                     emailField.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
             }
         });
+
         centralPanel.add(emailField, gbc);
 
         JLabel passLabel = createJLabel("Password:", gbc, 0, 2);
@@ -112,7 +126,7 @@ public class RegisterPanel extends JPanel {
 
         JPanel passwordEntryPanel = new JPanel(new GridBagLayout());
 
-        JPasswordField passField = new JPasswordField(14);
+         passField = new JPasswordField(14);
         passField.setFont(fieldsFont);
 
         passField.setBorder(new LineBorder(new Color(70,73,75)));
@@ -207,7 +221,7 @@ public class RegisterPanel extends JPanel {
         centralPanel.add(confirmPassLabel, gbc);
 
         JPanel passwordEntryPanel1 = new JPanel(new GridBagLayout());
-        JPasswordField passCheckField = new JPasswordField(14);
+         passCheckField = new JPasswordField(14);
         passCheckField.setFont(fieldsFont);
 
         passCheckField.setBorder(new LineBorder(new Color(70,73,75)));
@@ -280,11 +294,11 @@ public class RegisterPanel extends JPanel {
         JLabel chooseUserLabel = createJLabel("User:", gbc, 0, 4);
         centralPanel.add(chooseUserLabel, gbc);
 
-        JRadioButton chooseCustomerButton = new JRadioButton("Customer");
+         chooseCustomerButton = new JRadioButton("Customer");
         chooseCustomerButton.setFont(fontBold);
-        JRadioButton chooseEmployeeButton = new JRadioButton("Employee");
+         chooseEmployeeButton = new JRadioButton("Employee");
         chooseEmployeeButton.setFont(fontBold);
-        JRadioButton chooseManagerButton = new JRadioButton("Manager");
+         chooseManagerButton = new JRadioButton("Manager");
         chooseManagerButton.setFont(fontBold);
 
         ButtonGroup userChoice = new ButtonGroup();
@@ -305,7 +319,7 @@ public class RegisterPanel extends JPanel {
         JLabel optionalFieldLabel = createJLabel("Employee/Manager Code:", gbc, 0, 6);
         centralPanel.add(optionalFieldLabel, gbc);
 
-        JTextField optionalField = new JTextField(5);
+        optionalField = new JTextField(5);
         optionalField.setFont(fieldsFont);
 
         optionalField.setEnabled(false);
@@ -316,14 +330,14 @@ public class RegisterPanel extends JPanel {
 
         gbc.insets = new Insets(20, 20, 20, 20);
 
-        JButton registerButton = new JButton("Register");
+         registerButton = new JButton("Register");
         registerButton.setFont(fontBold);
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         centralPanel.add(registerButton, gbc);
 
-        JButton backButton = new JButton("Back to Login");
+         backButton = new JButton("Back to Login");
         backButton.setFont(fontBold);
         gbc.gridy = 8;
         centralPanel.add(backButton, gbc);
@@ -355,7 +369,7 @@ public class RegisterPanel extends JPanel {
         return label;
     }
     public static int passwordCheck(String password) {
-        if (password.length() < 8) {
+        if (password.length() < 8||password.matches(".*\\s.*")) {
             return 0;
         }
         int score = 1;
@@ -384,6 +398,29 @@ public class RegisterPanel extends JPanel {
 
         return pass1.equals(pass2);
     }
+    public String getUsername(){
+        return passField.getText();
+    }
+    public String getPassword(){
+        return passField.getText();
+    }
+    public String getEmail(){
+        return emailField.getText();
+    }
+    public int getType (){
+        if(chooseCustomerButton.isSelected())
+            return 0;
+        else if (chooseEmployeeButton.isSelected())
+            return 1;
+        else
+            return 2;
+    }
+    public String getOptionalText(){
+        return optionalField.getText();
+    }
+
+
+
 
 
 

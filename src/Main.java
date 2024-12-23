@@ -1,7 +1,6 @@
+import Control.LoginAndRegisterManager;
 import Control.OrderTimerManager;
-import Model.Meal;
-import Model.Report;
-import Model.Order;
+import Model.*;
 import View.*;
 
 import javax.swing.*;
@@ -18,24 +17,33 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HashMap<Meal, Integer> map = new HashMap<>();
-
-        Meal meal=  new Meal("213","21321",213,"213");
-        Meal meal1=  new Meal("213","21321",213,"213");
-
-        map.put(meal,map.getOrDefault(meal,0)+1);
-        map.put(meal1,map.getOrDefault(meal1,0)+1);
-
-
-        System.out.println(map.get(new Meal("213","21321",213,"213")));
+        User user = new User("rafaelo","rafawq@gmail.com", "12345678",2);
+        Users users = new Users();
+        users.addUser(user);
+        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+        LoginAndRegisterManager loginAndRegisterManager= new LoginAndRegisterManager(users,loginAndRegistrationFrame);
 
 
 
 
+//        HashMap<Meal, Integer> map = new HashMap<>();
+//
+//        Meal meal=  new Meal("213","21321",213,"213");
+//        Meal meal1=  new Meal("213","21321",213,"213");
+//
+//        map.put(meal,map.getOrDefault(meal,0)+1);
+//        map.put(meal1,map.getOrDefault(meal1,0)+1);
+//
+//
+//        System.out.println(map.get(new Meal("213","21321",213,"213")));
 
-        // sarah test
-        MainFrame mainFrame = new MainFrame(0);
-        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
+
+
+
+
+//        // sarah test
+//        MainFrame mainFrame = new MainFrame(0);
+//        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
 
 
 
