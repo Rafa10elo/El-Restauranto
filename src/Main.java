@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        User user = new User("rafaelo","rafawq@gmail.com", "12345678",2);
+        User user = new User("Aya","rafawq@gmail.com", "12345678",2);
         Users users = new Users();
         users.addUser(user);
         LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
@@ -123,7 +123,7 @@ public class Main {
 //        }
 //
 //        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
-//        MainFrame mainFrame = new MainFrame(1);
+//        MainFrame mainFrame = new MainFrame(0);
 //        mainFrame.mealsPanel.fillMainMenu(mealsAya);
 
     }

@@ -39,10 +39,11 @@ public class LoginAndRegisterManager {
                JOptionPane.showMessageDialog(loginAndRegistrationFrame, "successfully logged in", "success", JOptionPane.INFORMATION_MESSAGE);
                loginAndRegistrationFrame.dispose();
                new JFrame().setVisible(true);// هون بدنا نعمل الفريم الكبيرة التانية تبعكم
+
            }
            else
            {
-               JOptionPane.showMessageDialog(loginAndRegistrationFrame, "incorrect password please try again.", "error", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(loginAndRegistrationFrame, "incorrect password please try again.", "error", JOptionPane.ERROR_MESSAGE);
            }
        }
        else
