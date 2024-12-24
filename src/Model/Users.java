@@ -54,19 +54,19 @@ public class Users {
 
     new Thread(()->{
         saveToFile();
-    });
+    }).start();
 
     }
     public void readerThread(){
 
         new Thread(()->{
             loadFromFile();
-        });
+        }).start();
 
     }
 
     public void loadFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Model.Users.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Users.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 User user = User.fromFileFormat(line);
@@ -80,7 +80,7 @@ public class Users {
     }
 
     public void saveToFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Model.Users.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Users.txt"))) {
             for (User user : users) {
                 bw.write(user.toFileFormat());
                 bw.newLine();

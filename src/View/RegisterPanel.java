@@ -275,11 +275,11 @@ public class RegisterPanel extends JPanel {
         JLabel chooseUserLabel = createJLabel("User:", gbc, 0, 4);
         centralPanel.add(chooseUserLabel, gbc);
 
-        JRadioButton chooseCustomerButton = new JRadioButton("Customer");
+         chooseCustomerButton = new JRadioButton("Customer");
         chooseCustomerButton.setFont(MainFrame.fontBold.deriveFont(20F));
-        JRadioButton chooseEmployeeButton = new JRadioButton("Employee");
+         chooseEmployeeButton = new JRadioButton("Employee");
         chooseEmployeeButton.setFont(MainFrame.fontBold.deriveFont(20F));
-        JRadioButton chooseManagerButton = new JRadioButton("Manager");
+         chooseManagerButton = new JRadioButton("Manager");
         chooseManagerButton.setFont(MainFrame.fontBold.deriveFont(20F));
 
         ButtonGroup userChoice = new ButtonGroup();
@@ -386,7 +386,7 @@ public class RegisterPanel extends JPanel {
         return pass1.equals(pass2);
     }
     public String getUsername(){
-        return passField.getText();
+        return userField.getText();
     }
     public String getPassword(){
         return passField.getText();
@@ -405,10 +405,19 @@ public class RegisterPanel extends JPanel {
     public String getOptionalText(){
         return optionalField.getText();
     }
-
-
-
-
-
-
+    public String getCheckPass(){
+        return passCheckField.getText();
+    }
+    public JButton getRegisterButton() {
+        return registerButton;
+    }
+    public boolean getChooseCustomer(){
+        return chooseCustomerButton.isSelected();
+    }
+    public boolean getChooseEmployee(){
+        return chooseEmployeeButton.isSelected();
+    }
+    public boolean getChooseManager(){
+        return chooseManagerButton.isSelected();
+    }
 }

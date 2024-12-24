@@ -25,9 +25,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        User user = new User("Aya","rafawq@gmail.com", "12345678",2);
-        Users users = new Users();
-        users.addUser(user);
+        Users users= new Users();
+        users.loadFromFile();
+
         LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
         LoginAndRegisterManager loginAndRegisterManager= new LoginAndRegisterManager(users,loginAndRegistrationFrame);
 

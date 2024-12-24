@@ -23,14 +23,14 @@ public class Payments {
 
         new Thread(()->{
             saveToFile();
-        });
+        }).start();
 
     }
     public void readerThread(){
 
         new Thread(()->{
             loadFromFile();
-        });
+        }).start();
 
     }
 
