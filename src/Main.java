@@ -1,3 +1,4 @@
+import Control.LoginAndRegisterManager;
 import Control.OrderTimerManager;
 import Model.Meal;
 import Model.Report;
@@ -6,12 +7,16 @@ import View.AllOrdersPanel;
 import View.LoginAndRegistrationFrame;
 import View.MainFrame;
 import View.ReportPanel;
+import Model.*;
+import View.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 //import java.util.Timer;
 
 
@@ -20,12 +25,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // sarah test
-        MainFrame mainFrame = new MainFrame(0);
+        User user = new User("rafaelo","rafawq@gmail.com", "12345678",2);
+        Users users = new Users();
+        users.addUser(user);
+        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+        LoginAndRegisterManager loginAndRegisterManager= new LoginAndRegisterManager(users,loginAndRegistrationFrame);
+
+
+
+
+//        HashMap<Meal, Integer> map = new HashMap<>();
+//
+//        Meal meal=  new Meal("213","21321",213,"213");
+//        Meal meal1=  new Meal("213","21321",213,"213");
+//
+//        map.put(meal,map.getOrDefault(meal,0)+1);
+//        map.put(meal1,map.getOrDefault(meal1,0)+1);
+//
+//
+//        System.out.println(map.get(new Meal("213","21321",213,"213")));
+
+
+
+
+
+//        // sarah test
+//        MainFrame mainFrame = new MainFrame(0);
+//        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
+
+
+
+
+
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
-        mainFrame.setVisible(true);
+
+
 //        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+
+        //mainFrame.setVisible(true);
+        //sorrryy bhhh
+
 
         //sorrryy bhhh
 //loginAndRegistrationFrame.setVisible(true);

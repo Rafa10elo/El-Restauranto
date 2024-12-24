@@ -56,8 +56,6 @@ public class Meals {
             System.out.println(e);
         }
     }
-
-
     public void saveToFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("MealsFile.txt"))) {
             for (Meal meal : meals) {
