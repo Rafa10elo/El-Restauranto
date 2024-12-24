@@ -34,6 +34,18 @@ public class Order {
         this.paymentId = paymentId;
     }
 
+    public HashMap<Meal, Integer> getMeals() {
+        return meals;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public float getTip() {
+        return tip;
+    }
+
     private void calculateTotalPrice() {
         totalPrice = tip;
         for (Map.Entry<Meal, Integer> entry : meals.entrySet()) {

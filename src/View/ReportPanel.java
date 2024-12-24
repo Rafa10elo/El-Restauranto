@@ -11,42 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ReportPanel extends JPanel {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontBigBold = null ;
-    public static Font fontRegular = null ;
-
-    static {
-        try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(22f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontBigBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(40f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(22f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public ReportPanel (Model.Report report,int numberOfUsers,int numberOfMeals){
 
 
@@ -55,26 +19,26 @@ public class ReportPanel extends JPanel {
         //title panel
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new GridBagLayout());
-        titlePanel.setBackground(lightGray);
+        titlePanel.setBackground(MainFrame.lightGray);
         titlePanel.setPreferredSize(new Dimension(getWidth(),50));
         add(titlePanel,BorderLayout.NORTH);
         GridBagConstraints titleGbc = new GridBagConstraints();
         titleGbc.insets = new Insets(0,250,0,0);
         titleGbc.anchor= GridBagConstraints.CENTER;
 
-        titlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, orange));
-        JLabel titleLabel = createLabel("El Restauranto Detailed Report",fontBigBold);
+        titlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, MainFrame.orange));
+        JLabel titleLabel = createLabel("El Restauranto Detailed Report",MainFrame.fontBold.deriveFont(40F));
         titleLabel.setPreferredSize(new Dimension(345,40));
-        titleLabel.setForeground(orange);
+        titleLabel.setForeground(MainFrame.orange);
         titlePanel.add(titleLabel,titleGbc);
 
 
         //top 3 meals panel
         JPanel sidePanel = new JPanel();
         sidePanel.setLayout(new GridBagLayout());
-        sidePanel.setBackground(lightGray);
+        sidePanel.setBackground(MainFrame.lightGray);
         sidePanel.setPreferredSize(new Dimension(250, getHeight()));
-        sidePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, orange));
+        sidePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, MainFrame.orange));
         add(sidePanel, BorderLayout.WEST);
 
 
@@ -85,8 +49,8 @@ public class ReportPanel extends JPanel {
         gbc.gridwidth=1;
         gbc.weightx=1.0;
 
-        JLabel top3Meals = createLabel("Top 3 Meals: ",fontBold);
-        top3Meals.setForeground(orange);
+        JLabel top3Meals = createLabel("Top 3 Meals: ",MainFrame.fontBold.deriveFont(22F));
+        top3Meals.setForeground(MainFrame.orange);
         gbc.gridx = 0;
         gbc.gridy = 0;
         sidePanel.add(top3Meals,gbc);
@@ -113,38 +77,38 @@ public class ReportPanel extends JPanel {
 
         JPanel mainReportPanel = new JPanel();
         mainReportPanel.setLayout(new GridBagLayout());
-        mainReportPanel.setBackground(darkGray);
+        mainReportPanel.setBackground(MainFrame.darkGray);
         add(mainReportPanel,BorderLayout.CENTER);
         gbc.insets = new Insets(4,4,4,4);
 //        JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(report.getNumberOfOrders()),fontBold,fontRegular);
-        JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(129),fontBold,fontRegular);
+        JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(129),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
         gbc.gridx=0;
         gbc.gridy=0;
         mainReportPanel.add(ordersStats,gbc);
 
-        JPanel mealsStats = createInfoPanel("Total Number of Meals: ",String.valueOf(numberOfMeals),fontBold,fontRegular);
+        JPanel mealsStats = createInfoPanel("Total Number of Meals: ",String.valueOf(numberOfMeals),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
         gbc.gridx=0;
         gbc.gridy=1;
         mainReportPanel.add(mealsStats,gbc);
 //        JPanel usersStats = createInfoPanel("Total Users: ",String.valueOf(numberOfUsers),fontBold,fontRegular);
-        JPanel usersStats = createInfoPanel("Total Users: ",String.valueOf(50),fontBold,fontRegular);//here we put total num of users given by order
+        JPanel usersStats = createInfoPanel("Total Users: ",String.valueOf(50),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put total num of users given by order
         gbc.gridx=0;
         gbc.gridy=2;
         mainReportPanel.add(usersStats,gbc);
 //        JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ",report.getMostOrderingUser().getUserName(),fontBold,fontRegular);
-        JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ","Hamoudeh",fontBold,fontRegular);//here we put most ordering user
+        JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ","Hamoudeh",MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put most ordering user
         gbc.gridx=0;
         gbc.gridy=3;
         mainReportPanel.add(mostFrequentUser,gbc);
 
 //        JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ",report.getMostSoldMeal().getMealName(),fontBold,fontRegular);
-        JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ","Shawarma",fontBold,fontRegular);//here we put top meal
+        JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ","Shawarma",MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put top meal
         gbc.gridx=0;
         gbc.gridy=4;
         mainReportPanel.add(mostFrequentlyOrderedMeal,gbc);
 
-        JPanel totalIncome = createInfoPanel("Total income: ",String.valueOf(report.getTotalMoney()),fontBold,fontRegular);
-        totalIncome.setBorder(BorderFactory.createMatteBorder(1,0,1,0,orange));
+        JPanel totalIncome = createInfoPanel("Total income: ",String.valueOf(report.getTotalMoney()),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
+        totalIncome.setBorder(BorderFactory.createMatteBorder(1,0,1,0,MainFrame.orange));
         gbc.gridx=0;
         gbc.gridy=5;
         mainReportPanel.add(totalIncome,gbc);
@@ -156,9 +120,9 @@ public class ReportPanel extends JPanel {
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        infoPanel.setBackground(darkGray);
+        infoPanel.setBackground(MainFrame.darkGray);
         gbc.insets = new Insets(7, 7, 7, 7);
-        infoPanel.setBorder(BorderFactory.createMatteBorder(1,0,1,0,lightGray));
+        infoPanel.setBorder(BorderFactory.createMatteBorder(1,0,1,0,MainFrame.lightGray));
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor= GridBagConstraints.WEST;
         gbc.gridwidth=1;
@@ -188,8 +152,8 @@ public class ReportPanel extends JPanel {
     JPanel createMealPanel (Model.Meal meal){
         JPanel mealPanel = new JPanel();
         mealPanel.setLayout(new GridBagLayout());
-        mealPanel.setBackground(darkGray);
-        mealPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,lightGray));
+        mealPanel.setBackground(MainFrame.darkGray);
+        mealPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,MainFrame.lightGray));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
@@ -207,19 +171,19 @@ public class ReportPanel extends JPanel {
 
         gbc.gridwidth=1;
         gbc.insets = new Insets(3,3,3,3);
-        JLabel nameLabel = createLabel("Name:",fontBold);
+        JLabel nameLabel = createLabel("Name:",MainFrame.fontBold.deriveFont(22F));
         gbc.gridx=0;
         gbc.gridy=1;
         mealPanel.add(nameLabel,gbc);
-        JLabel mealNameLabel = createLabel(meal.getMealName(),fontRegular);
+        JLabel mealNameLabel = createLabel(meal.getMealName(),MainFrame.fontRegular.deriveFont(22F));
         gbc.gridx=1;
         gbc.gridy=1;
         mealPanel.add(mealNameLabel,gbc);
-        JLabel priceLabel = createLabel("Price:",fontBold);
+        JLabel priceLabel = createLabel("Price:",MainFrame.fontBold.deriveFont(22F));
         gbc.gridx=0;
         gbc.gridy=2;
         mealPanel.add(priceLabel,gbc);
-        JLabel mealPriceLabel = createLabel(String.valueOf(meal.getPrice()),fontRegular);
+        JLabel mealPriceLabel = createLabel(String.valueOf(meal.getPrice()),MainFrame.fontRegular.deriveFont(22F));
         gbc.gridx=1;
         gbc.gridy=2;
         mealPanel.add(mealPriceLabel,gbc);

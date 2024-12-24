@@ -1,12 +1,20 @@
 import Control.LoginAndRegisterManager;
 import Control.OrderTimerManager;
+import Model.Meal;
+import Model.Report;
+import Model.Order;
+import View.AllOrdersPanel;
+import View.LoginAndRegistrationFrame;
+import View.MainFrame;
+import View.ReportPanel;
 import Model.*;
 import View.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.Timer;
@@ -51,9 +59,16 @@ public class Main {
 
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
+
+
+//        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+
         //mainFrame.setVisible(true);
         //sorrryy bhhh
 
+
+        //sorrryy bhhh
+//loginAndRegistrationFrame.setVisible(true);
 //        ArrayList<Meal> meals = new ArrayList<>();
 //        meals.add(new Meal("Burger", "213",321,"3"));
 //        meals.add(new Meal("Fries", "31",231,"213"));

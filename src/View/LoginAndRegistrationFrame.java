@@ -13,6 +13,7 @@ public class LoginAndRegistrationFrame extends JFrame {
     public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
+    public static Font fieldsFont = null;
 
     public CardLayout cardLayout ;
     public JPanel mainPanel;
@@ -20,13 +21,14 @@ public class LoginAndRegistrationFrame extends JFrame {
     public RegisterPanel registerPanel ;
     static {
         try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(35f) ;
+            fieldsFont = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(16f) ;
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     public LoginAndRegistrationFrame(){
 

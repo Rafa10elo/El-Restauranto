@@ -33,28 +33,9 @@ public class RegisterPanel extends JPanel {
     JTextField optionalField;
     JButton backButton;
 
-
-
-
     static {
         try {
-            fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f);
-        } catch (FontFormatException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(20f);
-        } catch (FontFormatException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(20f);
+            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(15f);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -64,8 +45,8 @@ public class RegisterPanel extends JPanel {
         setLayout(new GridBagLayout());
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(orange, 3));
-        centralPanel.setBackground(darkGray);
+        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.orange, 3));
+        centralPanel.setBackground(MainFrame.darkGray);
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -294,12 +275,12 @@ public class RegisterPanel extends JPanel {
         JLabel chooseUserLabel = createJLabel("User:", gbc, 0, 4);
         centralPanel.add(chooseUserLabel, gbc);
 
-         chooseCustomerButton = new JRadioButton("Customer");
-        chooseCustomerButton.setFont(fontBold);
-         chooseEmployeeButton = new JRadioButton("Employee");
-        chooseEmployeeButton.setFont(fontBold);
-         chooseManagerButton = new JRadioButton("Manager");
-        chooseManagerButton.setFont(fontBold);
+        JRadioButton chooseCustomerButton = new JRadioButton("Customer");
+        chooseCustomerButton.setFont(MainFrame.fontBold.deriveFont(20F));
+        JRadioButton chooseEmployeeButton = new JRadioButton("Employee");
+        chooseEmployeeButton.setFont(MainFrame.fontBold.deriveFont(20F));
+        JRadioButton chooseManagerButton = new JRadioButton("Manager");
+        chooseManagerButton.setFont(MainFrame.fontBold.deriveFont(20F));
 
         ButtonGroup userChoice = new ButtonGroup();
         userChoice.add(chooseCustomerButton);
@@ -311,6 +292,8 @@ public class RegisterPanel extends JPanel {
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
         radioPanel.add(chooseManagerButton);
+
+        radioPanel.setBackground(MainFrame.darkGray);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
@@ -330,15 +313,18 @@ public class RegisterPanel extends JPanel {
 
         gbc.insets = new Insets(20, 20, 20, 20);
 
+
          registerButton = new JButton("Register");
-        registerButton.setFont(fontBold);
+        registerButton.setFont(MainFrame.fontBold.deriveFont(20F));
+
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         centralPanel.add(registerButton, gbc);
 
          backButton = new JButton("Back to Login");
-        backButton.setFont(fontBold);
+        backButton.setFont(MainFrame.fontBold.deriveFont(20F));
+
         gbc.gridy = 8;
         centralPanel.add(backButton, gbc);
 
@@ -365,7 +351,7 @@ public class RegisterPanel extends JPanel {
         JLabel label = new JLabel(message);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        label.setFont(fontRegular);
+        label.setFont(MainFrame.fontRegular.deriveFont(20F));
         return label;
     }
     public static int passwordCheck(String password) {
@@ -390,6 +376,7 @@ public class RegisterPanel extends JPanel {
 
         return score;
     }
+
     public static boolean isValidEmail(String email) {
         String emailCheck = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(emailCheck);

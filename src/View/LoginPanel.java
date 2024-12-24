@@ -15,42 +15,13 @@ public class LoginPanel extends JPanel {
     public static Color lightGray = new Color(43, 45, 48) ;
     public static Color darkGray = new Color(30, 31, 34) ;
     public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
-    public static Font fieldsFont = null ;
+//    public static Font fontBold = null ;
+//    public static Font fontRegular = null ;
+//    public static Font fieldsFont = LoginAndRegistrationFrame. ;
 
    public JTextField userField;
    public JPasswordField passField;
    public JButton loginButton;
-
-
-
-    static {
-        try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    static {
-        try {
-            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(20f);
-        } catch (FontFormatException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public LoginPanel(JPanel mainPanel, CardLayout cardLayout){
 
@@ -60,17 +31,17 @@ public class LoginPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JPanel centralPanel = new JPanel();
-        centralPanel.setFont(fontRegular);
+        centralPanel.setFont(MainFrame.fontRegular);
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(orange));
-        centralPanel.setBackground(darkGray);
+        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.orange));
+        centralPanel.setBackground(MainFrame.darkGray);
 
         JLabel userLabel = createJLabel("Username:",gbc,0,0);
         centralPanel.add(userLabel, gbc);
 
          userField = new JTextField(15);
         gbc.gridx = 1;
-        userField.setFont(fieldsFont);
+        userField.setFont(LoginAndRegistrationFrame.fieldsFont);
         userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
 
         centralPanel.add(userField, gbc);
@@ -80,8 +51,8 @@ public class LoginPanel extends JPanel {
 
         JPanel passwordEntryPanel = new JPanel(new GridBagLayout());
 
-         passField = new JPasswordField(14);
-        passField.setFont(fieldsFont);
+        passField = new JPasswordField(15);
+        passField.setFont(LoginAndRegistrationFrame.fieldsFont);
         passField.setBorder(new LineBorder(new Color(70,73,75)));
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
@@ -95,10 +66,9 @@ public class LoginPanel extends JPanel {
         passwordEntryPanel.add(passField,gbc1);
 
 //        centralPanel.add(passField, gbc);
-
         JCheckBox showPasswordCheckbox = new JCheckBox();
         showPasswordCheckbox.setForeground(orange);
-        showPasswordCheckbox.setFont(fontRegular);
+        showPasswordCheckbox.setFont(LoginAndRegistrationFrame.fieldsFont);
         showPasswordCheckbox.setOpaque(false);
 //        gbc.gridx = 2;
         gbc1.gridx = 10;
@@ -123,8 +93,10 @@ public class LoginPanel extends JPanel {
 //        gbc.insets = new Insets(20, 20, 20, 20);
 
         // Login Button
+
         loginButton = new JButton("Login");
-        loginButton.setFont(fontBold);
+        loginButton.setFont(MainFrame.fontBold.deriveFont(20F));
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -134,8 +106,8 @@ public class LoginPanel extends JPanel {
         centralPanel.add(registerLabel, gbc);
 
         JButton cmdRegister = new JButton("Register Here!");
-        cmdRegister.setForeground(orange); // Set text color
-        cmdRegister.setFont(fontRegular); // Set the custom font
+        cmdRegister.setForeground(MainFrame.orange); // Set text color
+        cmdRegister.setFont(MainFrame.fontRegular.deriveFont(20F)); // Set the custom font
         cmdRegister.setContentAreaFilled(false);
         cmdRegister.setBorderPainted(false);
         cmdRegister.setFocusPainted(false);
@@ -163,7 +135,7 @@ public class LoginPanel extends JPanel {
         JLabel label = new JLabel(message);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        label.setFont(fontRegular);
+        label.setFont(MainFrame.fontRegular.deriveFont(20F));
         return label;
     }
     public String getUsername(){

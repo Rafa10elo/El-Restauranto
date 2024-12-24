@@ -1,10 +1,16 @@
 package View;
+import Model.Meal;
+import Model.Order;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainFrame extends JFrame {
     public MealsPanel mealsPanel;
@@ -15,6 +21,7 @@ public class MainFrame extends JFrame {
     public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
+    public static CardLayout cardLayout ;
 
     static {
         try {
@@ -68,11 +75,11 @@ public class MainFrame extends JFrame {
         add(navigationBarPanel, BorderLayout.NORTH) ;
 
         // cards panel
-        JPanel cardsPanel = new JPanel(new CardLayout());
+        cardLayout = new CardLayout();
+        JPanel cardsPanel = new JPanel(cardLayout);
         mealsPanel = new MealsPanel(userType) ;
-        cardsPanel.add(mealsPanel) ;
-
-        add(cardsPanel, BorderLayout.CENTER) ;
+        cardsPanel.add(mealsPanel,"mealsPanel") ;
+       add(cardsPanel, BorderLayout.CENTER) ;
 
         //for run purposes
 //        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
@@ -80,7 +87,67 @@ public class MainFrame extends JFrame {
 //        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
 //        add(reportPanel, BorderLayout.CENTER);
         //will get deleted
+        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+        ProfilePanel profilePanel= new ProfilePanel(user);
+        cardsPanel.add(profilePanel,"profilePanel");
+//
+        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+        cardsPanel.add(reportPanel,"reportPanel");
 
+        HashMap<Meal, Integer> meals = new HashMap<>();
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
+        Order order2 = new Order(meals,15, Order.Status.CANCELED);
+        Order order3 = new Order(meals,5, Order.Status.PREPARED );
+        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(order1);
+        orders.add(order2);
+        orders.add(order3);
+        orders.add(order4);
+
+        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
+        cardsPanel.add(allOrdersPanel,"allOrdersPanel") ;
+
+
+        profileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardsPanel, "profilePanel");
+            }
+        });
+
+        mainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardsPanel, "mealsPanel");
+            }
+        });
+
+        allOrdersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardsPanel, "allOrdersPanel");
+            }
+        });
+
+        reportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardsPanel, "reportPanel");
+            }
+        });
     }
 
 

@@ -10,42 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class ProfilePanel extends JPanel {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
-    public static Font fontBigBold = null ;
-
-    static {
-        try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(40f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontBigBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(60f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(40f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     private CardLayout cardLayout;
@@ -57,9 +21,9 @@ public class ProfilePanel extends JPanel {
         //sidebar
         JPanel profileSidebarPanel = new JPanel();
         profileSidebarPanel.setLayout(new BorderLayout());
-        profileSidebarPanel.setBackground(lightGray);
+        profileSidebarPanel.setBackground(MainFrame.lightGray);
         profileSidebarPanel.setPreferredSize(new Dimension(200, 400));
-        profileSidebarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, orange));
+        profileSidebarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, MainFrame.orange));
         add(profileSidebarPanel, BorderLayout.WEST);
 
         //pfp
@@ -72,20 +36,20 @@ public class ProfilePanel extends JPanel {
         //sidebar buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
-        buttonPanel.setBackground(lightGray);
+        buttonPanel.setBackground(MainFrame.lightGray);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JButton editProfileButton = new JButton("Edit");
-        editProfileButton.setFont(fontBold);
+        editProfileButton.setFont(MainFrame.fontBold.deriveFont(40F));
         editProfileButton.setFocusPainted(false);
-        editProfileButton.setBackground(orange);
-        editProfileButton.setForeground(darkGray);
+        editProfileButton.setBackground(MainFrame.orange);
+        editProfileButton.setForeground(MainFrame.darkGray);
 
         JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(fontBold);
+        logoutButton.setFont(MainFrame.fontBold.deriveFont(40F));
         logoutButton.setFocusPainted(false);
-        logoutButton.setBackground(orange);
-        logoutButton.setForeground(darkGray);
+        logoutButton.setBackground(MainFrame.orange);
+        logoutButton.setForeground(MainFrame.darkGray);
 
         buttonPanel.add(editProfileButton);
         buttonPanel.add(logoutButton);
@@ -99,15 +63,15 @@ public class ProfilePanel extends JPanel {
         //main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
-        mainPanel.setBackground(darkGray);
+        mainPanel.setBackground(MainFrame.darkGray);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel welcomeLabel = new JLabel("Welcome, "+user.getUserName()+" !");
-        welcomeLabel.setFont(fontBigBold);
-        welcomeLabel.setForeground(orange);
+        welcomeLabel.setFont(MainFrame.fontBold.deriveFont(60F));
+        welcomeLabel.setForeground(MainFrame.orange);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -115,7 +79,7 @@ public class ProfilePanel extends JPanel {
         mainPanel.add(welcomeLabel, gbc);
 
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(fontBold);
+        usernameLabel.setFont(MainFrame.fontBold.deriveFont(40F));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -123,25 +87,25 @@ public class ProfilePanel extends JPanel {
         mainPanel.add(usernameLabel, gbc);
 
         JLabel usernameValue = new JLabel(user.getUserName());
-        usernameValue.setFont(fontRegular);
+        usernameValue.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 1;
         mainPanel.add(usernameValue, gbc);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(fontBold);
+        emailLabel.setFont(MainFrame.fontBold.deriveFont(40F));
         gbc.gridx = 0;
         gbc.gridy = 2;
         mainPanel.add(emailLabel, gbc);
 
         JLabel emailValue = new JLabel(user.getEmail());
-        emailValue.setFont(fontRegular);
+        emailValue.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 2;
         mainPanel.add(emailValue, gbc);
 
         JLabel userTypeLabel = new JLabel("User:");
-        userTypeLabel.setFont(fontBold);
+        userTypeLabel.setFont(MainFrame.fontBold.deriveFont(40F));
         gbc.gridx = 0;
         gbc.gridy = 3;
         mainPanel.add(userTypeLabel, gbc);
@@ -160,7 +124,7 @@ public class ProfilePanel extends JPanel {
         }
 
         JLabel userTypeValue = new JLabel(userType);
-        userTypeValue.setFont(fontRegular);
+        userTypeValue.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 3;
         mainPanel.add(userTypeValue, gbc);
@@ -168,48 +132,48 @@ public class ProfilePanel extends JPanel {
         //edit panel
         JPanel editPanel = new JPanel();
         editPanel.setLayout(new GridBagLayout());
-        editPanel.setBackground(darkGray);
+        editPanel.setBackground(MainFrame.darkGray);
 
         JLabel editUsernameLabel = new JLabel("Username:");
-        editUsernameLabel.setFont(fontBold);
-        editUsernameLabel.setForeground(orange);
+        editUsernameLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        editUsernameLabel.setForeground(MainFrame.orange);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         editPanel.add(editUsernameLabel, gbc);
 
         JTextField usernameTextField = new JTextField(user.getUserName(), 15);
-        usernameTextField.setFont(fontRegular);
+        usernameTextField.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 0;
         editPanel.add(usernameTextField, gbc);
 
 
         JLabel editEmailLabel = new JLabel("Email:");
-        editEmailLabel.setFont(fontBold);
-        editEmailLabel.setForeground(orange);
+        editEmailLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        editEmailLabel.setForeground(MainFrame.orange);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         editPanel.add(editEmailLabel, gbc);
 
         JTextField editEmailField = new JTextField(user.getEmail(), 15);
-        editEmailField.setFont(fontRegular);
+        editEmailField.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 1;
         editPanel.add(editEmailField, gbc);
 
 
         JLabel editPasswordLabel = new JLabel("Password:");
-        editPasswordLabel.setFont(fontBold);
-        editPasswordLabel.setForeground(orange);
+        editPasswordLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        editPasswordLabel.setForeground(MainFrame.orange);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         editPanel.add(editPasswordLabel, gbc);
 
         JTextField editPasswordField = new JTextField(user.getPassword(), 15);
-        editPasswordField.setFont(fontRegular);
+        editPasswordField.setFont(MainFrame.fontRegular.deriveFont(40F));
         gbc.gridx = 1;
         gbc.gridy = 2;
         editPanel.add(editPasswordField, gbc);
