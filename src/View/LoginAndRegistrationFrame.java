@@ -8,22 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginAndRegistrationFrame extends JFrame {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
-
-    static {
-        try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(35f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public LoginAndRegistrationFrame(){
 
         try {

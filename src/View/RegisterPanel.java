@@ -8,38 +8,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class RegisterPanel extends JPanel {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
 
-    static {
-        try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(20f) ;
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public RegisterPanel(JPanel mainPanel, CardLayout cardLayout){
         setLayout(new GridBagLayout());
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(orange, 3));
-        centralPanel.setBackground(darkGray);
+        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.orange, 3));
+        centralPanel.setBackground(MainFrame.darkGray);
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -79,11 +55,11 @@ public class RegisterPanel extends JPanel {
         centralPanel.add(chooseUserLabel, gbc);
 
         JRadioButton chooseCustomerButton = new JRadioButton("Customer");
-        chooseCustomerButton.setFont(fontBold);
+        chooseCustomerButton.setFont(MainFrame.fontBold.deriveFont(20F));
         JRadioButton chooseEmployeeButton = new JRadioButton("Employee");
-        chooseEmployeeButton.setFont(fontBold);
+        chooseEmployeeButton.setFont(MainFrame.fontBold.deriveFont(20F));
         JRadioButton chooseManagerButton = new JRadioButton("Manager");
-        chooseManagerButton.setFont(fontBold);
+        chooseManagerButton.setFont(MainFrame.fontBold.deriveFont(20F));
 
         ButtonGroup userChoice = new ButtonGroup();
         userChoice.add(chooseCustomerButton);
@@ -95,7 +71,7 @@ public class RegisterPanel extends JPanel {
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
         radioPanel.add(chooseManagerButton);
-        radioPanel.setBackground(darkGray);
+        radioPanel.setBackground(MainFrame.darkGray);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -114,14 +90,14 @@ public class RegisterPanel extends JPanel {
         gbc.insets = new Insets(20, 20, 20, 20);
 
         JButton registerButton = new JButton("Register");
-        registerButton.setFont(fontBold);
+        registerButton.setFont(MainFrame.fontBold.deriveFont(20F));
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         centralPanel.add(registerButton, gbc);
 
         JButton backButton = new JButton("Back to Login");
-        backButton.setFont(fontBold);
+        backButton.setFont(MainFrame.fontBold.deriveFont(20F));
         gbc.gridy = 8;
         centralPanel.add(backButton, gbc);
 
@@ -157,7 +133,7 @@ public class RegisterPanel extends JPanel {
         JLabel label = new JLabel(message);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        label.setFont(fontRegular);
+        label.setFont(MainFrame.fontRegular.deriveFont(20F));
         return label;
     }
 

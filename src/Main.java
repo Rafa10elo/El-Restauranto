@@ -2,6 +2,7 @@ import Control.OrderTimerManager;
 import Model.Meal;
 import Model.Report;
 import Model.Order;
+import View.AllOrdersPanel;
 import View.LoginAndRegistrationFrame;
 import View.MainFrame;
 import View.ReportPanel;
@@ -9,7 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 //import java.util.Timer;
 
 
@@ -23,8 +25,10 @@ public class Main {
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
         mainFrame.setVisible(true);
-        //sorrryy bhhh
+//        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
+        //sorrryy bhhh
+//loginAndRegistrationFrame.setVisible(true);
 //        ArrayList<Meal> meals = new ArrayList<>();
 //        meals.add(new Meal("Burger", "213",321,"3"));
 //        meals.add(new Meal("Fries", "31",231,"213"));
