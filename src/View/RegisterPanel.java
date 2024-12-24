@@ -35,7 +35,7 @@ public class RegisterPanel extends JPanel {
 
     static {
         try {
-            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(20f);
+            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(15f);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -376,6 +376,7 @@ public class RegisterPanel extends JPanel {
 
         return score;
     }
+
     public static boolean isValidEmail(String email) {
         String emailCheck = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(emailCheck);
