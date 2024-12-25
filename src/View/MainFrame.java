@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
+    CardLayout cardLayout = new CardLayout();
 
     static {
         try {
@@ -68,7 +69,9 @@ public class MainFrame extends JFrame {
         add(navigationBarPanel, BorderLayout.NORTH) ;
 
         // cards panel
-        JPanel cardsPanel = new JPanel(new CardLayout());
+
+        JPanel cardsPanel = new JPanel(cardLayout);
+
         mealsPanel = new MealsPanel(userType) ;
         cardsPanel.add(mealsPanel) ;
 
@@ -77,12 +80,17 @@ public class MainFrame extends JFrame {
         //for run purposes
 //        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
 //        add(new ProfilePanel(user),BorderLayout.CENTER);
-        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
-        add(reportPanel, BorderLayout.CENTER);
-        //will get deleted
+//        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+//        add(reportPanel, BorderLayout.CENTER);
+//        will get deleted
+        revalidate();
+        repaint();
 
     }
 
+        public void switchCard(JPanel parent,String child){
+            cardLayout.show(parent,child);
+        }
 
     JButton createButton(String buttonText) {
         JButton button = new JButton(buttonText);

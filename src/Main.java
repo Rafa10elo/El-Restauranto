@@ -7,6 +7,8 @@ import View.MainFrame;
 import View.ReportPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,10 +21,10 @@ public class Main {
     public static void main(String[] args) {
 
         // sarah test
-        MainFrame mainFrame = new MainFrame(0);
+//        MainFrame mainFrame = new MainFrame(0);
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
-        mainFrame.setVisible(true);
+//        mainFrame.setVisible(true);
         //sorrryy bhhh
 
 //        ArrayList<Meal> meals = new ArrayList<>();
@@ -59,11 +61,12 @@ public class Main {
 
 
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 //        System.out.println("Final order status: " + order.getState());
 
@@ -85,17 +88,27 @@ public class Main {
 //        loginAndRegistrationFrame.setVisible(true);
 
         // just a simple test AYA, to try the meals panel ... disfruta 🤌 (ya3ni enjoy in spanish)
-//        ArrayList<Meal> mealsAya = new ArrayList<>();
-//        for (int i = 1 ; i < 16 ; i ++) {
-//            String name = "meal " + i ;
-//            String ing = "ing " + i ;
-//            float price = i ;
-//            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
-//        }
-//
-//        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
-//        MainFrame mainFrame = new MainFrame(1);
-//        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+        ArrayList<Meal> mealsAya = new ArrayList<>();
+        for (int i = 1 ; i < 16 ; i ++) {
+            String name = "meal " + i ;
+            String ing = "ing " + i ;
+            float price = i ;
+            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
+        }
 
+        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
+        MainFrame mainFrame = new MainFrame(0);
+        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+        //---------------------------------------------------------------------------just for fun
+//        mainFrame.mealsPanel.getSidePanel().createPaymentDialog();
+//        mainFrame.mealsPanel.getSidePanel().cancelPay.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mainFrame.mealsPanel.getSidePanel().paymentDialog.dispose();
+//            }
+//        });
+
+//        LoginAndRegistrationFrame loginAndRegistrationFrame= new LoginAndRegistrationFrame();
     }
 }
