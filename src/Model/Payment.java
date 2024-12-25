@@ -8,20 +8,17 @@ public class Payment {
     private String paymentId;
     private double amount;
     private String method;
-    private String status;
 
-    public Payment( double amount, String method, String status) {
+    public Payment( double amount, String method ) {
         this.paymentId = generatePaymentId();
         this.amount = amount;
         this.method = method;
-        this.status = status;
     }
 
-    public Payment(String paymentId, double amount, String method, String status) {
+    public Payment(String paymentId, double amount, String method ) {
         this.paymentId = paymentId;
         this.amount = amount;
         this.method = method;
-        this.status = status;
     }
 
     private String generatePaymentId() {
@@ -43,22 +40,14 @@ public class Payment {
         return method;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String toFileFormat() {
-        return paymentId + "***" + amount + "***" + method + "***" + status;
+        return paymentId + "***" + amount + "***" + method;
     }
 
     public static Payment fromFileFormat(String str) {
         try {
             String[] parts = str.split("\\*\\*\\*");
-            return new Payment(parts[0],  Double.parseDouble(parts[1]),parts[2], parts[3]);
+            return new Payment(parts[0],  Double.parseDouble(parts[1]),parts[2]);
         } catch (Exception e) {
             System.out.println(e);
             return null;

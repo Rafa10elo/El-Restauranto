@@ -43,6 +43,7 @@ public class LoginAndRegistrationFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450,700);
         setLocationRelativeTo(null);
+        setVisible(true);
 
         // Create CardLayout to switch between panels
          cardLayout = new CardLayout();
@@ -56,6 +57,8 @@ public class LoginAndRegistrationFrame extends JFrame {
         cardLayout.show(mainPanel, "Login");
 
         add(mainPanel);
-        this.setVisible(true);
+
+        revalidate();
+        repaint();
     }
 }

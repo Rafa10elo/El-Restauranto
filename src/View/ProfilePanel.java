@@ -1,6 +1,7 @@
 package View;
 
 import Model.User;
+import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,7 @@ import static View.LoginAndRegistrationFrame.fieldsFont;
 public class ProfilePanel extends JPanel {
 
 
+
     private CardLayout cardLayout;
     private JPanel cardPanel;
     JTextField editPasswordField;
@@ -21,6 +23,12 @@ public class ProfilePanel extends JPanel {
     String passwordDialog;
 
     public ProfilePanel(User user) {
+        try{
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         setLayout(new BorderLayout());
 
         //sidebar

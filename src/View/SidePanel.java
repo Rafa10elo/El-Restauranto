@@ -4,22 +4,45 @@ import Model.Meal;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.EditorKit;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SidePanel extends JPanel {
+    // order info
     JLabel totalPrice = new JLabel("0") ;
     JComboBox tipsCombo;
     JPanel centerPanel;
+    JButton submitOrder ; // ---------------------------------------  add action to return the order
+    HashMap<Meal, Integer> meals = new HashMap<>();
+    HashMap<Meal, JLabel> mealsCntLabels = new HashMap<>();
+
+    // new meal info
     JTextField nameField;
     JTextField priceField;
     JTextField ingredientsField;
     JTextField imgSrcField;
-    JButton submitOrder ;
-    JButton addMeal ;
-    ArrayList<Meal> meals = new ArrayList<>() ;
+    JButton addMeal ; // -------------------------------- add action to return the new meal
+
+    // payment info
+    public JDialog paymentDialog = new JDialog();
+    JRadioButton  cash ;
+    JRadioButton creditCard ;
+    JTextField creditCardId ;
+    public JButton pay ; // ------------------------------------ add action to return the payment and the order
+    public JButton cancelPay ; // -------------------------------add action to return the canceled order
+    //---------------------------------------------------- add action listener to 'x'
+
+    // edit meal info
+    JDialog editMealDialog = new JDialog() ;
+    JTextField nameEdit;
+    JTextField priceEdit;
+    JTextField ingredientsEdit;
+    JTextField imgSrcEdit;
+    JButton editMeal ;
+
 
 
 
@@ -55,6 +78,7 @@ public class SidePanel extends JPanel {
         centerPanel = new JPanel();
         if (userType == 0) {
             // order meals
+            //centerPanel.setPreferredSize(new Dimension(330, (mealsCntLabels.size() * 500)));
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
             centerPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
             centerPanel.setBackground(MainFrame.darkGray);
@@ -166,7 +190,7 @@ public class SidePanel extends JPanel {
                 }
                 public void checkInput() {
                     String text = priceField.getText();
-                    if (!text.matches("\\d+")) {
+                    if (!text.matches("\\d+(\\.\\d+)?")) {
                         priceField.setBorder(new LineBorder(Color.RED, 1));
                         priceField.setForeground(Color.RED);
                     } else {
@@ -272,7 +296,6 @@ public class SidePanel extends JPanel {
         }
 
 
-
         // bottom panel
         if (userType == 0) {
             JPanel bottomPanel = new JPanel();
@@ -376,9 +399,11 @@ public class SidePanel extends JPanel {
             addMeal.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                        System.out.println(Float.parseFloat(priceField.getText()));
                     if (mealInfoValid()){
-                        textFieldsReset();
-                        System.out.println("tmmmm");
+                        System.out.println("tmmmmmm");
+                        newMenuTextFieldsReset();
+
                     }else
                         System.out.println("wrong");
                 }
@@ -387,19 +412,19 @@ public class SidePanel extends JPanel {
         }
 
     }
-    boolean mealInfoValid(){
+    public boolean mealInfoValid(){
         File temp = new File(imgSrcField.getText()) ;
         boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
                 || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
-        if (!nameField.getText().equals("name") && priceField.getText().matches("\\d+") &&
+        if (!nameField.getText().equals("name") && priceField.getText().matches("\\d+(\\.\\d+)?") &&
                 !ingredientsField.getText().equals("ingredients") && temp.exists() && tempIsImg){
-            textFieldsReset();
+            newMenuTextFieldsReset();
             return true;
         }else{
             if (nameField.getText().isEmpty() || nameField.getText().equals("name")){
                 nameField.setBorder(new LineBorder(Color.RED, 1));
             }
-            if (priceField.getText().isEmpty() || priceField.getText().equals("price")){
+            if (priceField.getText().isEmpty() || priceField.getText().equals("price") || !priceField.getText().matches("\\d+(\\.\\d+)?")){
                 priceField.setBorder(new LineBorder(Color.RED, 1));
             }
             if (ingredientsField.getText().isEmpty() || ingredientsField.getText().equals("ingredients")){
@@ -412,7 +437,7 @@ public class SidePanel extends JPanel {
         }
 
     }
-    void textFieldsReset () {
+    public void newMenuTextFieldsReset() {
         nameField.setText("name");
         nameField.setForeground(MainFrame.extraLightGray);
         priceField.setText("price");
@@ -423,11 +448,438 @@ public class SidePanel extends JPanel {
         imgSrcField.setForeground(MainFrame.extraLightGray);
 
     }
-    void orderReset(){
+    public void orderReset(){
         totalPrice.setText("0");
         centerPanel.removeAll();
         tipsCombo.setSelectedIndex(0);
-        revalidate();
-        repaint();
+        meals.clear();
+        mealsCntLabels.clear();
+
+        creditCard.setSelected(false);
+        cash.setSelected(false);
+        creditCardId.setText("");
+        paymentDialog.dispose();
+
+        this.revalidate();
+        this.repaint();
     }
+    public void createPaymentDialog () {
+        paymentDialog.setTitle("payment");
+        paymentDialog.setSize(new Dimension(450, 300));
+        paymentDialog.setLocationRelativeTo(null);
+        paymentDialog.setVisible(true);
+//        paymentDialog.setModal(true);
+//        paymentDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        paymentDialog.getContentPane().setBackground(MainFrame.darkGray);
+        paymentDialog.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        JLabel paidAmount = new JLabel(" Payment :");
+        paidAmount.setFont(MainFrame.fontBold.deriveFont(25f));
+        paidAmount.setForeground(MainFrame.orange);
+        paymentDialog.add(paidAmount, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 1.0;
+        JLabel totalPrice = new JLabel(this.totalPrice.getText());
+        totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
+        totalPrice.setForeground(MainFrame.orange);
+        paymentDialog.add(totalPrice, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel method = new JLabel(" How do you want to pay ?");
+        method.setFont(MainFrame.fontBold.deriveFont(25f));
+        method.setForeground(MainFrame.orange);
+        paymentDialog.add(method, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        cash = new JRadioButton("Cash");
+        cash.setForeground(MainFrame.orange);
+        cash.setFont(MainFrame.fontBold.deriveFont(25f));
+        cash.setFocusPainted(false);
+        cash.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                creditCardId.setBackground(MainFrame.darkGray);
+                creditCardId.setBorder(new LineBorder(MainFrame.lightGray, 1));
+                creditCardId.setEnabled(false);
+                creditCardId.repaint();
+            }
+        });
+        paymentDialog.add(cash, gbc) ;
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        creditCard = new JRadioButton("Credit Card");
+        creditCard.setForeground(MainFrame.orange);
+        creditCard.setFont(MainFrame.fontBold.deriveFont(25f));
+        creditCard.setFocusPainted(false);
+        creditCard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                creditCardId.setBackground(MainFrame.lightGray);
+                creditCardId.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
+                creditCardId.setEnabled(true);
+                creditCardId.repaint();
+            }
+        });
+        paymentDialog.add(creditCard, gbc) ;
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(cash) ;
+        group.add(creditCard);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel ccID = new JLabel(" Enter your card number :");
+        ccID.setForeground(MainFrame.orange);
+        ccID.setFont(MainFrame.fontBold.deriveFont(25f));
+        paymentDialog.add(ccID, gbc) ;
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL ;
+        gbc.insets = new Insets(0, 0, 0, 10);
+        creditCardId = new JTextField("") ;
+        creditCardId.setPreferredSize(new Dimension(0, 30));
+        creditCardId.setBackground(MainFrame.darkGray);
+        creditCardId.setBorder(new LineBorder(MainFrame.lightGray, 1));
+        creditCardId.setEnabled(false);
+        paymentDialog.add(creditCardId, gbc) ;
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.NONE ;
+        gbc.anchor = GridBagConstraints.WEST ;
+        gbc.insets = new Insets(0, 30, 0, 0);
+        cancelPay = new JButton("cancle") ;
+        cancelPay.setPreferredSize(new Dimension(100, 40));
+        cancelPay.setBackground(MainFrame.lightGray);
+        cancelPay.setForeground(MainFrame.orange);
+        cancelPay.setFont(MainFrame.fontBold.deriveFont(25f));
+        cancelPay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        paymentDialog.add(cancelPay, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.EAST ;
+        gbc.insets = new Insets(0, 0, 0, 30);
+        pay = new JButton("pay") ;
+        pay.setPreferredSize(new Dimension(100, 40));
+        pay.setBackground(MainFrame.lightGray);
+        pay.setForeground(MainFrame.orange);
+        pay.setFont(MainFrame.fontBold.deriveFont(25f));
+        pay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        paymentDialog.add(pay, gbc);
+    }
+    public void createEditMealDialog (Meal meal) {
+        editMealDialog.setSize(new Dimension(400, 550));
+        editMealDialog.setLocationRelativeTo(null);
+        editMealDialog.setVisible(true);
+//        editMealDialog.getRootPane().setBorder(new EmptyBorder(10, 10, 10, 10 ));
+//        editMealDialog.getContentPane().setBackground(MainFrame.darkGray);
+        editMealDialog.setLayout(new BorderLayout());
+
+        JPanel editMealPanel = new JPanel() ;
+        editMealPanel.setBackground(MainFrame.darkGray);
+        editMealPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+        editMealPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints() ;
+
+//        //photo ------------------------------------------------later
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.gridwidth = 1;
+//        gbc.gridheight = 1;
+//        gbc.weightx = 1.0;
+//        gbc.weighty = 1.0;
+//        gbc.insets = new Insets(10, 10, 10, 10) ;
+//        gbc.fill = GridBagConstraints.NONE;
+//        JPanel mealPhoto = new JPanel() ;
+//        mealPhoto.setBackground(MainFrame.darkGray);
+//        Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(editMealDialog.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
+//        JLabel imgLabel = new JLabel(new ImageIcon(img)) ;
+//        editMealPanel.add(imgLabel , gbc) ;
+
+        // name
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.1;
+        gbc.fill = GridBagConstraints.BOTH;
+        JLabel name = new JLabel("name :");
+        name.setForeground(MainFrame.orange);
+        name.setFont(MainFrame.fontBold.deriveFont(25f));
+        name.setBackground(MainFrame.darkGray);
+        editMealPanel.add(name, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 0.1;
+        nameEdit = new JTextField(meal.getMealName());
+        nameEdit.setFont(MainFrame.fontBold.deriveFont(20f));
+        nameEdit.setForeground(MainFrame.orange);
+        nameEdit.setBackground(MainFrame.darkGray);
+        nameEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        nameEdit.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (nameEdit.getText().equals("name")) {
+                    nameEdit.setText("");
+                    nameEdit.setForeground(MainFrame.orange);
+                }
+                nameEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (nameEdit.getText().isEmpty()) {
+                    nameEdit.setText("name");
+                    nameEdit.setForeground(MainFrame.extraLightGray);
+                }
+                nameEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        editMealPanel.add(nameEdit, gbc) ;
+
+        //price :
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel price = new JLabel("price : ($)");
+        price.setForeground(MainFrame.orange);
+        price.setFont(MainFrame.fontBold.deriveFont(25f));
+        price.setBackground(MainFrame.darkGray);
+        editMealPanel.add(price, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 0.1;
+        priceEdit = new JTextField(String.valueOf(meal.getPrice()));
+        priceEdit.setFont(MainFrame.fontBold.deriveFont(20f));
+        priceEdit.setForeground(MainFrame.orange);
+        priceEdit.setBackground(MainFrame.darkGray);
+        priceEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        priceEdit.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (priceEdit.getText().equals("price")) {
+                    priceEdit.setText("");
+                    priceEdit.setForeground(MainFrame.orange);
+                }
+                priceEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (priceEdit.getText().isEmpty()) {
+                    priceEdit.setText("price");
+                    priceEdit.setForeground(MainFrame.extraLightGray);
+                }
+                priceEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        priceEdit.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                checkInput();
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                checkInput();
+            }
+            public void checkInput() {
+                String text = priceEdit.getText();
+                if (!text.matches("\\d+(\\.\\d+)?")) {
+                    priceEdit.setBorder(new LineBorder(Color.RED, 1));
+                    priceEdit.setForeground(Color.RED);
+                } else {
+                    priceEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+                    priceEdit.setForeground(MainFrame.orange);
+                }
+            }
+        });
+        editMealPanel.add(priceEdit, gbc) ;
+
+        // ingredients
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel ingredients = new JLabel("ingredients :");
+        ingredients.setForeground(MainFrame.orange);
+        ingredients.setFont(MainFrame.fontBold.deriveFont(25f));
+        ingredients.setBackground(MainFrame.darkGray);
+        editMealPanel.add(ingredients, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 0.1;
+        ingredientsEdit = new JTextField(meal.getIngredients());
+        ingredientsEdit.setFont(MainFrame.fontBold.deriveFont(20f));
+        ingredientsEdit.setForeground(MainFrame.orange);
+        ingredientsEdit.setBackground(MainFrame.darkGray);
+        ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        ingredientsEdit.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (ingredientsEdit.getText().equals("ingredients")) {
+                    ingredientsEdit.setText("");
+                    ingredientsEdit.setForeground(MainFrame.orange);
+                }
+                ingredientsEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (ingredientsEdit.getText().isEmpty()) {
+                    ingredientsEdit.setText("ingredients");
+                    ingredientsEdit.setForeground(MainFrame.extraLightGray);
+                }
+                ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        editMealPanel.add(ingredientsEdit, gbc) ;
+
+        // img src
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel imagePath = new JLabel("image path :");
+        imagePath.setForeground(MainFrame.orange);
+        imagePath.setFont(MainFrame.fontBold.deriveFont(25f));
+        imagePath.setBackground(MainFrame.darkGray);
+        editMealPanel.add(imagePath, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 0.1;
+        imgSrcEdit = new JTextField(meal.getImgSrc());
+        imgSrcEdit.setFont(MainFrame.fontBold.deriveFont(20f));
+        imgSrcEdit.setForeground(MainFrame.orange);
+        imgSrcEdit.setBackground(MainFrame.darkGray);
+        imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        imgSrcEdit.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (imgSrcEdit.getText().equals("image path")) {
+                    imgSrcEdit.setText("");
+                    imgSrcEdit.setForeground(MainFrame.orange);
+                }
+                imgSrcEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (imgSrcEdit.getText().isEmpty()) {
+                    imgSrcEdit.setText("image path");
+                    imgSrcEdit.setForeground(MainFrame.extraLightGray);
+                }
+                imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        editMealPanel.add(imgSrcEdit, gbc) ;
+
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.NONE ;
+        gbc.anchor = GridBagConstraints.WEST ;
+        gbc.insets = new Insets(0, 20, 0, 0) ;
+        editMeal = new JButton("edit meal") ;
+        editMeal.setPreferredSize(new Dimension(100, 40));
+        editMeal.setBackground(MainFrame.darkGray);
+        editMeal.setForeground(MainFrame.orange);
+        editMeal.setFont(MainFrame.fontBold.deriveFont(25f));
+        editMeal.setBorder(new LineBorder(MainFrame.extraLightGray,2 ));
+        editMealPanel.add(editMeal, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 8;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.anchor = GridBagConstraints.EAST ;
+        gbc.insets = new Insets(0, 0, 0, 20) ;
+        JButton cancelEditMeal = new JButton("cancel") ;
+        cancelEditMeal.setPreferredSize(new Dimension(100, 40));
+        cancelEditMeal.setBackground(MainFrame.darkGray);
+        cancelEditMeal.setForeground(MainFrame.orange);
+        cancelEditMeal.setFont(MainFrame.fontBold.deriveFont(25f));
+        cancelEditMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
+        cancelEditMeal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editMealDialog.dispose();
+            }
+        });
+        editMealPanel.add(cancelEditMeal, gbc);
+
+        editMealDialog.add(editMealPanel, BorderLayout.CENTER) ;
+
+
+    }
+
 }

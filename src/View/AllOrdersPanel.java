@@ -2,6 +2,8 @@ package View;
 
 import Model.Meal;
 import Model.Order;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +18,12 @@ import java.util.Map;
 public class AllOrdersPanel extends JPanel {
 
     public AllOrdersPanel (ArrayList<Order> orders){
+        try{
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         setPreferredSize(new Dimension(1280,670));
         setLayout(new BorderLayout());
         JPanel miniAllOrdersPanel = new JPanel();
