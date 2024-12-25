@@ -28,21 +28,21 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Users users= new Users();
-        users.loadFromFile();
-
-        users.getUsers().get(0).setUserType(2);;
-        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
-        users.saveToFile();
-        users.loadFromFile();
-
-        try {
-            Thread.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//        Users users= new Users();
+//        users.loadFromFile();
+//
+//        users.getUsers().get(0).setUserType(2);;
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//        users.saveToFile();
+//        users.loadFromFile();
+//
+//        try {
+//            Thread.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
 //
 //        users.addUser(new User("wqe","wqe","12345678",0));
 //        HashMap<Meal,Integer> hashMap= new HashMap<>();
@@ -170,7 +170,7 @@ public class Main {
         AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
 
         // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
-        MainFrame mainFrame = new MainFrame(0, profilePanel, reportPanel, allOrdersPanel);
+        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
         mainFrame.mealsPanel.fillMainMenu(mealsAya);
         //---------------------------------------------------------------------------just for fun
 //        mainFrame.mealsPanel.getSidePanel().createPaymentDialog();

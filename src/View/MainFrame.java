@@ -135,7 +135,8 @@ public class MainFrame extends JFrame {
     JButton createButton(String buttonText) {
         JButton button = new JButton(buttonText);
         button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
+//        button.setContentAreaFilled(false);
+        button.setBackground(lightGray);
         button.setForeground(orange);
         button.setFont(fontBold);
         button.setPreferredSize(new Dimension(170, 40));
