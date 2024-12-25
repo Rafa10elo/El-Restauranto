@@ -90,7 +90,6 @@ public class LoginAndRegisterManager {
 
 
    }
-
    public void loginCheck(){
        String username=   loginAndRegistrationFrame.loginPanel.getUsername();
        String password=  loginAndRegistrationFrame.loginPanel.getPassword();

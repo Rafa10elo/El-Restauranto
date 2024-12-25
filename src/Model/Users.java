@@ -32,33 +32,23 @@ public class Users {
 
     public User findUser(String username){
         for (User user : users)
-        if (username.equals(user.getUserName()))
-            return user;
-
-
+            if(username.equals(user.getUserName()))
+             return user;
         return null;
     }
    public boolean isCorrectPassword(User user , String password){
-        if (user.getPassword().equals(password))
-            return true;
-
+            if(user.getPassword().equals(password))
+                return true;
             return false;
    }
 
 
-
-
-
-
     public void writerThread(){
-
-    new Thread(()->{
-        saveToFile();
+        new Thread(()->{
+           saveToFile();
     }).start();
-
     }
     public void readerThread(){
-
         new Thread(()->{
             loadFromFile();
         }).start();

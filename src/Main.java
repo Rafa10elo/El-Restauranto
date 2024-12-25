@@ -26,10 +26,29 @@ public class Main {
     public static void main(String[] args) {
 
         Users users= new Users();
-        users.loadFromFile();
+users.loadFromFile();
 
-        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
-        LoginAndRegisterManager loginAndRegisterManager= new LoginAndRegisterManager(users,loginAndRegistrationFrame);
+        users.getUsers().get(0).setUserType(2);;
+users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+users.saveToFile();
+users.loadFromFile();
+
+        try {
+            Thread.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+
+
+//
+//        users.addUser(new User("wqe","wqe","12345678",0));
+//        HashMap<Meal,Integer> hashMap= new HashMap<>();
+//        hashMap.put(new Meal("r","r",3,"3"),1);
+//        Order order = new Order(hashMap,213, Order.Status.DELIVERED);
+//       users.getUsers().get(0).addOrder(order);
+//        users.saveToFile();
 
 
 
@@ -103,11 +122,6 @@ public class Main {
 
 
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
 //        System.out.println("Final order status: " + order.getState());
 
