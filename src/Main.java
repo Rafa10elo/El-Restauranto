@@ -25,21 +25,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Users users= new Users();
-users.loadFromFile();
-
-        users.getUsers().get(0).setUserType(2);;
-users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
-users.saveToFile();
-users.loadFromFile();
-
-        try {
-            Thread.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//        Users users= new Users();
+//users.loadFromFile();
+//
+//        users.getUsers().get(0).setUserType(2);;
+//users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//users.saveToFile();
+//users.loadFromFile();
+//
+//        try {
+//            Thread.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
 
 
 //
@@ -69,25 +69,21 @@ users.loadFromFile();
 
 
 //        // sarah test
-//        MainFrame mainFrame = new MainFrame(0);
+        MainFrame mainFrame = new MainFrame(0);
 //        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
-
-
-
-
 
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
 
 
 //        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
-
+//        loginAndRegistrationFrame.setVisible(true);
         //mainFrame.setVisible(true);
         //sorrryy bhhh
 
 
         //sorrryy bhhh
-//loginAndRegistrationFrame.setVisible(true);
+
 //        ArrayList<Meal> meals = new ArrayList<>();
 //        meals.add(new Meal("Burger", "213",321,"3"));
 //        meals.add(new Meal("Fries", "31",231,"213"));

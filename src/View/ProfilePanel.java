@@ -8,12 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import static View.LoginAndRegistrationFrame.fieldsFont;
 
 public class ProfilePanel extends JPanel {
 
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
+    JTextField editPasswordField;
+    JTextField editEmailField;
+    JTextField editUsernameTextField;
+    String passwordDialog;
 
     public ProfilePanel(User user) {
         setLayout(new BorderLayout());
@@ -142,11 +147,11 @@ public class ProfilePanel extends JPanel {
         gbc.gridwidth = 1;
         editPanel.add(editUsernameLabel, gbc);
 
-        JTextField usernameTextField = new JTextField(user.getUserName(), 15);
-        usernameTextField.setFont(MainFrame.fontRegular.deriveFont(40F));
+        JTextField editUsernameTextField = new JTextField(user.getUserName(), 15);
+        editUsernameTextField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 0;
-        editPanel.add(usernameTextField, gbc);
+        editPanel.add(editUsernameTextField, gbc);
 
 
         JLabel editEmailLabel = new JLabel("Email:");
@@ -158,7 +163,7 @@ public class ProfilePanel extends JPanel {
         editPanel.add(editEmailLabel, gbc);
 
         JTextField editEmailField = new JTextField(user.getEmail(), 15);
-        editEmailField.setFont(MainFrame.fontRegular.deriveFont(40F));
+        editEmailField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 1;
         editPanel.add(editEmailField, gbc);
@@ -173,7 +178,7 @@ public class ProfilePanel extends JPanel {
         editPanel.add(editPasswordLabel, gbc);
 
         JTextField editPasswordField = new JTextField(user.getPassword(), 15);
-        editPasswordField.setFont(MainFrame.fontRegular.deriveFont(40F));
+        editPasswordField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 2;
         editPanel.add(editPasswordField, gbc);
@@ -194,11 +199,29 @@ public class ProfilePanel extends JPanel {
                     inEditMode = false;
                 } else {
                     // Switch to edit panel
+
+                    String passwordDialog = JOptionPane.showInputDialog(mainPanel, "Enter your password:");
+                    //if true in controller method:
                     cardLayout.show(cardPanel, "edit");
-                    editProfileButton.setText("Save");
                     inEditMode = true;
+                    editProfileButton.setText("Save");
+                    //else
+                    JOptionPane.showMessageDialog(mainPanel, "Access Denied", "Error", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
+
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginAndRegistrationFrame loginAndRegistrationFrame=new LoginAndRegistrationFrame();
+
+            }
+        });
     }
+    String getPasswordDialog(){return passwordDialog;}
+    String getEditedUsername(){return editUsernameTextField.getText();}
+    String getEditedEmail(){return editEmailField.getText();}
+    String getEditedPassword(){return editPasswordField.getText();}
+
 }

@@ -53,7 +53,6 @@ public class LoginAndRegistrationFrame extends JFrame {
 
         mainPanel.add(loginPanel, "Login");
         mainPanel.add(registerPanel, "Register");
-
         cardLayout.show(mainPanel, "Login");
 
         add(mainPanel);

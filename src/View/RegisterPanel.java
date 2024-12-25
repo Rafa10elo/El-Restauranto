@@ -14,13 +14,9 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
+import static View.LoginAndRegistrationFrame.fieldsFont;
+
 public class RegisterPanel extends JPanel {
-    public static Color lightGray = new Color(43, 45, 48);
-    public static Color darkGray = new Color(30, 31, 34);
-    public static Color orange = new Color(206, 129, 76);
-    public static Font fontBold = null;
-    public static Font fontRegular = null;
-    public static Font fieldsFont = null;
 
     JTextField userField ;
     JTextField emailField;
@@ -172,8 +168,8 @@ public class RegisterPanel extends JPanel {
 //        centralPanel.add(passField, gbc);
 
         JCheckBox showPasswordCheckbox = new JCheckBox();
-        showPasswordCheckbox.setForeground(orange);
-        showPasswordCheckbox.setFont(fontRegular);
+        showPasswordCheckbox.setForeground(MainFrame.orange);
+        showPasswordCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckbox.setOpaque(false);
 //        gbc.gridx = 2;
        gbc1.gridx = 10;
@@ -245,8 +241,8 @@ public class RegisterPanel extends JPanel {
 
 //        centralPanel.add(passField, gbc);
         JCheckBox showPasswordCheckCheckbox = new JCheckBox();
-        showPasswordCheckCheckbox.setForeground(orange);
-        showPasswordCheckCheckbox.setFont(fontRegular);
+        showPasswordCheckCheckbox.setForeground(MainFrame.orange);
+        showPasswordCheckCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckCheckbox.setOpaque(false);
 //        gbc.gridx = 2;
         gbc1.gridx = 10;
@@ -288,7 +284,7 @@ public class RegisterPanel extends JPanel {
         userChoice.add(chooseManagerButton);
 
         JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        radioPanel.setBackground(darkGray);
+        radioPanel.setBackground(MainFrame.darkGray);
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
         radioPanel.add(chooseManagerButton);
