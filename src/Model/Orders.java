@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Orders {
+public class gitOrders {
     private HashMap<User, List<Order>> userOrders;
 
     public Orders() {

@@ -14,6 +14,10 @@ import java.util.HashMap;
 
 public class MainFrame extends JFrame {
     public MealsPanel mealsPanel;
+    public ProfilePanel profilePanel ;
+    public ReportPanel reportPanel;
+    public AllOrdersPanel allOrdersPanel;
+
 
     public static Color darkGray = new Color(30, 31, 34) ;
     public static Color lightGray = new Color(43, 45, 48) ;
@@ -43,7 +47,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public  MainFrame(int userType){
+    public  MainFrame(int userType, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel){
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -77,47 +81,18 @@ public class MainFrame extends JFrame {
         // cards panel
         cardLayout = new CardLayout();
         JPanel cardsPanel = new JPanel(cardLayout);
+
         mealsPanel = new MealsPanel(userType) ;
         cardsPanel.add(mealsPanel,"mealsPanel") ;
-       add(cardsPanel, BorderLayout.CENTER) ;
+        add(cardsPanel, BorderLayout.CENTER) ;
 
-        //for run purposes
-//        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
-//        add(new ProfilePanel(user),BorderLayout.CENTER);
-//        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
-//        add(reportPanel, BorderLayout.CENTER);
-        //will get deleted
-        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
-        ProfilePanel profilePanel= new ProfilePanel(user);
+        this.profilePanel = profilePanel ;
         cardsPanel.add(profilePanel,"profilePanel");
-//
-        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+
+        this.reportPanel = reportPanel;
         cardsPanel.add(reportPanel,"reportPanel");
 
-        HashMap<Meal, Integer> meals = new HashMap<>();
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
-        Order order2 = new Order(meals,15, Order.Status.CANCELED);
-        Order order3 = new Order(meals,5, Order.Status.PREPARED );
-        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
-        ArrayList<Order> orders = new ArrayList<>();
-        orders.add(order1);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order4);
-
-        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
+        this.allOrdersPanel = allOrdersPanel ;
         cardsPanel.add(allOrdersPanel,"allOrdersPanel") ;
 
 
@@ -148,8 +123,14 @@ public class MainFrame extends JFrame {
                 cardLayout.show(cardsPanel, "reportPanel");
             }
         });
+
+        revalidate();
+        repaint();
     }
 
+    public void switchCard(JPanel parent,String child){
+        cardLayout.show(parent,child);
+    }
 
     JButton createButton(String buttonText) {
         JButton button = new JButton(buttonText);
