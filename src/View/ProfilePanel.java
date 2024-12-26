@@ -4,12 +4,20 @@ import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
+
 import static View.LoginAndRegistrationFrame.fieldsFont;
+import static View.ReportPanel.*;
+
+
 
 public class ProfilePanel extends JPanel {
 
@@ -17,12 +25,15 @@ public class ProfilePanel extends JPanel {
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
-    JTextField editPasswordField;
-    JTextField editEmailField;
-    JTextField editUsernameTextField;
-    String passwordDialog;
+    private JTextField editPasswordField;
+    private JTextField editEmailField;
+    private JTextField editUsernameTextField;
+    private User user;
+    public JButton editProfileButton;
+    public JPanel mainPanel;
 
     public ProfilePanel(User user) {
+        this.user=user;
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -52,7 +63,7 @@ public class ProfilePanel extends JPanel {
         buttonPanel.setBackground(MainFrame.lightGray);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton editProfileButton = new JButton("Edit");
+        editProfileButton = new JButton("Edit");
         editProfileButton.setFont(MainFrame.fontBold.deriveFont(40F));
         editProfileButton.setFocusPainted(false);
         editProfileButton.setBackground(MainFrame.orange);
@@ -189,35 +200,84 @@ public class ProfilePanel extends JPanel {
         editPasswordField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 2;
+        editPasswordField.addKeyListener(new KeyAdapter() {
+            @Override
+        public void keyTyped(KeyEvent e) {
+            super.keyTyped(e);
+            int test = RegisterPanel.passwordCheck(editPasswordField.getText());
+            if(editPasswordField.getText().equals(""))
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+            else if(test==0)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.red));
+            else if (test == 1)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.ORANGE));
+            else if (test == 2)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.YELLOW));
+            else if (test == 3)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.GREEN));
+            else if (test == 4)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.cyan));
+
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
+            if(editPasswordField.getText().equals(""))
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            super.keyReleased(e);
+            int test = RegisterPanel.passwordCheck(editPasswordField.getText());
+            if(editPasswordField.getText().equals(""))
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+            else if(test==0)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.red));
+            else if (test == 1)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.ORANGE));
+            else if (test == 2)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.YELLOW));
+            else if (test == 3)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.GREEN));
+            else if (test == 4)
+                editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.cyan));
+
+        }
+    });
         editPanel.add(editPasswordField, gbc);
 
         cardPanel.add(mainPanel, "main");
         cardPanel.add(editPanel, "edit");
 
+
         //to switch between edit and main panel
-        editProfileButton.addActionListener(new ActionListener() {
-            private boolean inEditMode = false;
+//        editProfileButton.addActionListener(new ActionListener() {
+//            private boolean inEditMode = false;
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (inEditMode) {
+//                    // Switch back to main panel
+//                    cardLayout.show(cardPanel, "main");
+//                    editProfileButton.setText("Edit");
+//                    inEditMode = false;
+//                } else {
+//                    // Switch to edit panel
+//                    String passwordDialog = JOptionPane.showInputDialog(mainPanel, "Enter your password:");
+//                    if(Objects.equals(passwordDialog, user.getPassword())){
+//                        cardLayout.show(cardPanel, "edit");
+//                        inEditMode = true;
+//                        editProfileButton.setText("Save");
+//                    }
+//                    else
+//                    JOptionPane.showMessageDialog(mainPanel, "Access Denied", "Error", JOptionPane.INFORMATION_MESSAGE);
+//                }
+//            }
+//        });
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (inEditMode) {
-                    // Switch back to main panel
-                    cardLayout.show(cardPanel, "main");
-                    editProfileButton.setText("Edit");
-                    inEditMode = false;
-                } else {
-                    // Switch to edit panel
-
-                    String passwordDialog = JOptionPane.showInputDialog(mainPanel, "Enter your password:");
-                    //if true in controller method:
-                    cardLayout.show(cardPanel, "edit");
-                    inEditMode = true;
-                    editProfileButton.setText("Save");
-                    //else
-                    JOptionPane.showMessageDialog(mainPanel, "Access Denied", "Error", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
@@ -227,9 +287,17 @@ public class ProfilePanel extends JPanel {
             }
         });
     }
-    String getPasswordDialog(){return passwordDialog;}
-    String getEditedUsername(){return editUsernameTextField.getText();}
-    String getEditedEmail(){return editEmailField.getText();}
-    String getEditedPassword(){return editPasswordField.getText();}
+    public String getEditedUsername(){return editUsernameTextField.getText();}
+    public String getEditedEmail(){return editEmailField.getText();}
+    public String getEditedPassword(){return editPasswordField.getText();}
+    public User getUser(){return user;}
+    public JPanel getMainPanel(){return mainPanel;}
 
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public JPanel getCardPanel() {
+        return cardPanel;
+    }
 }
