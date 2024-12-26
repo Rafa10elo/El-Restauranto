@@ -21,7 +21,6 @@ public class MainController {
     Users users= new Users();
     Orders orders = Orders.getOrdersSing();
     Meals meals = new Meals();
-
     Report report = new Report(0,0);
 
     public MainController(){
@@ -44,11 +43,8 @@ public class MainController {
                   mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
 
               }
-
             }
         });
-
-
 
     }
 
