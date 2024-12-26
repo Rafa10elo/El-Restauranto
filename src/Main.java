@@ -11,6 +11,8 @@ import Model.*;
 import View.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -25,32 +27,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Users users= new Users();
-users.loadFromFile();
 
-        users.getUsers().get(0).setUserType(2);;
-users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
-users.saveToFile();
-users.loadFromFile();
+//        Users users= new Users();
+//users.loadFromFile();
+//
+//        users.getUsers().get(0).setUserType(2);;
+//users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//users.saveToFile();
+//users.loadFromFile();
+//
+//        try {
+//            Thread.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
 
-        try {
-            Thread.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
 
 
+//        Users users= new Users();
+//        users.loadFromFile();
+//
+//        users.getUsers().get(0).setUserType(2);;
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
+//        users.saveToFile();
+//        users.loadFromFile();
+//
+//        try {
+//            Thread.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        users.getUsers().get(0).getOrders().get(0).getMeals().get(0);
 //
 //        users.addUser(new User("wqe","wqe","12345678",0));
 //        HashMap<Meal,Integer> hashMap= new HashMap<>();
 //        hashMap.put(new Meal("r","r",3,"3"),1);
 //        Order order = new Order(hashMap,213, Order.Status.DELIVERED);
-//       users.getUsers().get(0).addOrder(order);
+//        users.getUsers().get(0).addOrder(order);
 //        users.saveToFile();
-
-
 
 
 //        HashMap<Meal, Integer> map = new HashMap<>();
@@ -67,27 +84,20 @@ users.loadFromFile();
 
 
 
-
 //        // sarah test
 //        MainFrame mainFrame = new MainFrame(0);
 //        mainFrame.add(new LoginPanel(new JPanel(),new CardLayout()));
 
-
-
-
-
 //        ReportPanel reportPanel = new ReportPanel(new Report(54,5562),50,19);
 //        mainFrame.add(reportPanel, BorderLayout.CENTER);
 
-
 //        LoginAndRegistrationFrame loginAndRegistrationFrame = new LoginAndRegistrationFrame();
-
+//        loginAndRegistrationFrame.setVisible(true);
         //mainFrame.setVisible(true);
-        //sorrryy bhhh
 
 
         //sorrryy bhhh
-//loginAndRegistrationFrame.setVisible(true);
+
 //        ArrayList<Meal> meals = new ArrayList<>();
 //        meals.add(new Meal("Burger", "213",321,"3"));
 //        meals.add(new Meal("Fries", "31",231,"213"));
@@ -119,10 +129,6 @@ users.loadFromFile();
 //
 //        System.out.println("Final order status: " + order.getState());
 
-
-
-
-
 //        System.out.println("Final order status: " + order.getState());
 
 
@@ -143,17 +149,57 @@ users.loadFromFile();
 //        loginAndRegistrationFrame.setVisible(true);
 
         // just a simple test AYA, to try the meals panel ... disfruta 🤌 (ya3ni enjoy in spanish)
-//        ArrayList<Meal> mealsAya = new ArrayList<>();
-//        for (int i = 1 ; i < 16 ; i ++) {
-//            String name = "meal " + i ;
-//            String ing = "ing " + i ;
-//            float price = i ;
-//            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
-//        }
-//
-//        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
-//        MainFrame mainFrame = new MainFrame(0);
-//        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+        ArrayList<Meal> mealsAya = new ArrayList<>();
+        for (int i = 1 ; i < 16 ; i ++) {
+            String name = "meal " + i ;
+            String ing = "ing " + i ;
+            float price = i ;
+            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
+        }
 
+        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+        ProfilePanel profilePanel= new ProfilePanel(user);
+
+        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+
+        HashMap<Meal, Integer> meals = new HashMap<>();
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
+        Order order2 = new Order(meals,15, Order.Status.CANCELED);
+        Order order3 = new Order(meals,5, Order.Status.PREPARED );
+        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(order1);
+        orders.add(order2);
+        orders.add(order3);
+        orders.add(order4);
+
+        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
+
+        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
+        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
+        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+        //---------------------------------------------------------------------------just for fun
+//        mainFrame.mealsPanel.getSidePanel().createPaymentDialog();
+//        mainFrame.mealsPanel.getSidePanel().cancelPay.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mainFrame.mealsPanel.getSidePanel().paymentDialog.dispose();
+//            }
+//        });
+
+//        LoginAndRegistrationFrame loginAndRegistrationFrame= new LoginAndRegistrationFrame();
     }
 }

@@ -1,6 +1,6 @@
 package View;
 import Model.Meal;
-
+import com.formdev.flatlaf.FlatDarkLaf ;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -13,6 +13,12 @@ import java.util.Map;
 public class ReportPanel extends JPanel {
     public ReportPanel (Model.Report report,int numberOfUsers,int numberOfMeals){
 
+        try{
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
 
         setLayout(new BorderLayout());

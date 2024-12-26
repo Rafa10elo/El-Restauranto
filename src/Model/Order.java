@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Order {
     private HashMap<Meal, Integer> meals;
+    // -------------------------------------------------------------change float to double
     private float totalPrice = 0;
     private float tip;
     private Status state;
@@ -46,6 +47,7 @@ public class Order {
         return tip;
     }
 
+    //------------------------------------------------------------------------------------------
     private void calculateTotalPrice() {
         totalPrice = tip;
         for (Map.Entry<Meal, Integer> entry : meals.entrySet()) {
@@ -77,11 +79,13 @@ public class Order {
         return this.state;
     }
 
-    public void addMeal(Meal meal, int count) {
-        meals.put(meal, meals.getOrDefault(meal, 0) + count);
+    //---------------------------------- tmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+    public void addMeal(Meal meal) {
+        meals.put(meal, meals.getOrDefault(meal, 0) + 1);
         calculateTotalPrice();
     }
 
+    //---------------------------------------tmmmmmmmmmmmmmmmmmmmmm
     public boolean removeMeal(Meal meal) {
         if (meals.containsKey(meal)) {
             meals.remove(meal);
@@ -91,6 +95,7 @@ public class Order {
         return false;
     }
 
+    //------------------------------------
     public boolean modifyMealCnt(Meal meal, int cnt) {
         if (meals.containsKey(meal)) {
             if (cnt > 0) {
