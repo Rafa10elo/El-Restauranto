@@ -9,15 +9,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SidePanel extends JPanel {
-    // order info
-    JLabel totalPrice = new JLabel("0") ;
-    JComboBox tipsCombo;
-    JPanel centerPanel;
-    JButton submitOrder ; // ---------------------------------------  add action to return the order
-    HashMap<Meal, Integer> meals = new HashMap<>();
-    HashMap<Meal, JLabel> mealsCntLabels = new HashMap<>();
 
     // new meal info
     JTextField nameField;
@@ -26,22 +20,31 @@ public class SidePanel extends JPanel {
     JTextField imgSrcField;
     JButton addMeal ; // -------------------------------- add action to return the new meal
 
-    // payment info
-    public JDialog paymentDialog = new JDialog();
-    JRadioButton  cash ;
-    JRadioButton creditCard ;
-    JTextField creditCardId ;
-    public JButton pay ; // ------------------------------------ add action to return the payment and the order
-    public JButton cancelPay ; // -------------------------------add action to return the canceled order
-    //---------------------------------------------------- add action listener to 'x'
-
     // edit meal info
-    JDialog editMealDialog = new JDialog() ;
+//    JDialog editMealDialog = new JDialog() ;
     JTextField nameEdit;
     JTextField priceEdit;
     JTextField ingredientsEdit;
     JTextField imgSrcEdit;
     JButton editMeal ;
+
+    // order info
+    JLabel totalPrice = new JLabel("0") ;
+    Double[] tips = new Double[] {0.0, 5.0, 10.0, 15.0} ;
+    JComboBox tipsCombo = new JComboBox(tips) ;
+    JPanel centerPanel;
+    HashMap<Meal, Integer> meals = new HashMap<>();
+    HashMap<Meal, JLabel> mealsCntLabels = new HashMap<>();
+
+    // payment info
+    JDialog paymentDialog ;
+    JRadioButton  cash ;
+    JRadioButton creditCard ;
+    JTextField creditCardId ;
+    JButton pay ; // ------------------------------------ add action to return the payment and the order
+    JButton cancelPay ; // -------------------------------add action to return the canceled order
+    //---------------------------------------------------- add action listener to 'x'
+
 
 
 
@@ -351,8 +354,6 @@ public class SidePanel extends JPanel {
             tipLabel.setForeground(MainFrame.orange);
             tipLabel.setFont(MainFrame.fontBold.deriveFont(25f));
 
-            Integer[] tips = new Integer[] {0, 5, 10, 15} ;
-            tipsCombo = new JComboBox(tips) ;
             tipsCombo.setFont(MainFrame.fontBold.deriveFont(25f));
             tipsCombo.setBackground(MainFrame.darkGray);
             tipsCombo.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
@@ -370,17 +371,16 @@ public class SidePanel extends JPanel {
             gbc.weightx = 3.0;
             gbc.weighty = 3.0;
             gbc.fill = GridBagConstraints.BOTH;
-            submitOrder = new JButton("Submit Order");
+            JButton submitOrder = new JButton("Submit Order");
             submitOrder.setForeground(MainFrame.orange);
             submitOrder.setFont(MainFrame.fontBold);
             submitOrder.setBackground(MainFrame.darkGray);
             submitOrder.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
 
-            // this action listener is just for fun ... it should be in the controller
             submitOrder.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    orderReset();
+                    createPaymentDialog();
                 }
             });
             bottomPanel.add(submitOrder, gbc);
@@ -464,6 +464,7 @@ public class SidePanel extends JPanel {
         this.repaint();
     }
     public void createPaymentDialog () {
+        paymentDialog = new JDialog();
         paymentDialog.setTitle("payment");
         paymentDialog.setSize(new Dimension(450, 300));
         paymentDialog.setLocationRelativeTo(null);
@@ -492,7 +493,7 @@ public class SidePanel extends JPanel {
         gbc.gridheight = 1;
         gbc.weightx = 2.0;
         gbc.weighty = 1.0;
-        JLabel totalPrice = new JLabel(this.totalPrice.getText());
+        JLabel totalPrice = new JLabel(String.valueOf(Float.parseFloat(this.totalPrice.getText()) + tips[tipsCombo.getSelectedIndex()] ) );
         totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
         totalPrice.setForeground(MainFrame.orange);
         paymentDialog.add(totalPrice, gbc);
@@ -614,6 +615,7 @@ public class SidePanel extends JPanel {
         paymentDialog.add(pay, gbc);
     }
     public void createEditMealDialog (Meal meal) {
+        JDialog editMealDialog = new JDialog() ;
         editMealDialog.setSize(new Dimension(400, 550));
         editMealDialog.setLocationRelativeTo(null);
         editMealDialog.setVisible(true);
@@ -882,4 +884,23 @@ public class SidePanel extends JPanel {
 
     }
 
+    public JTextField getNameEdit() {
+        return nameEdit;
+    }
+
+    public JTextField getPriceEdit() {
+        return priceEdit;
+    }
+
+    public JTextField getIngredientsEdit() {
+        return ingredientsEdit;
+    }
+
+    public JTextField getImgSrcEdit() {
+        return imgSrcEdit;
+    }
+
+    public JButton getEditMealButton() {
+        return editMeal;
+    }
 }

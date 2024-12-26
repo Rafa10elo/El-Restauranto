@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Meals {
     ArrayList<Meal> meals = new ArrayList<>();
 
-
     public ArrayList<Meal> getMeals(){
         return meals;
     }
@@ -25,6 +24,14 @@ public class Meals {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean modifyMeal(int mealIndex, Meal updatedMeal) {
+            if (mealIndex >=0 && mealIndex < meals.size()) {
+                meals.set(mealIndex, updatedMeal);
+                return true;
+            }
         return false;
     }
 
