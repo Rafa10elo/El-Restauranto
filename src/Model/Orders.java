@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Orders {
-    private HashMap<User, List<Order>> ordersOfUsers;
+    private HashMap<User, ArrayList<Order>> ordersOfUsers;
     private static Orders orders;
     public Orders() {
         this.ordersOfUsers = new HashMap<>();
@@ -26,7 +26,7 @@ public class Orders {
         ordersOfUsers.get(user).add(order);
     }
 
-    public List<Order> getOrdersForUser(User user) {
+    public ArrayList<Order> getOrdersForUser(User user) {
         return ordersOfUsers.getOrDefault(user, new ArrayList<>());
     }
 

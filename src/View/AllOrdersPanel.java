@@ -1,5 +1,6 @@
 package View;
 
+import Control.OrderTimerManager;
 import Model.Meal;
 import Model.Order;
 import Model.Orders;
@@ -17,7 +18,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class AllOrdersPanel extends JPanel {
+    ArrayList <Order> theOrdersOfTheUser ;
+    OrderTimerManager timerManager = new OrderTimerManager();
+
 
     public AllOrdersPanel (User user, Orders orders){
         try{
@@ -32,13 +37,22 @@ public class AllOrdersPanel extends JPanel {
 
         miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
         miniAllOrdersPanel.setBackground(MainFrame.darkGray);
+
+        if (0==user.getUserType())
+        {
+            theOrdersOfTheUser = orders.getOrdersForUser(user);
+        }
+        else
+        {
+            theOrdersOfTheUser = orders.getAllOrders();
+        }
         int cnt=0;
-        for(Order order: orders.getAllOrders()){
+        for(Order order:theOrdersOfTheUser){
            cnt++;
         }
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
         for(int i=0; i<cnt;i++){
-            JPanel orderPanel= createOrderPanel(orders.getAllOrders().get(i),i+1);
+            JPanel orderPanel= createOrderPanel(theOrdersOfTheUser.get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
             miniAllOrdersPanel.add(orderPanel);
             miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -160,6 +174,8 @@ public class AllOrdersPanel extends JPanel {
 
         JLabel stateTagLabel = createLabel("Order State: ",MainFrame.fontBold,22);
         labelsPanel.add(stateTagLabel);
+       // timeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+
 
         JLabel stateLabel = createLabel(orderState,MainFrame.fontRegular,22);
         labelsPanel.add(stateLabel);
@@ -173,6 +189,7 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
+        timerManager.showRemainingTime(order,timeLabel, stateLabel);
         return orderPanel;
     }
 }

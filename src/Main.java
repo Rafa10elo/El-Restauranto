@@ -224,7 +224,7 @@ public class Main {
 //
 //        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
 //
-//        HashMap<Meal, Integer> meals = new HashMap<>();
+//      HashMap<Meal, Integer> meals = new HashMap<>();
 //        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
 //        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
 //        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
@@ -237,17 +237,23 @@ public class Main {
 //        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
 //        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
 //        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-//        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
-//        Order order2 = new Order(meals,15, Order.Status.CANCELED);
-//        Order order3 = new Order(meals,5, Order.Status.PREPARED );
+//        LocalDateTime time = LocalDateTime.now();
+//       Order order1 = new Order(meals,40, 23,Order.Status.DELIVERED,time.plusSeconds(20),"wqe");
+//       Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
+//       Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusHours(1),"wqe");
 //        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
-//        ArrayList<Order> orders = new ArrayList<>();
-//        orders.add(order1);
-//        orders.add(order2);
-//        orders.add(order3);
-//        orders.add(order4);
+//        Orders orders = Orders.getOrdersSing();
+//        User user =new User("name","r","12345678",0);
+//        orders.addOrderForUser(user,order1);
+//        orders.addOrderForUser(user,order2);
+//        orders.addOrderForUser(user,order3);
 //
-//        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
+//
+//
+//        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(user,orders);
+//        JFrame frame = new JFrame();
+//        frame.add(allOrdersPanel);
+//        frame.setVisible(true);
 //
 //        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
 //        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
