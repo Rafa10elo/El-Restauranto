@@ -29,7 +29,6 @@ public class Users {
         return false;
     }
 
-
     public User findUser(String username){
         for (User user : users)
             if(username.equals(user.getUserName()))

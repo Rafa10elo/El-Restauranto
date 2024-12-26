@@ -13,11 +13,14 @@ public class MainController {
     User user;
     LoginAndRegistrationFrame loginAndRegistrationFrame;
     LoginAndRegisterManager loginAndRegisterManager;
+    ActionListener actionListener1;
+    ActionListener actionListener;
     MainFrame mainFrame ;
     ProfilePanel profilePanel;
     MealsPanel mealsPanel;
     ReportPanel reportPanel;
     AllOrdersPanel allOrdersPanel;
+    ProfileController profileController;
     Users users= new Users();
     Orders orders = Orders.getOrdersSing();
     Meals meals = new Meals();
@@ -29,22 +32,41 @@ public class MainController {
         report.loadFromFile();
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
         loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
-        loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(new ActionListener() {
+
+        actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              user =  loginAndRegisterManager.loginCheck();
-              if(user!=null)
-              {
-                  loginAndRegistrationFrame.dispose();
-                  profilePanel= new ProfilePanel(user);
-                  reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
-                  mealsPanel = new MealsPanel(user.getUserType());
-                  allOrdersPanel= new AllOrdersPanel(user,orders);
-                  mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
-
+                user =  loginAndRegisterManager.loginCheck();
+                if(user!=null)
+                {
+                    loginAndRegistrationFrame.dispose();
+                    profilePanel= new ProfilePanel(user);
+                    profileController = new ProfileController(users,profilePanel);
+                    reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
+                    mealsPanel = new MealsPanel(user.getUserType());
+                    allOrdersPanel= new AllOrdersPanel(user,orders);
+                    mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
+                    profilePanel.logoutButton.addActionListener(actionListener1);
               }
             }
-        });
+        };
+
+        actionListener1= new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose();
+                loginAndRegistrationFrame = new LoginAndRegistrationFrame();
+                loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
+                loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(actionListener);
+
+            }
+
+        };
+
+        loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(actionListener);
+
+
+
 
     }
 
