@@ -1,38 +1,51 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class Orders {
-    private HashMap<User, List<Order>> userOrders;
-
+    private HashMap<User, List<Order>> ordersOfUsers;
+    private static Orders orders;
     public Orders() {
-        this.userOrders = new HashMap<>();
+        this.ordersOfUsers = new HashMap<>();
+    }
+
+    public static Orders getOrdersSing() {
+        if (orders == null) {
+            orders = new Orders();
+        }
+        return orders;
     }
 
     public void addOrderForUser(User user, Order order) {
-        if (!userOrders.containsKey(user)) {
-            userOrders.put(user, new ArrayList<>());
+        if (!ordersOfUsers.containsKey(user)) {
+            ordersOfUsers.put(user, new ArrayList<>());
         }
-        userOrders.get(user).add(order);
+        ordersOfUsers.get(user).add(order);
     }
 
     public List<Order> getOrdersForUser(User user) {
-        return userOrders.getOrDefault(user, new ArrayList<>());
+        return ordersOfUsers.getOrDefault(user, new ArrayList<>());
     }
 
     public ArrayList<Order> getAllOrders() {
         ArrayList<Order> allOrders = new ArrayList<>();
-        for (List<Order> orders : userOrders.values()) {
+        for (List<Order> orders : ordersOfUsers.values()) {
             allOrders.addAll(orders);
         }
         return allOrders;
     }
 
+    public List<Order> sortedListOfOrderes() {
+        ArrayList<Order> allOrders = getAllOrders();
+        allOrders.sort(Comparator.comparing(Order::getTimeOfDelivery));
+        return allOrders;
+    }
+
     public boolean updateOrder(User user, Order order, Order.Status status) {
-        List<Order> orders = userOrders.get(user);
-        user.getOrders().get(user.findOrder(order)).setState(status);
+        List<Order> orders = ordersOfUsers.get(user);
 
         if (orders != null) {
             for (Order existingOrder : orders) {
@@ -44,9 +57,9 @@ public class Orders {
         }
         return false;
     }
+
     public boolean removeOrder(User user, Order order) {
-        user.getOrders().remove(order);
-        List<Order> orders = userOrders.get(user);
+        List<Order> orders = ordersOfUsers.get(user);
         if (orders != null) {
             boolean removed = orders.remove(order);
             if (removed) {
@@ -55,9 +68,6 @@ public class Orders {
         }
         return false;
     }
-
-
-
 
 
 }

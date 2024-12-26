@@ -158,6 +158,7 @@ public class Order {
             if (!orderParts[5].equals("null")) {
                 paymentId = orderParts[5];
             }
+            
 
             return new Order(meals, totalPrice, tip, state, timeOfDelivery, paymentId);
 
