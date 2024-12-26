@@ -7,6 +7,7 @@ import View.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 
 public class MainController {
@@ -33,38 +34,13 @@ public class MainController {
         report.loadFromFile();
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
-//        loginAndRegisterManager  =new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
-//        loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//              user =  loginAndRegisterManager.loginCheck();
-//              if(user!=null)
-//              {
-//                  loginAndRegistrationFrame.dispose();
-//                  profilePanel= new ProfilePanel(user);
-//                  reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
-//                  mealsPanel = new MealsPanel(user.getUserType());
-//                  allOrdersPanel= new AllOrdersPanel(user,orders);
-//                  mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
-//                  mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
-//                  for (int i = 1 ; i < 16 ; i ++) {
-//                      String name = "meal " + i ;
-//                      String ing = "ing " + i ;
-//                      float price = i ;
-//                      meals.addMeal(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
-//                  }
-//                  mealsPanel.fillMainMenu(meals.getMeals());
-//                  MealsController mealsController = new MealsController(meals, mealsPanel);
-
-
-        loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
+        loginAndRegisterManager = new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
 
         actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 user =  loginAndRegisterManager.loginCheck();
-                if(user!=null)
-                {
+                if(user!=null) {
                     loginAndRegistrationFrame.dispose();
                     profilePanel= new ProfilePanel(user);
                     profileController = new ProfileController(users,profilePanel);
@@ -72,7 +48,24 @@ public class MainController {
                     mealsPanel = new MealsPanel(user.getUserType());
                     allOrdersPanel= new AllOrdersPanel(user,orders);
                     mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
+                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
                     profilePanel.logoutButton.addActionListener(actionListener1);
+
+                    ActionListener addMealActionListener = new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (mainFrame.mealsPanel.getSidePanel().mealInfoValid()){
+                                Meal newMeal = mainFrame.mealsPanel.getNewMealInfo() ;
+                                // add to model + write
+                                meals.addMeal(newMeal);
+                                meals.writerThread();
+                                // edit view + add it to hashmap
+                                mainFrame.mealsPanel.getSidePanel().newMealReset();
+                                mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
+                            }
+                        }};
+                    mainFrame.mealsPanel.getSidePanel().getAddMealButton().addActionListener(addMealActionListener);
+
                 }
 
             }
@@ -85,9 +78,7 @@ public class MainController {
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
                 loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
                 loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(actionListener);
-
             }
-
         };
 
         loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(actionListener);

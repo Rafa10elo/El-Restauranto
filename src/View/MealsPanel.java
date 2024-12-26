@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MealsPanel extends JPanel {
     JPanel mainMenu;
@@ -30,16 +29,21 @@ public class MealsPanel extends JPanel {
         JScrollPane scrollMainMenu = new JScrollPane(mainMenu);
         scrollMainMenu.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollMainMenu, BorderLayout.CENTER) ;
-
     }
 
     public void fillMainMenu(ArrayList<Meal> meals) {
-        int rowsNum = meals.size() / 3 + 1;
+        mainMenu.removeAll();
+        int rowsNum ;
+        if (meals.size() % 3 == 0){
+            rowsNum = meals.size() / 3 ;
+        }else{
+            rowsNum = meals.size() / 3 + 1;
+        }
         int gap = 10 ;
-        mainMenu.setLayout(new GridLayout(rowsNum, 3, gap, gap));
+        mainMenu.setLayout(new GridLayout(0, 3, gap, gap));
 
         for (Meal m : meals){
-            MealPanel mealPanel = addMealTOMenu(m) ;
+            MealPanel mealPanel = createMealPanelTOMenu(m) ;
             mainMenu.add(mealPanel);
             allMeals.put(m, mealPanel) ;
         }
@@ -47,119 +51,13 @@ public class MealsPanel extends JPanel {
         int panelWidth = 900; // 900 - gap * 2 --> cell width
         int panelHeight = 350 * rowsNum + (rowsNum - 1) * gap ; // cell Height * rowsNum + (rowsNum - 1) * gap
         mainMenu.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        mainMenu.revalidate();
+        mainMenu.repaint();
 
     }
 
-    MealPanel addMealTOMenu(Meal meal) {
+    MealPanel createMealPanelTOMenu(Meal meal) {
         MealPanel mealPanel = new MealPanel(meal) ;
-//        mealPanel.setSize(new Dimension(300, 400));
-//        mealPanel.setLayout(new BorderLayout());
-//        mealPanel.setBackground(MainFrame.darkGray);
-//        mealPanel.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-//
-//        // meal image
-//        JPanel mealPhoto = new JPanel() ;
-//        mealPhoto.setBackground(MainFrame.darkGray);
-//        Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(mealPanel.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
-//        JLabel imgLabel = new JLabel(new ImageIcon(img)) ;
-//        mealPhoto.add(imgLabel) ;
-//
-//        // meal info panel
-//        JPanel infoPanel = new JPanel(new GridBagLayout()) ;
-//        infoPanel.setBackground(MainFrame.darkGray);
-//        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.insets = new Insets(0, 10, 10, 0) ;
-//
-//        //the info :
-//        // meal name :
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel name = new JLabel("Name");
-//        name.setForeground(MainFrame.orange);
-//        name.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(name, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel mealName = new JLabel(":   " + meal.getMealName());
-//        mealName.setForeground(MainFrame.orange);
-//        mealName.setFont(MainFrame.fontBold.deriveFont(20f));
-//        infoPanel.add(mealName, gbc);
-//
-//
-//        // meal price :
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel price = new JLabel("Price");
-//        price.setForeground(MainFrame.orange);
-//        price.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(price, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 1;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel mealPrice = new JLabel(":   " +String.valueOf(meal.getPrice()) + " $");
-//        mealPrice.setForeground(MainFrame.orange);
-//        mealPrice.setFont(MainFrame.fontBold.deriveFont(20f));
-//        infoPanel.add(mealPrice, gbc);
-//
-//
-//        //meal ingredients :
-//        gbc.gridx = 0;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.anchor = GridBagConstraints.NORTH ;
-//        JLabel ingredients = new JLabel("Ingredients ");
-//        ingredients.setForeground(MainFrame.orange);
-//        ingredients.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(ingredients, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 2;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 2.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JTextArea mealIngredients = new JTextArea(":   " +meal.getIngredients());
-//        mealIngredients.setBackground(MainFrame.darkGray);
-//        mealIngredients.setLineWrap(true);
-//        mealIngredients.setWrapStyleWord(true);
-//        mealIngredients.setEditable(false);
-//        mealIngredients.setForeground(MainFrame.orange);
-//        mealIngredients.setFont(MainFrame.fontBold.deriveFont(20f));
-//        mealIngredients.setBorder(BorderFactory.createEmptyBorder());
-//        JScrollPane scrollPane = new JScrollPane(mealIngredients);
-//        scrollPane.setBorder(BorderFactory.createEmptyBorder());
-//        infoPanel.add(scrollPane, gbc);
-//
-//        // adding the photo and info
-//        mealPanel.add(mealPhoto, BorderLayout.NORTH) ;
-//        mealPanel.add(infoPanel, BorderLayout.CENTER);
 
         // adding mouse listener to make the panel act like a button 🐰
 //        mealPanel.addMouseListener(new MouseAdapter() {
@@ -188,13 +86,10 @@ public class MealsPanel extends JPanel {
 ////                infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
 //            }
 //        });
-
-        this.revalidate();
-        this.repaint();
         return mealPanel;
     }
 
-    void addMealToOrder(Meal meal) {
+    void addMealPanelToOrder(Meal meal) {
         if (sidePanel.meals.containsKey(meal)) {
             // edit cnt in meals hashmap
             sidePanel.meals.put(meal, sidePanel.meals.getOrDefault(meal, 0) + 1);
@@ -453,29 +348,43 @@ public class MealsPanel extends JPanel {
         sidePanel.repaint();
     }
 
+    // for add new meal
+    public Meal getNewMealInfo () {
+        Meal meal = new Meal(sidePanel.getNameField(), sidePanel.getIngredientsField(),
+                sidePanel.getPriceField(), sidePanel.getImgSrcField());
+        return meal;
+    }
+
     public SidePanel getSidePanel() {
         return sidePanel;
     }
+
+    // for edit meal
+    public JPanel getMainMenu() {
+        return mainMenu;
+    }
+
     public Meal getCurrentMeal() {
         return currentEditMeal ;
     }
-    public void resetCurrentMeal() {
-        currentEditMeal = null;
-    }
     public Meal getEditedMealInfo() {
         Meal meal = new Meal(sidePanel.getNameEdit().getText(), sidePanel.getIngredientsEdit().getText(),
-                Float.parseFloat(sidePanel.getPriceEdit().getText()), sidePanel.imgSrcEdit.getText()) ;
+                Float.parseFloat(sidePanel.getPriceEdit().getText()), sidePanel.getImgSrcEdit().getText()) ;
         return meal;
-    }
-    public void editMeals(Meal oldMeal, Meal newMeal, MealPanel panel){
-        allMeals.remove(oldMeal);
-        allMeals.put(newMeal, panel) ;
     }
     public MealPanel getMealPanel(Meal meal) {
         return allMeals.get(meal) ;
     }
     public HashMap<Meal, MealPanel> getAllMeals () {
         return allMeals ;
+    }
+
+    public void resetCurrentMeal() {
+        currentEditMeal = null;
+    }
+    public void editMeals(Meal oldMeal, Meal newMeal, MealPanel panel){
+        allMeals.remove(oldMeal);
+        allMeals.put(newMeal, panel) ;
     }
 
 }

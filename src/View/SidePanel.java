@@ -4,12 +4,10 @@ import Model.Meal;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.text.EditorKit;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 public class SidePanel extends JPanel {
 
@@ -396,18 +394,18 @@ public class SidePanel extends JPanel {
             addMeal.setBorder(new LineBorder(MainFrame.orange, 2));
 
             // this action listener is just for fun ... it should be in the controller  x 2
-            addMeal.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                        System.out.println(Float.parseFloat(priceField.getText()));
-                    if (mealInfoValid()){
-                        System.out.println("tmmmmmm");
-                        newMenuTextFieldsReset();
-
-                    }else
-                        System.out.println("wrong");
-                }
-            });
+//            addMeal.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                        System.out.println(Float.parseFloat(priceField.getText()));
+//                    if (mealInfoValid()){
+//                        System.out.println("tmmmmmm");
+//                        newMenuTextFieldsReset();
+//
+//                    }else
+//                        System.out.println("wrong");
+//                }
+//            });
             add(addMeal, BorderLayout.SOUTH) ;
         }
 
@@ -418,7 +416,6 @@ public class SidePanel extends JPanel {
                 || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
         if (!nameField.getText().equals("name") && priceField.getText().matches("\\d+(\\.\\d+)?") &&
                 !ingredientsField.getText().equals("ingredients") && temp.exists() && tempIsImg){
-            newMenuTextFieldsReset();
             return true;
         }else{
             if (nameField.getText().isEmpty() || nameField.getText().equals("name")){
@@ -437,7 +434,7 @@ public class SidePanel extends JPanel {
         }
 
     }
-    public void newMenuTextFieldsReset() {
+    public void newMealReset() {
         nameField.setText("name");
         nameField.setForeground(MainFrame.extraLightGray);
         priceField.setText("price");
@@ -884,6 +881,9 @@ public class SidePanel extends JPanel {
 
     }
 
+
+    // getters
+        // edit info
     public JTextField getNameEdit() {
         return nameEdit;
     }
@@ -902,5 +902,26 @@ public class SidePanel extends JPanel {
 
     public JButton getEditMealButton() {
         return editMeal;
+    }
+
+        // new meal info
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public Float getPriceField() {
+        return Float.parseFloat(priceField.getText());
+    }
+
+    public String  getIngredientsField() {
+        return ingredientsField.getText();
+    }
+
+    public String getImgSrcField() {
+        return imgSrcField.getText();
+    }
+
+    public JButton getAddMealButton() {
+        return addMeal;
     }
 }

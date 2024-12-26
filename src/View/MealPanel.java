@@ -16,7 +16,7 @@ public class MealPanel extends JPanel {
     JTextArea mealIngredients ;
     public MealPanel (Meal meal) {
         this.meal = meal ;
-        setSize(new Dimension(300, 400));
+//        setSize(new Dimension(250, 400));
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
         setBorder(new LineBorder(MainFrame.extraLightGray, 1));
