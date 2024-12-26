@@ -27,17 +27,16 @@ public class OrderTimerManager {
         }
         // هاد البني ادم رح يخزن  الtask الي عمبيتم تشغيلها
         final ScheduledFuture<?>[] taskHolder = new ScheduledFuture<?>[1];
+
         taskHolder[0] = executor.scheduleAtFixedRate(() -> {
             long remainingTime = calculateDelay(order.getTimeOfDelivery());
             if (remainingTime <= 0) {
                 order.setState(Order.Status.DELIVERED);
-
                 System.out.println("order delivired");
-
                 taskHolder[0].cancel(false);
             } else {
                 order.setState(Order.Status.PREPARED);
-                System.out.println("time remaining for Order" + remainingTime );
+                System.out.println("time remaining for Order "+ order.getTotalPrice() + " time : " +remainingTime );
             }
         },0,1,TimeUnit.SECONDS);
     }

@@ -19,13 +19,42 @@ import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 //import java.util.Timer;
 
 
 public class Main {
 
-
+//ManagmentManagmenterForManagingTheManagers
     public static void main(String[] args) {
+
+        HashMap<Meal, Integer> meals = new HashMap<>();
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+      LocalDateTime time = LocalDateTime.now();
+        Order order1 = new Order(meals,40, 23,Order.Status.DELIVERED,time.plusSeconds(20),"wqe");
+        Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
+        Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusSeconds(10),"wqe");
+        Order order4 = new Order(meals,10, 23,Order.Status.DELIVERED,time.plusSeconds(5),"wqe");
+
+        OrderTimerManager orderTimerManager = new OrderTimerManager();
+        orderTimerManager.showRemainingTime(order1);
+        orderTimerManager.showRemainingTime(order2);
+
+        orderTimerManager.showRemainingTime(order3);
+
+        orderTimerManager.showRemainingTime(order4);
+
 
 
 //        Users users= new Users();
@@ -149,47 +178,47 @@ public class Main {
 //        loginAndRegistrationFrame.setVisible(true);
 
         // just a simple test AYA, to try the meals panel ... disfruta 🤌 (ya3ni enjoy in spanish)
-        ArrayList<Meal> mealsAya = new ArrayList<>();
-        for (int i = 1 ; i < 16 ; i ++) {
-            String name = "meal " + i ;
-            String ing = "ing " + i ;
-            float price = i ;
-            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
-        }
-
-        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
-        ProfilePanel profilePanel= new ProfilePanel(user);
-
-        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
-
-        HashMap<Meal, Integer> meals = new HashMap<>();
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
-        Order order2 = new Order(meals,15, Order.Status.CANCELED);
-        Order order3 = new Order(meals,5, Order.Status.PREPARED );
-        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
-        ArrayList<Order> orders = new ArrayList<>();
-        orders.add(order1);
-        orders.add(order2);
-        orders.add(order3);
-        orders.add(order4);
-
-        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
-
-        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
-        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
-        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+//        ArrayList<Meal> mealsAya = new ArrayList<>();
+//        for (int i = 1 ; i < 16 ; i ++) {
+//            String name = "meal " + i ;
+//            String ing = "ing " + i ;
+//            float price = i ;
+//            mealsAya.add(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
+//        }
+//
+//        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",0);
+//        ProfilePanel profilePanel= new ProfilePanel(user);
+//
+//        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
+//
+//        HashMap<Meal, Integer> meals = new HashMap<>();
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//        Order order1 = new Order(meals,10, Order.Status.DELIVERED);
+//        Order order2 = new Order(meals,15, Order.Status.CANCELED);
+//        Order order3 = new Order(meals,5, Order.Status.PREPARED );
+//        Order order4 = new Order(meals,10, Order.Status.DELIVERED);
+//        ArrayList<Order> orders = new ArrayList<>();
+//        orders.add(order1);
+//        orders.add(order2);
+//        orders.add(order3);
+//        orders.add(order4);
+//
+//        AllOrdersPanel allOrdersPanel = new AllOrdersPanel(orders);
+//
+//        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
+//        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
+//        mainFrame.mealsPanel.fillMainMenu(mealsAya);
         //---------------------------------------------------------------------------just for fun
 //        mainFrame.mealsPanel.getSidePanel().createPaymentDialog();
 //        mainFrame.mealsPanel.getSidePanel().cancelPay.addActionListener(new ActionListener() {
