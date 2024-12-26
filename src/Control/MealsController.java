@@ -14,6 +14,10 @@ public class MealsController {
         this.meals =meals;
         this.mealsPanel = mealsPanel;
 
+        for (int i = 0; i < mealsPanel.getAllMeals().size() ; i ++) {
+
+        }
+
         mealsPanel.getSidePanel().getEditMealButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,9 +34,6 @@ public class MealsController {
                         mealsPanel.resetCurrentMeal();
                     }
                 }
-
-
-
             }
         });
     }

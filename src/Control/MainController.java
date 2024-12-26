@@ -29,7 +29,7 @@ public class MainController {
         meals.loadFromFile();
         report.loadFromFile();
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
-        loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
+        loginAndRegisterManager  =new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
         loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,11 +42,21 @@ public class MainController {
                   mealsPanel = new MealsPanel(user.getUserType());
                   allOrdersPanel= new AllOrdersPanel(user,orders);
                   mainFrame = new MainFrame(user.getUserType(),profilePanel,reportPanel,allOrdersPanel);
+                  mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
+                  for (int i = 1 ; i < 16 ; i ++) {
+                      String name = "meal " + i ;
+                      String ing = "ing " + i ;
+                      float price = i ;
+                      meals.addMeal(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
+                  }
+                  mealsPanel.fillMainMenu(meals.getMeals());
+                  MealsController mealsController = new MealsController(meals, mealsPanel);
 
               }
 
             }
         });
+
 
 
 

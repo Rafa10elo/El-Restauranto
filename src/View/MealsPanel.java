@@ -162,32 +162,32 @@ public class MealsPanel extends JPanel {
 //        mealPanel.add(infoPanel, BorderLayout.CENTER);
 
         // adding mouse listener to make the panel act like a button 🐰
-        mealPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (userType == 0) {
-                    addMealToOrder(mealPanel.meal);
-                    System.out.println("adding meal to the order");
-                }else{
-                    //-----------------------------------------------------------------------------------------------------edit, delete meal dialog and Meals arraylist
-                    sidePanel.createEditMealDialog(mealPanel.meal);
-                    currentEditMeal = mealPanel.meal;
-                    System.out.println("editing the meal dialog");
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(new Color(91, 94, 102), 1));
-//                infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(91, 94, 102)));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-//                infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
-            }
-        });
+//        mealPanel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if (userType == 0) {
+//                    addMealToOrder(mealPanel.meal);
+//                    System.out.println("adding meal to the order");
+//                }else{
+//                    //-----------------------------------------------------------------------------------------------------edit, delete meal dialog and Meals arraylist
+//                    sidePanel.createEditMealDialog(mealPanel.meal);
+//                    currentEditMeal = mealPanel.meal;
+//                    System.out.println("editing the meal dialog");
+//                }
+//            }
+//
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//                mealPanel.setBorder(new LineBorder(new Color(91, 94, 102), 1));
+////                infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(91, 94, 102)));
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                mealPanel.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+////                infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
+//            }
+//        });
 
         this.revalidate();
         this.repaint();
@@ -474,4 +474,8 @@ public class MealsPanel extends JPanel {
     public MealPanel getMealPanel(Meal meal) {
         return allMeals.get(meal) ;
     }
+    public HashMap<Meal, MealPanel> getAllMeals () {
+        return allMeals ;
+    }
+
 }
