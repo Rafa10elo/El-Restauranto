@@ -2,6 +2,8 @@ package View;
 
 import Model.Meal;
 import Model.Order;
+import Model.Orders;
+import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.Map;
 
 public class AllOrdersPanel extends JPanel {
 
-    public AllOrdersPanel (ArrayList<Order> orders){
+    public AllOrdersPanel (User user, Orders orders){
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -31,12 +33,12 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
         miniAllOrdersPanel.setBackground(MainFrame.darkGray);
         int cnt=0;
-        for(Order order: orders){
+        for(Order order: orders.getAllOrders()){
            cnt++;
         }
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
         for(int i=0; i<cnt;i++){
-            JPanel orderPanel= createOrderPanel(orders.get(i),i+1);
+            JPanel orderPanel= createOrderPanel(orders.getAllOrders().get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
             miniAllOrdersPanel.add(orderPanel);
             miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));

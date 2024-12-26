@@ -1,4 +1,5 @@
 import Control.LoginAndRegisterManager;
+import Control.MainController;
 import Control.OrderTimerManager;
 import Model.Meal;
 import Model.Report;
@@ -28,34 +29,37 @@ public class Main {
 //ManagmentManagmenterForManagingTheManagers
     public static void main(String[] args) {
 
-        HashMap<Meal, Integer> meals = new HashMap<>();
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
-        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
-      LocalDateTime time = LocalDateTime.now();
-        Order order1 = new Order(meals,40, 23,Order.Status.DELIVERED,time.plusSeconds(20),"wqe");
-        Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
-        Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusSeconds(10),"wqe");
-        Order order4 = new Order(meals,10, 23,Order.Status.DELIVERED,time.plusSeconds(5),"wqe");
-
-        OrderTimerManager orderTimerManager = new OrderTimerManager();
-        orderTimerManager.showRemainingTime(order1);
-        orderTimerManager.showRemainingTime(order2);
-
-        orderTimerManager.showRemainingTime(order3);
-
-        orderTimerManager.showRemainingTime(order4);
+        MainController mainController =new MainController();
 
 
+//        HashMap<Meal, Integer> meals = new HashMap<>();
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//      LocalDateTime time = LocalDateTime.now();
+//        Order order1 = new Order(meals,40, 23,Order.Status.DELIVERED,time.plusSeconds(20),"wqe");
+//        Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
+//        Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusSeconds(10),"wqe");
+//        Order order4 = new Order(meals,10, 23,Order.Status.DELIVERED,time.plusSeconds(5),"wqe");
+//
+//        OrderTimerManager orderTimerManager = new OrderTimerManager();
+//        orderTimerManager.showRemainingTime(order1);
+//        orderTimerManager.showRemainingTime(order2);
+//
+//        orderTimerManager.showRemainingTime(order3);
+//
+//        orderTimerManager.showRemainingTime(order4);
+//
+//
 
 //        Users users= new Users();
 //users.loadFromFile();
