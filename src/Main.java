@@ -29,9 +29,38 @@ public class Main {
 
 //ManagmentManagmenterForManagingTheManagers
     public static void main(String[] args) {
+//
+//        HashMap<Meal, Integer> meals = new HashMap<>();
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("boop", "Salami", 4300, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bap", "Salami", 34540, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("bop", "Salami", 35400, "src/View/Images/profilePicture.png"), 10);
+//        meals.put(new Meal("Pasta", "Sauce", 24500, "src/View/Images/profilePicture.png"), 20);
+//      LocalDateTime time = LocalDateTime.now();
+//        Order order1 = new Order(meals,40, 23,Order.Status.DELIVERED,time.plusSeconds(20),"wqe");
+//        Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
+//        Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusSeconds(10),"wqe");
+//        Order order4 = new Order(meals,10, 23,Order.Status.DELIVERED,time.plusSeconds(5),"wqe");
+//
+//        OrderTimerManager orderTimerManager = new OrderTimerManager();
+//        orderTimerManager.showRemainingTime(order1);
+//        orderTimerManager.showRemainingTime(order2);
+//
+//        orderTimerManager.showRemainingTime(order3);
+//
+//        orderTimerManager.showRemainingTime(order4);
+
 
 
         MainController mainController =new MainController();
+
 
 //        HashMap<Meal, Integer> meals = new HashMap<>();
 //        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
@@ -193,7 +222,11 @@ public class Main {
 //            mealsC.addMeal(new Meal(name, ing, price, "src/pics/" + i + ".jpg"));
 //        }
 //
+
 //        User user = new User("hamoudeh","mumu.2005@gmail.com","anaHamoudeh1234",1);
+
+//        User user = new User("hamoudeh","mumu.2005@gmail.com","000",0);
+
 //        ProfilePanel profilePanel= new ProfilePanel(user);
 //
 //        ReportPanel reportPanel = new ReportPanel(new Model.Report(54,5562),50,19);
@@ -225,8 +258,10 @@ public class Main {
 //
 //        // user type : 0 -> customer (order panel)      1,2 -> worker, boss (add meal panel)
 //        MainFrame mainFrame = new MainFrame(user.getUserType(), profilePanel, reportPanel, allOrdersPanel);
-//        mainFrame.mealsPanel.fillMainMenu(mealsC.getMeals());
-        //---------------------------------------------------------------------------just for fun
+
+//        mainFrame.mealsPanel.fillMainMenu(mealsAya);
+//        //---------------------------------------------------------------------------just for fun
+
 //        mainFrame.mealsPanel.getSidePanel().createPaymentDialog();
 //        mainFrame.mealsPanel.getSidePanel().cancelPay.addActionListener(new ActionListener() {
 //
@@ -235,7 +270,7 @@ public class Main {
 //                mainFrame.mealsPanel.getSidePanel().paymentDialog.dispose();
 //            }
 //        });
-
+//
 //        LoginAndRegistrationFrame loginAndRegistrationFrame= new LoginAndRegistrationFrame();
-    }
-}
+
+}}
