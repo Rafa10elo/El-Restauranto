@@ -30,6 +30,7 @@ public class ProfilePanel extends JPanel {
     private JTextField editUsernameTextField;
     private User user;
     public JButton editProfileButton;
+    public JButton logoutButton;
     public JPanel mainPanel;
 
     public ProfilePanel(User user) {
@@ -69,7 +70,7 @@ public class ProfilePanel extends JPanel {
         editProfileButton.setBackground(MainFrame.orange);
         editProfileButton.setForeground(MainFrame.darkGray);
 
-        JButton logoutButton = new JButton("Logout");
+        logoutButton = new JButton("Logout");
         logoutButton.setFont(MainFrame.fontBold.deriveFont(40F));
         logoutButton.setFocusPainted(false);
         logoutButton.setBackground(MainFrame.orange);
@@ -85,75 +86,12 @@ public class ProfilePanel extends JPanel {
         add(cardPanel, BorderLayout.CENTER);
 
         //main panel
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridBagLayout());
-        mainPanel.setBackground(MainFrame.darkGray);
+         mainPanel = fillProfile(user);
+        //edit panel
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        JLabel welcomeLabel = new JLabel("Welcome, "+user.getUserName()+" !");
-        welcomeLabel.setFont(MainFrame.fontBold.deriveFont(60F));
-        welcomeLabel.setForeground(MainFrame.orange);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        mainPanel.add(welcomeLabel, gbc);
-
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(MainFrame.fontBold.deriveFont(40F));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        mainPanel.add(usernameLabel, gbc);
-
-        JLabel usernameValue = new JLabel(user.getUserName());
-        usernameValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        mainPanel.add(usernameValue, gbc);
-
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(MainFrame.fontBold.deriveFont(40F));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        mainPanel.add(emailLabel, gbc);
-
-        JLabel emailValue = new JLabel(user.getEmail());
-        emailValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        mainPanel.add(emailValue, gbc);
-
-        JLabel userTypeLabel = new JLabel("User:");
-        userTypeLabel.setFont(MainFrame.fontBold.deriveFont(40F));
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        mainPanel.add(userTypeLabel, gbc);
-
-        String userType= "";
-        switch (user.getUserType()){
-            case 0:
-                userType="Customer";
-                break;
-            case 1:
-                userType="Employee";
-                break;
-            case 2:
-                userType="Manager";
-                break;
-        }
-
-        JLabel userTypeValue = new JLabel(userType);
-        userTypeValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        mainPanel.add(userTypeValue, gbc);
-
-        //edit panel
         JPanel editPanel = new JPanel();
         editPanel.setLayout(new GridBagLayout());
         editPanel.setBackground(MainFrame.darkGray);
@@ -166,7 +104,7 @@ public class ProfilePanel extends JPanel {
         gbc.gridwidth = 1;
         editPanel.add(editUsernameLabel, gbc);
 
-        JTextField editUsernameTextField = new JTextField(user.getUserName(), 15);
+        editUsernameTextField = new JTextField(user.getUserName(), 15);
         editUsernameTextField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -181,7 +119,7 @@ public class ProfilePanel extends JPanel {
         gbc.gridwidth = 1;
         editPanel.add(editEmailLabel, gbc);
 
-        JTextField editEmailField = new JTextField(user.getEmail(), 15);
+        editEmailField = new JTextField(user.getEmail(), 15);
         editEmailField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -196,7 +134,7 @@ public class ProfilePanel extends JPanel {
         gbc.gridwidth = 1;
         editPanel.add(editPasswordLabel, gbc);
 
-        JTextField editPasswordField = new JTextField(user.getPassword(), 15);
+        editPasswordField = new JTextField(user.getPassword(), 15);
         editPasswordField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -279,13 +217,13 @@ public class ProfilePanel extends JPanel {
 //        });
 
 
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginAndRegistrationFrame loginAndRegistrationFrame=new LoginAndRegistrationFrame();
-
-            }
-        });
+//        logoutButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                LoginAndRegistrationFrame loginAndRegistrationFrame=new LoginAndRegistrationFrame();
+//
+//            }
+//        });
     }
     public String getEditedUsername(){return editUsernameTextField.getText();}
     public String getEditedEmail(){return editEmailField.getText();}
@@ -299,5 +237,77 @@ public class ProfilePanel extends JPanel {
 
     public JPanel getCardPanel() {
         return cardPanel;
+    }
+
+    public JPanel fillProfile(User user){
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setBackground(MainFrame.darkGray);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel welcomeLabel = new JLabel("Welcome, "+user.getUserName()+" !");
+        welcomeLabel.setFont(MainFrame.fontBold.deriveFont(60F));
+        welcomeLabel.setForeground(MainFrame.orange);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(welcomeLabel, gbc);
+
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(usernameLabel, gbc);
+
+        JLabel usernameValue = new JLabel(user.getUserName());
+        usernameValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        mainPanel.add(usernameValue, gbc);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        mainPanel.add(emailLabel, gbc);
+
+        JLabel emailValue = new JLabel(user.getEmail());
+        emailValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        mainPanel.add(emailValue, gbc);
+
+        JLabel userTypeLabel = new JLabel("User:");
+        userTypeLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        mainPanel.add(userTypeLabel, gbc);
+
+        String userType= "";
+        switch (user.getUserType()){
+            case 0:
+                userType="Customer";
+                break;
+            case 1:
+                userType="Employee";
+                break;
+            case 2:
+                userType="Manager";
+                break;
+        }
+
+        JLabel userTypeValue = new JLabel(userType);
+        userTypeValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        mainPanel.add(userTypeValue, gbc);
+
+        return mainPanel;
     }
 }

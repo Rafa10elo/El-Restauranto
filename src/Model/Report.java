@@ -104,7 +104,7 @@ public class Report {
         }
     }
 
-    public static Report loadFromFile() {
+    public  Report loadFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
             int numberOfOrders = Integer.parseInt(reader.readLine());
             double totalMoney = Double.parseDouble(reader.readLine());

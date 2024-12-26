@@ -13,31 +13,33 @@ public class ProfileController {
     Users users;
     ProfilePanel profilePanel;
     User wantedUser;
-    JButton editAndSaveButton;
+
     ProfileController(Users users ,ProfilePanel profilePanel)
     {
         this.users = users;
         this.profilePanel =profilePanel;
         wantedUser= profilePanel.getUser();
-        editAndSaveButton= profilePanel.editProfileButton;
-        editAndSaveButton.addActionListener(new ActionListener() {
+        profilePanel.editProfileButton.addActionListener(new ActionListener() {
             private boolean inEditMode = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (inEditMode) {
                     // Switch back to main panel
-                    profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "main");
+
                     updateUser();
-                    editAndSaveButton.setText("Edit");
+                    profilePanel.mainPanel = profilePanel.fillProfile(wantedUser);
+                    profilePanel.getCardPanel().add(profilePanel.mainPanel, "main");
+                    profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "main");
+                    profilePanel.editProfileButton.setText("Edit");
                     inEditMode = false;
                 } else {
                     // Switch to edit panel
-                    String passwordDialog = JOptionPane.showInputDialog(profilePanel.mainPanel, "Enter your password:");
-                    if(Objects.equals(passwordDialog, wantedUser.getPassword())){
+                    String passwordDialog = JOptionPane.showInputDialog(profilePanel.fillProfile(wantedUser), "Enter your password:");
+                    if(passwordDialog.equals(wantedUser.getPassword())){
                         profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "edit");
                         inEditMode = true;
-                        editAndSaveButton.setText("Save");
+                        profilePanel.editProfileButton.setText("Save");
                     }
                     else
                         JOptionPane.showMessageDialog(profilePanel.mainPanel, "Access Denied", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -48,13 +50,15 @@ public class ProfileController {
 
     }
      void updateUser(){
-        if(users.findUser(profilePanel.getName())!=null){
+        User user = users.findUser(profilePanel.getEditedUsername());
+        if(users.findUser(profilePanel.getEditedUsername())!=null){
             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "Username already taken!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             wantedUser.setUserName(profilePanel.getEditedUsername());
             wantedUser.setEmail(profilePanel.getEditedEmail());
             wantedUser.setPassword(profilePanel.getEditedPassword());
+            users.writerThread();
         }
     }
 
