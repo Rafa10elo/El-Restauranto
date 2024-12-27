@@ -1,6 +1,8 @@
 package View;
 
 import Model.Meal;
+import Model.User;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -34,31 +36,29 @@ public class SidePanel extends JPanel {
     JTextField creditCardId ;
     JButton pay = new JButton();
     JButton cancelPay = new JButton();
-
-    public SidePanel(int userType) {
+    public SidePanel(User user) {
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
         setPreferredSize(new Dimension(350, this.getHeight()));
         setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, MainFrame.orange));
 
         // top panel
-        JPanel topPanel = new JPanel() ;
+        JPanel topPanel = new JPanel();
         topPanel.setBackground(MainFrame.darkGray);
         topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, MainFrame.orange));
 
-        if (userType == 0){
+        if (user == 0) {
             // Your order :
             JLabel youOrder = new JLabel("Your order :");
             youOrder.setForeground(MainFrame.orange);
             youOrder.setFont(MainFrame.fontBold);
-            topPanel.add(youOrder) ;
-        }
-        else{
+            topPanel.add(youOrder);
+        } else {
             // Add new meal :
             JLabel newMeal = new JLabel("Add new meal :");
             newMeal.setForeground(MainFrame.orange);
             newMeal.setFont(MainFrame.fontBold);
-            topPanel.add(newMeal) ;
+            topPanel.add(newMeal);
         }
         add(topPanel, BorderLayout.NORTH);
 
@@ -72,13 +72,12 @@ public class SidePanel extends JPanel {
             centerPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
             centerPanel.setBackground(MainFrame.darkGray);
             add(new JScrollPane(centerPanel), BorderLayout.CENTER);
-        }
-        else {
+        } else {
             // name, price,ingredients and img path text fields
             centerPanel.setLayout(new GridBagLayout());
             centerPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
             centerPanel.setBackground(MainFrame.darkGray);
-            GridBagConstraints gbc = new GridBagConstraints() ;
+            GridBagConstraints gbc = new GridBagConstraints();
 
             // name
             gbc.gridx = 0;
@@ -114,6 +113,7 @@ public class SidePanel extends JPanel {
                     }
                     nameField.setBorder(new LineBorder(MainFrame.orange, 1));
                 }
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     if (nameField.getText().isEmpty()) {
@@ -123,7 +123,7 @@ public class SidePanel extends JPanel {
                     nameField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
-            centerPanel.add(nameField, gbc) ;
+            centerPanel.add(nameField, gbc);
 
             //price :
             gbc.gridx = 0;
@@ -159,6 +159,7 @@ public class SidePanel extends JPanel {
                         priceField.setForeground(MainFrame.orange);
                     }
                 }
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     priceField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
@@ -173,10 +174,12 @@ public class SidePanel extends JPanel {
                 public void keyReleased(KeyEvent e) {
                     checkInput();
                 }
+
                 @Override
                 public void keyTyped(KeyEvent e) {
                     checkInput();
                 }
+
                 public void checkInput() {
                     String text = priceField.getText();
                     if (!text.matches("\\d+(\\.\\d+)?")) {
@@ -188,7 +191,7 @@ public class SidePanel extends JPanel {
                     }
                 }
             });
-            centerPanel.add(priceField, gbc) ;
+            centerPanel.add(priceField, gbc);
 
             // ingredients
             gbc.gridx = 0;
@@ -233,7 +236,7 @@ public class SidePanel extends JPanel {
                     ingredientsField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
-            centerPanel.add(ingredientsField, gbc) ;
+            centerPanel.add(ingredientsField, gbc);
 
             // img src
             gbc.gridx = 0;
@@ -270,6 +273,7 @@ public class SidePanel extends JPanel {
                     }
                     imgSrcField.setBorder(new LineBorder(MainFrame.orange, 1));
                 }
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     if (imgSrcField.getText().isEmpty()) {
@@ -279,7 +283,7 @@ public class SidePanel extends JPanel {
                     imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
-            centerPanel.add(imgSrcField, gbc) ;
+            centerPanel.add(imgSrcField, gbc);
 
             add(centerPanel, BorderLayout.CENTER);
         }
@@ -302,30 +306,30 @@ public class SidePanel extends JPanel {
             gbc.weighty = 2.0;
             gbc.fill = GridBagConstraints.BOTH;
 
-            JPanel totalPricePanel = new JPanel() ;
+            JPanel totalPricePanel = new JPanel();
             totalPricePanel.setBackground(MainFrame.darkGray);
 
-            JLabel totalPriceLabel = new JLabel(" Total Price : " );
+            JLabel totalPriceLabel = new JLabel(" Total Price : ");
             totalPriceLabel.setForeground(MainFrame.orange);
             totalPriceLabel.setFont(MainFrame.fontBold);
             totalPriceLabel.setBackground(MainFrame.darkGray);
-            totalPricePanel.add(totalPriceLabel) ;
+            totalPricePanel.add(totalPriceLabel);
 
             totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
             totalPrice.setBackground(MainFrame.darkGray);
-            totalPricePanel.add(totalPrice) ;
+            totalPricePanel.add(totalPrice);
 
-            JLabel dollar = new JLabel(" $") ;
+            JLabel dollar = new JLabel(" $");
             dollar.setForeground(MainFrame.orange);
             dollar.setFont(MainFrame.fontBold);
             dollar.setBackground(MainFrame.darkGray);
-            totalPricePanel.add(dollar) ;
+            totalPricePanel.add(dollar);
 
 //            JScrollPane scrollPrice = new JScrollPane(totalPricePanel) ;
 //            scrollPrice.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 //            scrollPrice.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-            bottomPanel.add(totalPricePanel, gbc) ;
+            bottomPanel.add(totalPricePanel, gbc);
 
             //tip
             gbc.gridx = 2;
@@ -351,7 +355,7 @@ public class SidePanel extends JPanel {
             tipPanel.add(tipLabel);
             tipPanel.add(tipsCombo);
 
-            bottomPanel.add(tipPanel, gbc) ;
+            bottomPanel.add(tipPanel, gbc);
 
             // submit order
             gbc.gridx = 0;
@@ -370,16 +374,15 @@ public class SidePanel extends JPanel {
             submitOrder.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if ( !orderMeals.isEmpty() )
+                    if (!orderMeals.isEmpty())
                         createPaymentDialog();
                 }
             });
             bottomPanel.add(submitOrder, gbc);
 
             add(bottomPanel, BorderLayout.SOUTH);
-        }
-        else{
-            addMeal  = new JButton("add meal");
+        } else {
+            addMeal = new JButton("add meal");
             addMeal.setPreferredSize(new Dimension(this.getWidth(), 100));
             addMeal.setForeground(MainFrame.orange);
             addMeal.setFont(MainFrame.fontBold);
@@ -399,11 +402,11 @@ public class SidePanel extends JPanel {
 //                        System.out.println("wrong");
 //                }
 //            });
-            add(addMeal, BorderLayout.SOUTH) ;
+            add(addMeal, BorderLayout.SOUTH);
         }
-
     }
-    public boolean mealInfoValid(){
+    public boolean mealInfoValid() {
+
         File temp = new File(imgSrcField.getText()) ;
         boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
                 || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
