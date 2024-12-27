@@ -16,6 +16,10 @@ public class Meals {
     public boolean deleteMeal(String mealName) {
         return meals.removeIf(meal -> meal.mealName.equals(mealName));
     }
+    public boolean deleteMeal(Meal meal) {
+        return meals.removeIf(meal :: equals);
+    }
+
 
     public boolean modifyMeal(String mealName, Meal updatedMeal) {
         for (int i = 0; i < meals.size(); i++) {
@@ -27,11 +31,13 @@ public class Meals {
         return false;
     }
 
-    public boolean modifyMeal(int mealIndex, Meal updatedMeal) {
-            if (mealIndex >=0 && mealIndex < meals.size()) {
-                meals.set(mealIndex, updatedMeal);
+    public boolean modifyMeal(Meal oldMeal, Meal updatedMeal) {
+        for (int i = 0; i < meals.size(); i++){
+            if (meals.get(i) == oldMeal) {
+                meals.set(i, updatedMeal);
                 return true;
             }
+        }
         return false;
     }
 

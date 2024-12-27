@@ -59,7 +59,7 @@ public class Payments {
         }
     }
 
-    public boolean checkTheCreditCard(String cardNumber, double amount) {
+    public boolean checkTheCreditCard(String cardNumber) {
         if (cardNumber.matches("\\d{16}")) {
             return true;
         }
