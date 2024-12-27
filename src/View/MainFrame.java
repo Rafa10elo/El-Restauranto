@@ -26,6 +26,12 @@ public class MainFrame extends JFrame {
     public static Font fontBold = null ;
     public static Font fontRegular = null ;
     public static CardLayout cardLayout ;
+    public static JPanel cardsPanel;
+    public static JButton profileButton;
+    public static JButton mainMenuButton;
+    public static JButton allOrdersButton;
+    public static JButton reportButton;
+
 
     static {
         try {
@@ -66,21 +72,22 @@ public class MainFrame extends JFrame {
         navigationBarPanel.setBackground(lightGray);
         navigationBarPanel.setPreferredSize(new Dimension(this.getWidth() , 50));
         navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, orange));
-        JButton profileButton = createButton("Your Profile");
-        JButton mainMenuButton = createButton("Main Menu") ;
-        JButton allOrdersButton = createButton("All Orders") ;
-        JButton reportButton = createButton("Report") ;
+        profileButton = createButton("Your Profile");
+        mainMenuButton = createButton("Main Menu") ;
+        allOrdersButton = createButton("All Orders") ;
+        reportButton = createButton("Report") ;
 
         navigationBarPanel.add(profileButton);
         navigationBarPanel.add(mainMenuButton);
         navigationBarPanel.add(allOrdersButton);
+        if (userType==2)
         navigationBarPanel.add(reportButton);
 
         add(navigationBarPanel, BorderLayout.NORTH) ;
 
         // cards panel
         cardLayout = new CardLayout();
-        JPanel cardsPanel = new JPanel(cardLayout);
+        cardsPanel = new JPanel(cardLayout);
 
         mealsPanel = new MealsPanel(userType) ;
         cardsPanel.add(mealsPanel,"mealsPanel") ;
@@ -90,39 +97,40 @@ public class MainFrame extends JFrame {
         cardsPanel.add(profilePanel,"profilePanel");
 
         this.reportPanel = reportPanel;
-        cardsPanel.add(reportPanel,"reportPanel");
+        cardsPanel.add(reportPanel, "reportPanel");
 
         this.allOrdersPanel = allOrdersPanel ;
-        cardsPanel.add(allOrdersPanel,"allOrdersPanel") ;
+        cardsPanel.add(allOrdersPanel,"allOrdersPanel");
 
+        //
+//        cardsPanel.add(allOrdersPanel,"allOrdersPanel") ;
+//        profileButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                cardLayout.show(cardsPanel, "profilePanel");
+//            }
+//        });
+//
+//        mainMenuButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                cardLayout.show(cardsPanel, "mealsPanel");
+//            }
+//        });
+//
+//        allOrdersButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                cardLayout.show(cardsPanel, "allOrdersPanel");
+//            }
+//        });
 
-        profileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardsPanel, "profilePanel");
-            }
-        });
-
-        mainMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardsPanel, "mealsPanel");
-            }
-        });
-
-        allOrdersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardsPanel, "allOrdersPanel");
-            }
-        });
-
-        reportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardsPanel, "reportPanel");
-            }
-        });
+//        reportButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                cardLayout.show(cardsPanel, "reportPanel");
+//            }
+//        });
 
         revalidate();
         repaint();

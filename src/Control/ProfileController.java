@@ -28,7 +28,6 @@ public class ProfileController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (inEditMode) {
-
                     updateUser();
 
                 } else {
@@ -49,7 +48,7 @@ public class ProfileController {
     }
      void updateUser(){
         User user = users.findUser(profilePanel.getEditedUsername());
-        if(users.findUser(profilePanel.getEditedUsername())!=null){
+        if(users.findUser(profilePanel.getEditedUsername())!=null&& !profilePanel.getEditedUsername().equals(wantedUser.getUserName())){
             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "Username already taken!", "Error", JOptionPane.INFORMATION_MESSAGE);
         return;
         }

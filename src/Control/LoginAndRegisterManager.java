@@ -45,35 +45,35 @@ public class LoginAndRegisterManager {
            test = 2;
     User user=   users.findUser(username);
     if(user!=null){
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "already existed username ,try another one", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Username already taken, try another one : ", "OOPSIE", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if(!RegisterPanel.isValidEmail(email))
     {
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "incorrect email form try again", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Incorrect email form try again : ", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if(RegisterPanel.passwordCheck(password)== 0)
     {
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "enter a password that contains 8 characters at least", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Enter a password that contains at least 8 characters :", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if (!RegisterPanel.checkingThePass(password,checkPass)){
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "the password confirmation is not correct try again", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "The Password Confirmation is not correct try again", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if (loginAndRegistrationFrame.registerPanel.getChooseEmployee()&&!code.equals("11109"))
     {
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "incorrect employee code please try again.", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Incorrect employee code please try again.", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if (loginAndRegistrationFrame.registerPanel.getChooseManager()&&!code.equals("91011"))
     {
-        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "incorrect manager code please try again.", "error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Incorrect manager code please try again.", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-       JOptionPane.showMessageDialog(loginAndRegistrationFrame, "welcome to our system sir now you can login", "error", JOptionPane.ERROR_MESSAGE);
+       JOptionPane.showMessageDialog(loginAndRegistrationFrame, "Welcome to our Restaurant! You can now login", "YIPPIE", JOptionPane.INFORMATION_MESSAGE);
 
 
        User newUser = new User(username,email,password,test);

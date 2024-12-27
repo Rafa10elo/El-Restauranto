@@ -128,9 +128,10 @@ public class Main {
 //        HashMap<Meal,Integer> hashMap= new HashMap<>();
 //        hashMap.put(new Meal("r","r",3,"3"),1);
 //        Order order = new Order(hashMap,213, Order.Status.DELIVERED);
-//        users.getUsers().get(0).addOrder(order);
+////        users.getUsers().get(0).getOrders().addOrderForUser(users.getUsers().get(0),order);
+//        Report report = new Report(1,2000);
 //        users.saveToFile();
-
+//        report.saveToFile();
 
 //        HashMap<Meal, Integer> map = new HashMap<>();
 //
