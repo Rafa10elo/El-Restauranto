@@ -60,9 +60,6 @@ public class Main {
 ////        orderTimerManager.showRemainingTime(order1);
 ////        orderTimerManager.showRemainingTime(order2);
 
-
-
-
         MainController mainController =new MainController();
 
 

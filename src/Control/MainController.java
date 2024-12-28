@@ -25,8 +25,8 @@ public class MainController {
     ReportPanel reportPanel;
     AllOrdersPanel allOrdersPanel;
     ProfileController profileController;
-    Users users= new Users();
     Orders orders = Orders.getOrdersSing();
+    Users users= new Users();
     Meals meals = new Meals();
     Payments payments = new Payments() ;
     MealsController mealsController;
