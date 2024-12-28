@@ -61,64 +61,67 @@ public class ReportPanel extends JPanel {
         gbc.gridy = 0;
         sidePanel.add(top3Meals,gbc);
         gbc.insets = new Insets(2, 5, 2, 5);
-
-//        actual code is:
-//        List<Map.Entry<Meal, Integer>> meals = report.getSortedOrderedMeals();
-//        this is for run purposes:
-        List<Map.Entry<Meal, Integer>> meals = new ArrayList<>();
-        Meal meal1 = new Meal("Pizza", "Delicious cheesy pizza", 100, "src/View/Images/profilePicture.png");
-        Meal meal2 = new Meal("Burger", "Juicy beef burger", 150, "src/View/Images/profilePicture.png");
-        Meal meal3 = new Meal("Pasta", "Creamy Alfredo pasta", 120, "src/View/Images/profilePicture.png");
-        meals.add(new AbstractMap.SimpleEntry<>(meal1, 1));
-        meals.add(new AbstractMap.SimpleEntry<>(meal2, 2));
-        meals.add(new AbstractMap.SimpleEntry<>(meal3, 3));
-//        till here
-        for(int i=0;i<3;i++){
-            Map.Entry<Meal, Integer> entry = meals.get(i);
-            Meal meal = entry.getKey();
-            JPanel mealPanel = createMealPanel(meal);
-            gbc.gridy=i+1;
-            sidePanel.add(mealPanel,gbc);
+        if(numberOfMeals>3){
+            List<Map.Entry<Meal, Integer>> meals = report.getSortedOrderedMeals();
+            for(int i=0;i<3;i++){
+                Map.Entry<Meal, Integer> entry = meals.get(i);
+                Meal meal = entry.getKey();
+                JPanel mealPanel = createMealPanel(meal);
+                gbc.gridy=i+1;
+                sidePanel.add(mealPanel,gbc);
+            }
         }
+
 
         JPanel mainReportPanel = new JPanel();
         mainReportPanel.setLayout(new GridBagLayout());
         mainReportPanel.setBackground(MainFrame.darkGray);
         add(mainReportPanel,BorderLayout.CENTER);
         gbc.insets = new Insets(4,4,4,4);
-//        JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(report.getNumberOfOrders()),fontBold,fontRegular);
-        JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(129),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
-        gbc.gridx=0;
-        gbc.gridy=0;
-        mainReportPanel.add(ordersStats,gbc);
 
-        JPanel mealsStats = createInfoPanel("Total Number of Meals: ",String.valueOf(numberOfMeals),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
-        gbc.gridx=0;
-        gbc.gridy=1;
-        mainReportPanel.add(mealsStats,gbc);
-//        JPanel usersStats = createInfoPanel("Total Users: ",String.valueOf(numberOfUsers),fontBold,fontRegular);
-        JPanel usersStats = createInfoPanel("Total Users: ",String.valueOf(50),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put total num of users given by order
-        gbc.gridx=0;
-        gbc.gridy=2;
-        mainReportPanel.add(usersStats,gbc);
-//        JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ",report.getMostOrderingUser().getUserName(),fontBold,fontRegular);
-        JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ","Hamoudeh",MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put most ordering user
-        gbc.gridx=0;
-        gbc.gridy=3;
-        mainReportPanel.add(mostFrequentUser,gbc);
+        if(String.valueOf(report.getNumberOfOrders())!=null){
+            JPanel ordersStats = createInfoPanel("Total Number of Orders: ",String.valueOf(report.getNumberOfOrders()),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
+            gbc.gridx=0;
+            gbc.gridy=0;
+            mainReportPanel.add(ordersStats,gbc);
+        }
 
-//        JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ",report.getMostSoldMeal().getMealName(),fontBold,fontRegular);
-        JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ","Shawarma",MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));//here we put top meal
-        gbc.gridx=0;
-        gbc.gridy=4;
-        mainReportPanel.add(mostFrequentlyOrderedMeal,gbc);
 
-        JPanel totalIncome = createInfoPanel("Total income: ",String.valueOf(report.getTotalMoney()),MainFrame.fontBold.deriveFont(22F),MainFrame.fontRegular.deriveFont(22F));
-        totalIncome.setBorder(BorderFactory.createMatteBorder(1,0,1,0,MainFrame.orange));
-        gbc.gridx=0;
-        gbc.gridy=5;
-        mainReportPanel.add(totalIncome,gbc);
+        if(String.valueOf(numberOfMeals)!=null) {
+            JPanel mealsStats = createInfoPanel("Total Number of Meals: ", String.valueOf(numberOfMeals), MainFrame.fontBold.deriveFont(22F), MainFrame.fontRegular.deriveFont(22F));
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            mainReportPanel.add(mealsStats, gbc);
+        }
 
+        if(String.valueOf(numberOfUsers)!=null) {
+            JPanel usersStats = createInfoPanel("Total Users: ", String.valueOf(numberOfUsers), MainFrame.fontBold.deriveFont(22F), MainFrame.fontRegular.deriveFont(22F));
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            mainReportPanel.add(usersStats, gbc);
+        }
+
+        if(report.getMostOrderingUser()!=null) {
+            JPanel mostFrequentUser = createInfoPanel("Most Ordering Customer: ", report.getMostOrderingUser().getUserName(), MainFrame.fontBold.deriveFont(22F), MainFrame.fontRegular.deriveFont(22F));
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            mainReportPanel.add(mostFrequentUser, gbc);
+        }
+
+        if(report.getMostSoldMeal()!=null) {
+            JPanel mostFrequentlyOrderedMeal = createInfoPanel("Customers' Favorite Meal: ", report.getMostSoldMeal().getMealName(), MainFrame.fontBold.deriveFont(22F), MainFrame.fontRegular.deriveFont(22F));
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            mainReportPanel.add(mostFrequentlyOrderedMeal, gbc);
+        }
+
+        if(String.valueOf(report.getTotalMoney())!=null) {
+            JPanel totalIncome = createInfoPanel("Total income: ", String.valueOf(report.getTotalMoney()), MainFrame.fontBold.deriveFont(22F), MainFrame.fontRegular.deriveFont(22F));
+            totalIncome.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, MainFrame.orange));
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            mainReportPanel.add(totalIncome, gbc);
+        }
 
     }
 

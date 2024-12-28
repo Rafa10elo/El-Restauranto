@@ -36,6 +36,10 @@ public class User {
         this.password = password;
     }
 
+    public Orders getOrders() {
+        return orders;
+    }
+
     public User(String userName, String email, String password, int userType) {
         this.userName = userName;
         this.email = email;

@@ -13,7 +13,6 @@ public class Report {
     public Report(int numberOfOrders, double totalMoney) {
         this.numberOfOrders = numberOfOrders;
         this.totalMoney = totalMoney;
-
         this.orderedMeals = new HashMap<>();
         this.orderingUsers = new HashMap<>();
     }
