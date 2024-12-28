@@ -6,7 +6,7 @@ import java.util.*;
 public class Report {
     private int numberOfOrders;
     private double totalMoney;
-
+    private static Object object =new Object();
     private HashMap<Meal, Integer> orderedMeals;
     private HashMap<User, Integer> orderingUsers;
 
@@ -25,19 +25,19 @@ public class Report {
         return totalMoney;
     }
 
-    public void incrementMealCount(Meal meal, int cnt) {
+    public synchronized void incrementMealCount(Meal meal, int cnt) {
         orderedMeals.put(meal, orderedMeals.getOrDefault(meal, 0) + cnt);
     }
 
-    public void incrementUserCount(User user, int cnt) {
+    public synchronized void incrementUserCount(User user, int cnt) {
         orderingUsers.put(user, orderingUsers.getOrDefault(user, 0) + cnt);
     }
 
-    public void increaseNumberOfOrders() {
+    public synchronized void increaseNumberOfOrders() {
         numberOfOrders++;
     }
 
-    public void addToTotalMoney(double amount) {
+    public synchronized void addToTotalMoney(double amount) {
         totalMoney += amount;
     }
 
@@ -80,30 +80,33 @@ public class Report {
 
     }
 
-    public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Reports.txt"))) {
-            writer.write(String.valueOf(numberOfOrders));
-            writer.newLine();
-            writer.write(String.valueOf(totalMoney));
-            writer.newLine();
-
-            for (Map.Entry<Meal, Integer> entry : orderedMeals.entrySet()) {
-                writer.write(entry.getKey().toFileFormat() + "***" + entry.getValue());
+    public  void saveToFile() {
+        synchronized (object) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Reports.txt"))) {
+                writer.write(String.valueOf(numberOfOrders));
                 writer.newLine();
-            }
-            writer.write("#####");
-            writer.newLine();
-
-            for (Map.Entry<User, Integer> entry : orderingUsers.entrySet()) {
-                writer.write(entry.getKey().toFileFormat() + "***" + entry.getValue());
+                writer.write(String.valueOf(totalMoney));
                 writer.newLine();
+
+                for (Map.Entry<Meal, Integer> entry : orderedMeals.entrySet()) {
+                    writer.write(entry.getKey().toFileFormat() + "***" + entry.getValue());
+                    writer.newLine();
+                }
+                writer.write("#####");
+                writer.newLine();
+
+                for (Map.Entry<User, Integer> entry : orderingUsers.entrySet()) {
+                    writer.write(entry.getKey().toFileFormat() + "***" + entry.getValue());
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println(e);
             }
-        } catch (IOException e) {
-            System.out.println(e);
         }
     }
 
     public  Report loadFromFile() {
+        synchronized (object){
         try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
             int numberOfOrders = Integer.parseInt(reader.readLine());
             double totalMoney = Double.parseDouble(reader.readLine());
@@ -134,6 +137,7 @@ public class Report {
         } catch (IOException | NumberFormatException e) {
             System.out.println(e);
             return new Report(0, 0.0);
+        }
         }
     }
 }

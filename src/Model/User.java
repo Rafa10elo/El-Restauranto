@@ -61,7 +61,7 @@ public class User {
 
         if(userType==0){
         for (Order order : orders.getOrdersForUser(this)) {
-            userString += order.toFileFormat() + "###";
+            userString += order.toFileFormat() + "##-##";
         }
 }
         return userString;
@@ -80,7 +80,7 @@ public class User {
             User user = new User(userName,email,password, userType);
 
             if (userParts.length > 4 && userType==0) {
-                String[] orderStrings = userParts[4].split("###");
+                String[] orderStrings = userParts[4].split("##-##");
                 for (String orderStr : orderStrings) {
                     Order order = Order.fromFileFormat(orderStr);
                     if (order != null) {

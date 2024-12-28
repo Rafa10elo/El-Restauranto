@@ -75,7 +75,7 @@ public class Meal {
 
 
     public String toFileFormat() {
-        return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc);
+        return String.join("&@", mealName, ingredients, String.valueOf(price), imgSrc)+"&@";
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Main {
 
 //ManagmentManagmenterForManagingTheManagers
     public static void main(String[] args) {
-//
+////
 //        HashMap<Meal, Integer> meals = new HashMap<>();
 //        meals.put(new Meal("Pizza", "Salami", 34500, "src/View/Images/profilePicture.png"), 10);
 //        meals.put(new Meal("beep", "Salami", 6600, "src/View/Images/profilePicture.png"), 10);
@@ -48,14 +48,18 @@ public class Main {
 //        Order order2 =new Order(meals,30, 23,Order.Status.DELIVERED,time.plusSeconds(15),"wqe");
 //        Order order3 =new Order(meals,20, 23,Order.Status.DELIVERED,time.plusSeconds(10),"wqe");
 //        Order order4 = new Order(meals,10, 23,Order.Status.DELIVERED,time.plusSeconds(5),"wqe");
-//
-//        OrderTimerManager orderTimerManager = new OrderTimerManager();
-//        orderTimerManager.showRemainingTime(order1);
-//        orderTimerManager.showRemainingTime(order2);
-//
-//        orderTimerManager.showRemainingTime(order3);
-//
-//        orderTimerManager.showRemainingTime(order4);
+//        Users users = new Users();
+//        User user = new User("roro","roro@gmail.com","12345678",0);
+//        users.addUser(user);
+//        Orders orders=Orders.getOrdersSing();
+//        orders.addOrderForUser(user,order1);
+//        orders.addOrderForUser(user,order2);
+//        users.writerThread();
+//////
+////        OrderTimerManager orderTimerManager = new OrderTimerManager();
+////        orderTimerManager.showRemainingTime(order1);
+////        orderTimerManager.showRemainingTime(order2);
+
 
 
 

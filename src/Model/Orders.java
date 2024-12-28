@@ -27,7 +27,7 @@ public class Orders {
     }
 
     public ArrayList<Order> getOrdersForUser(User user) {
-        return ordersOfUsers.getOrDefault(user, new ArrayList<>());
+        return ordersOfUsers.getOrDefault(user, new ArrayList<Order>());
     }
 
     public ArrayList<Order> getAllOrders() {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Payments {
     private ArrayList<Payment> payments = new ArrayList<>();
-
+    public static Object object =new Object();
     public void addPayment(Payment payment) {
         payments.add(payment);
     }
@@ -34,21 +34,25 @@ public class Payments {
 
     }
 
-    public void loadFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Payments.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Payment payment = Payment.fromFileFormat(line);
-                if (payment != null) {
-                    payments.add(payment);
+    public  void loadFromFile() {
+        synchronized (payments) {
+            try (BufferedReader br = new BufferedReader(new FileReader("Payments.txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    Payment payment = Payment.fromFileFormat(line);
+                    if (payment != null) {
+                        payments.add(payment);
+                    }
                 }
+            } catch (IOException e) {
+                System.out.println(e);
             }
-        } catch (IOException e) {
-            System.out.println(e);
         }
     }
 
-    public void saveToFile() {
+    public  void saveToFile() {
+        synchronized (payments)
+        {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("Payments.txt"))) {
             for (Payment payment : payments) {
                 bw.write(payment.toFileFormat());
@@ -56,6 +60,7 @@ public class Payments {
             }
         } catch (IOException e) {
             System.out.println(e);
+        }
         }
     }
 

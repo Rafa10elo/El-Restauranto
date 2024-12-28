@@ -32,6 +32,7 @@ public class Order {
         this.state = state;
         this.timeOfDelivery = timeOfDelivery;
         this.paymentId = paymentId;
+
     }
 
     public HashMap<Meal, Integer> getMeals() {
@@ -112,7 +113,7 @@ public class Order {
         String orderString = "";
 
         for (Map.Entry<Meal, Integer> entry : meals.entrySet()) {
-            orderString += entry.getKey().toFileFormat() + "##" + entry.getValue() + "||";
+            orderString += entry.getKey().toFileFormat() + "##_" + entry.getValue() + "||";
         }
 
         orderString += "@@" + this.totalPrice;
@@ -142,7 +143,7 @@ public class Order {
 
             for (String mealStr : mealStrings) {
                 if (!mealStr.isEmpty()) {
-                    String[] mealData = mealStr.split("##");
+                    String[] mealData = mealStr.split("##_");
                     Meal meal = Meal.fromFileFormat(mealData[0]);
                     int count = Integer.parseInt(mealData[1]);
                     meals.put(meal, count);

@@ -1,7 +1,5 @@
-2
-6.700000047683716
-pizzaaaa&@lots of things, but i swear it's delicious&@2.2&@src\pics\2.jpg***1
-patata&@potato, ketchub&@1.2&@src\pics\1.jpg***1
-fried shrimpp&@shrimp :D&@3.3&@src\pics\3.jpg***1
+1
+2.200000047683716
+pizzaaaa&@lots of things, but i swear it's delicious&@2.2&@src\pics\2.jpg&@***1
 #####
-AYAKA***ayaka@gmail.com***12345678***0***@@3.3@@0.0@@DELIVERED@@2024-12-28T17:04:56.626804800@@00000001###@@5.5@@0.0@@PREPARING@@2024-12-28T17:15:14.607143@@00000001###@@1.2@@0.0@@PREPARING@@2024-12-28T17:15:21.940045100@@00000002###***2
+rafo***rafo@gmail.com***12345678***0***@@2.2@@0.0@@PREPARING@@2024-12-28T20:44:43.398756700@@٠٠٠٠٠٠٠١####***1

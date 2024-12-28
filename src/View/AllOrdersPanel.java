@@ -189,6 +189,9 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
+        for(Meal meal : order.getMeals().keySet())
+            System.out.println(meal.getMealName());
+
         timerManager.showRemainingTime(order,timeLabel, stateLabel);
         return orderPanel;
     }

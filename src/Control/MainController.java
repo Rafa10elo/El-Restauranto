@@ -88,11 +88,9 @@ public class MainController {
                                         payments.addPayment(payment);
                                         payments.writerThread();
                                         // create order, add to orders, write
-                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
-                                                , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
-                                        System.out.println(mainFrame.mealsPanel.getSidePanel().getOrderMeals().size());
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
                                         orders.addOrderForUser(user, order);
-                                        users.writerThread();
+
                                         // edit the report : total money, number of orders, ordering users, ordered meals
                                         report.addToTotalMoney(payment.getAmount());
                                         report.increaseNumberOfOrders();
@@ -121,6 +119,8 @@ public class MainController {
                                         JOptionPane.showMessageDialog(mainFrame, "the credit card ID is not valid, your order will be canceled", "incorrect ID", JOptionPane.ERROR_MESSAGE);
                                     }
                                 }
+                                users.writerThread();
+
                             }
                         };
                         mainFrame.mealsPanel.getSidePanel().getPayButton().addActionListener(addOrderListener);
