@@ -54,7 +54,7 @@ public class Report {
     public List<Map.Entry<Meal, Integer>> getSortedOrderedMeals() {
         List<Map.Entry<Meal, Integer>> list = new ArrayList<>(orderedMeals.entrySet());
         list.sort((a, b) -> b.getValue().compareTo(a.getValue()));
-        System.out.println("Sorted meals: " + list);
+//        System.out.println("Sorted meals: " + list);
         return list;
     }
 

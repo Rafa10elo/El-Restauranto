@@ -96,8 +96,8 @@ public class MainFrame extends JFrame {
         this.profilePanel = profilePanel ;
         cardsPanel.add(profilePanel,"profilePanel");
 
-        this.reportPanel = reportPanel;
-        cardsPanel.add(reportPanel, "reportPanel");
+//        this.reportPanel = reportPanel;
+//        cardsPanel.add(reportPanel, "reportPanel");
 
         this.allOrdersPanel = allOrdersPanel ;
         cardsPanel.add(allOrdersPanel,"allOrdersPanel");

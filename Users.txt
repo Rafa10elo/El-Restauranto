@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-wqe***wqe***12345678***2***
+wqe***wqe***12345678***0***
 sushi***suhi@gmail.com***12345678***0***
 ert***ert***12345678***2***
-sarato***sarato@hotmail.com***12345678S!***2***
-AYAKA***ayaka@gmail.com***12345678***0***
-fshtokeh***fff@gmail.com***12345678***1***
-=======
-wqe***wqe***12345678***0***r&@r&@3.0&@3##1||@@216.0@@213.0@@DELIVERED@@null@@null###
 sarato***sarato@gmail.com***12345678S!***2***
-AYAKA***ayaka@gmail.com***12345678***0***
+AYAKA***ayaka@gmail.com***12345678***0***@@3.3@@0.0@@DELIVERED@@2024-12-28T17:04:56.626804800@@00000001###@@5.5@@0.0@@PREPARING@@2024-12-28T17:15:14.607143@@00000001###@@1.2@@0.0@@PREPARING@@2024-12-28T17:15:21.940045100@@00000002###
+fshtokeh***fff@gmail.com***12345678***1***
 Mcdonalds***McDonalds@isbetter.com***12345678***0***
->>>>>>> 4ac35fc2f0cc5b457df3b1eb62a7c9e72569123b

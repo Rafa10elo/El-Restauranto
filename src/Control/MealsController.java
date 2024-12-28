@@ -45,7 +45,7 @@ public class MealsController {
             });
             }
             // ADD MEAL BUTTON
-            ActionListener addMealActionListener = new ActionListener() {
+            ActionListener addMealListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (mealsPanel.getSidePanel().mealInfoValid()){
@@ -59,10 +59,10 @@ public class MealsController {
                         JOptionPane.showMessageDialog(mealsPanel, "Meal added successfully! :)", "", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }};
-            mealsPanel.getSidePanel().getAddMealButton().addActionListener(addMealActionListener);
+            mealsPanel.getSidePanel().getAddMealButton().addActionListener(addMealListener);
 
             // EDIT MEAL
-            ActionListener editMealActionListener = new ActionListener() {
+            ActionListener editMealListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (mealsPanel.editMealInfoValid()){
@@ -83,10 +83,10 @@ public class MealsController {
                     }
                 }
             };
-            mealsPanel.getEditMealButton().addActionListener(editMealActionListener);
+            mealsPanel.getEditMealButton().addActionListener(editMealListener);
 
             // DELETE MEAL
-            ActionListener deleteMeal = new ActionListener() {
+            ActionListener deleteMealListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // edit model
@@ -104,7 +104,7 @@ public class MealsController {
                     JOptionPane.showMessageDialog(mealsPanel, "Meal deleted successfully!", "", JOptionPane.INFORMATION_MESSAGE);
                 }
             };
-            mealsPanel.getDeleteMeal().addActionListener(deleteMeal);
+            mealsPanel.getDeleteMeal().addActionListener(deleteMealListener);
         }
 
     }

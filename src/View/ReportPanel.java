@@ -61,7 +61,7 @@ public class ReportPanel extends JPanel {
         gbc.gridy = 0;
         sidePanel.add(top3Meals,gbc);
         gbc.insets = new Insets(2, 5, 2, 5);
-        if(numberOfMeals>3){
+        if(report.getSortedOrderedMeals().size()>3){
             List<Map.Entry<Meal, Integer>> meals = report.getSortedOrderedMeals();
             for(int i=0;i<3;i++){
                 Map.Entry<Meal, Integer> entry = meals.get(i);

@@ -239,7 +239,7 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST ;
         JLabel mealAmount = new JLabel(":   " + String.valueOf(sidePanel.orderMeals.get(meal)) );
-        System.out.println(sidePanel.orderMeals.get(meal));
+//        System.out.println(sidePanel.orderMeals.get(meal));
         mealAmount.setForeground(MainFrame.orange);
         mealAmount.setFont(MainFrame.fontBold.deriveFont(20f));
 

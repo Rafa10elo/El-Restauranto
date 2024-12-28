@@ -1,6 +1,5 @@
 package Model;
 
-import java.io.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +13,13 @@ public class Order {
     private LocalDateTime timeOfDelivery;
     private String paymentId;
 
-    public enum Status {PREPARED, DELIVERED, CANCELED}
+    public enum Status {PREPARING, DELIVERED, CANCELED}
 
-    public Order(HashMap<Meal, Integer> meals, float tip, Status state) {
+    public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state) {
         this.meals = meals;
         this.tip = tip;
         this.state = state;
-        calculateTotalPrice();
+        this.totalPrice = totalPrice ;
         this.timeOfDelivery = null;
         this.paymentId = null;
     }

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 
@@ -51,7 +52,8 @@ public class MainController {
                     reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
                     mealsPanel = new MealsPanel(user);
                     allOrdersPanel= new AllOrdersPanel(user,orders);
-                    mainFrame = new MainFrame(user,profilePanel,reportPanel,allOrdersPanel);
+                    mainFrame = createMainFrame(user,profilePanel,reportPanel,allOrdersPanel, report, users, meals);
+//                    mainFrame = new MainFrame(user, profilePanel, reportPanel, allOrdersPanel) ;
                     mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
                     profilePanel.logoutButton.addActionListener(logoutListener);
 
@@ -60,55 +62,83 @@ public class MainController {
                     if( user.getUserType() == 0){
 
                         // ADD ORDER BUTTON (PAY + CANCEL)
-                        ActionListener addOrderActionListener = new ActionListener() {
+                        ActionListener addOrderListener = new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 if (mainFrame.mealsPanel.getSidePanel().paymentInfoValid()){
                                     // payment
                                     Payment payment ;
                                     if (mainFrame.mealsPanel.getSidePanel().getMethod().equals("cash")){
+                                        // if the payment method is cash so create a payment
                                         payment = new Payment(mainFrame.mealsPanel.getSidePanel().getPaymentAmount(), "cash") ;
                                     }else{
                                         if( !payments.checkTheCreditCard(mainFrame.mealsPanel.getSidePanel().getCreditCardId().getText()) ){
+                                            // if the payment method is credit card and the credit card id is wrong so theres no payment
                                             payment = null ;
                                         }else{
+                                            // if the payment method is credit cad and the credit card id is valid so create a payment
                                             payment = new Payment(mainFrame.mealsPanel.getSidePanel().getPaymentAmount(), "credit card") ;
                                         }
                                     }
 
-                                    // order and add payment to payments
+                                    Order order ;
                                     if ( payment != null ){
-//                                            payments.writerThread();
-                                        
-//                                            Order order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTipsCombo(),
-//                                                    /* time and status ?*/);
-//                                            no orders writer thread
-//                                            add order to orders
+                                        // if there's a payment
+                                        // add to payments, write
+                                        payments.addPayment(payment);
+                                        payments.writerThread();
+                                        // create order, add to orders, write
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
+                                                , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
+                                        System.out.println(mainFrame.mealsPanel.getSidePanel().getOrderMeals().size());
+                                        orders.addOrderForUser(user, order);
+                                        users.writerThread();
+                                        // edit the report : total money, number of orders, ordering users, ordered meals
+                                        report.addToTotalMoney(payment.getAmount());
+                                        report.increaseNumberOfOrders();
+                                        report.incrementUserCount(user, 1);
+                                        for (Map.Entry<Meal, Integer> mealCnt : order.getMeals().entrySet()){
+                                            report.incrementMealCount(mealCnt.getKey(), mealCnt.getValue());
+                                        }
+                                        report.writerThread();
+
+                                        // close dialog
                                         mainFrame.mealsPanel.getSidePanel().orderReset();
                                         JOptionPane.showMessageDialog(mainFrame, "Your order is successfully added! :) ", "order added", JOptionPane.INFORMATION_MESSAGE);
                                     }else{
-//                                            Order order = new CANCELED
-//                                            writer thread
-//                                            add to orders
+                                        // if there's no payment
+                                        // create a canceled order, add to orders, write
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
+                                                , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED);
+                                        orders.addOrderForUser(user, order);
+                                        users.writerThread();
+                                        // edit the report : number of orders X( total money, ordering users, ordered meals)
+                                        report.increaseNumberOfOrders();
+                                        report.writerThread();
+
+                                        // close dialog
                                         mainFrame.mealsPanel.getSidePanel().orderReset();
                                         JOptionPane.showMessageDialog(mainFrame, "the credit card ID is not valid, your order will be canceled", "incorrect ID", JOptionPane.ERROR_MESSAGE);
                                     }
                                 }
                             }
                         };
-                        mainFrame.mealsPanel.getSidePanel().getPayButton().addActionListener(addOrderActionListener);
+                        mainFrame.mealsPanel.getSidePanel().getPayButton().addActionListener(addOrderListener);
 
-                        ActionListener cancelPaymentAndOrder = new ActionListener() {
+                        ActionListener cancelOrderListener = new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-//                                Order order = new CANCELED
-//                                            writer thread
-//                                            add to orders
-                                JOptionPane.showMessageDialog(mainFrame, "Your order is canceled", "", JOptionPane.INFORMATION_MESSAGE);
+//                                // create a canceled order, add to orders, write
+                                Order order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
+                                        , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED);
+                                orders.addOrderForUser(user, order);
+                                users.writerThread();
+                                // edit report --------------------------------------------------------
                                 mainFrame.mealsPanel.getSidePanel().orderReset();
+                                JOptionPane.showMessageDialog(mainFrame, "Your order is canceled", "", JOptionPane.INFORMATION_MESSAGE);
                             }
                         };
-                        mainFrame.mealsPanel.getSidePanel().getCancelPayButton().addActionListener(cancelPaymentAndOrder);
+                        mainFrame.mealsPanel.getSidePanel().getCancelPayButton().addActionListener(cancelOrderListener);
 
                     }
                 }
@@ -129,7 +159,7 @@ public class MainController {
 
     }
 
-    MainFrame createMainFrame(int userType, ProfilePanel profilePanel,ReportPanel reportPanel,AllOrdersPanel allOrdersPanel,Report report,Users users,Meals meals){
+    MainFrame createMainFrame(User user, ProfilePanel profilePanel,ReportPanel reportPanel,AllOrdersPanel allOrdersPanel,Report report,Users users,Meals meals){
         MainFrame mainFrame=new MainFrame(user,profilePanel,reportPanel,allOrdersPanel);
         mainFrame.profileButton.addActionListener(new ActionListener() {
             @Override

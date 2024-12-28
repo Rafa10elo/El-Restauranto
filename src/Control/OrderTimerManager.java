@@ -36,6 +36,7 @@ public class OrderTimerManager {
 
     public void showRemainingTime(Order order, JLabel timeLabel, JLabel stateLabel) {
         if (order.getTimeOfDelivery() == null) {
+            timeLabel.setText("00:00:00" + "          ");
             stateLabel.setText("Canceled");
             return;
         }
@@ -47,12 +48,15 @@ public class OrderTimerManager {
             if (remainingTime < 0) {
                 SwingUtilities.invokeLater(() -> {
                     order.setState(Order.Status.DELIVERED);
-                    stateLabel.setText("Delivered at " + formatDateTime(order.getTimeOfDelivery()));
+//                    stateLabel.setText("Delivered at " + formatDateTime(order.getTimeOfDelivery()));
+                    stateLabel.setText("Delivered");
+                    String deliveredTime = formatTime(order.getTimeOfDelivery().toLocalTime().toSecondOfDay());
+                    timeLabel.setText(deliveredTime + "          ");
                 });
                 taskHolder[0].cancel(false);
             } else {
 
-                    order.setState(Order.Status.PREPARED);
+                    order.setState(Order.Status.PREPARING);
                     stateLabel.setText("Preparing");
                     String styledTime = formatTime(remainingTime);
                     timeLabel.setText(" " +styledTime+ "       ");

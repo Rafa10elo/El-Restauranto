@@ -10,10 +10,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,10 +44,12 @@ public class AllOrdersPanel extends JPanel {
             theOrdersOfTheUser = orders.getAllOrders();
         }
         int cnt=0;
+
         for(Order order:theOrdersOfTheUser){
            cnt++;
         }
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
+
         for(int i=0; i<cnt;i++){
             JPanel orderPanel= createOrderPanel(theOrdersOfTheUser.get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
@@ -63,8 +62,6 @@ public class AllOrdersPanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         miniAllOrdersPanel.setBorder(new EmptyBorder(0,30,0,30));
         add(scrollPane,BorderLayout.CENTER);
-
-
     }
 
     JLabel createLabel(String message,Font font,float fontSize){
@@ -155,22 +152,25 @@ public class AllOrdersPanel extends JPanel {
         JLabel timeTagLabel = createLabel("Time: ",MainFrame.fontBold,22);
         labelsPanel.add(timeTagLabel);
 //        JLabel timeLabel = createLabel(order.getTimeOfDelivery().toString()+"          ",fontRegular);
-        JLabel timeLabel = createLabel("20:23:42"+"          ",MainFrame.fontRegular,22);
+//        JLabel timeLabel = createLabel("20:23:42"+"          ",MainFrame.fontRegular,22);
+//        JLabel timeLabel = createLabel(order.getTimeOfDelivery().toString()+"          ",MainFrame.fontRegular, 22); //AYAAA
+        JLabel timeLabel = createLabel("",MainFrame.fontRegular, 22); //AYAAA
         labelsPanel.add(timeLabel);
 
         JLabel priceTagLabel = createLabel("TotalPrice: ",MainFrame.fontBold,22);
         labelsPanel.add(priceTagLabel);
 //        JLabel priceLabel = createLabel(String.valueOf(order.getTotalPrice()),fontRegular);
-        JLabel priceLabel = createLabel(String.valueOf(3782)+"          ",MainFrame.fontRegular,22);
+//        JLabel priceLabel = createLabel(String.valueOf(3782)+"          ",MainFrame.fontRegular,22);
+        JLabel priceLabel = createLabel(String.valueOf(order.getTotalPrice()) +"          ",MainFrame.fontRegular, 22); //AYAAAA
         labelsPanel.add(priceLabel);
 
         String orderState = "";
-        if(order.getState()== Order.Status.PREPARED)
-            orderState="Prepared";
-        else if(order.getState()== Order.Status.DELIVERED)
-            orderState="Delivered";
-        else
-            orderState="Canceled";
+//        if(order.getState()== Order.Status.PREPARING) AYAAAAAA
+//            orderState="Prepared";
+//        else if(order.getState()== Order.Status.DELIVERED)
+//            orderState="Delivered";
+//        else
+//            orderState="Canceled"; AYAAAA
 
         JLabel stateTagLabel = createLabel("Order State: ",MainFrame.fontBold,22);
         labelsPanel.add(stateTagLabel);
