@@ -30,10 +30,7 @@ public class AllOrdersPanel extends JPanel {
         }
         setPreferredSize(new Dimension(1280,670));
         setLayout(new BorderLayout());
-        JPanel miniAllOrdersPanel = new JPanel();
 
-        miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
-        miniAllOrdersPanel.setBackground(MainFrame.darkGray);
 
         if (0==user.getUserType())
         {
@@ -45,23 +42,10 @@ public class AllOrdersPanel extends JPanel {
         }
         int cnt=0;
 
-        for(Order order:theOrdersOfTheUser){
-           cnt++;
-        }
-        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
 
-        for(int i=0; i<cnt;i++){
-            JPanel orderPanel= createOrderPanel(theOrdersOfTheUser.get(i),i+1);
-            orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
-            miniAllOrdersPanel.add(orderPanel);
-            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
-        }
+           cnt=theOrdersOfTheUser.size();
+        theWholeThingMaker(theOrdersOfTheUser,user,cnt);
 
-        JScrollPane scrollPane = new JScrollPane(miniAllOrdersPanel);
-        scrollPane.setVerticalScrollBar(new JScrollBar());
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        miniAllOrdersPanel.setBorder(new EmptyBorder(0,30,0,30));
-        add(scrollPane,BorderLayout.CENTER);
     }
 
     JLabel createLabel(String message,Font font,float fontSize){
@@ -189,10 +173,33 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
-        for(Meal meal : order.getMeals().keySet())
-            System.out.println(meal.getMealName());
+
 
         timerManager.showRemainingTime(order,timeLabel, stateLabel);
         return orderPanel;
     }
+
+    public void theWholeThingMaker(ArrayList<Order> theOrdersOfTheUser,User user,int cnt){
+        JPanel miniAllOrdersPanel = new JPanel();
+
+        miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
+        miniAllOrdersPanel.setBackground(MainFrame.darkGray);
+        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
+
+        for(int i=0; i<cnt;i++){
+            JPanel orderPanel= createOrderPanel(theOrdersOfTheUser.get(i),i+1);
+            orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
+            miniAllOrdersPanel.add(orderPanel);
+            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
+        }
+
+        JScrollPane scrollPane = new JScrollPane(miniAllOrdersPanel);
+        scrollPane.setVerticalScrollBar(new JScrollBar());
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        miniAllOrdersPanel.setBorder(new EmptyBorder(0,30,0,30));
+        add(scrollPane,BorderLayout.CENTER);
+
+    }
+
+
 }

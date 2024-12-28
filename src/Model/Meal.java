@@ -68,6 +68,7 @@ public class Meal {
             String imgSrc = mealStrings[3];
             return new Meal(mealName, ingredients, price, imgSrc);
         } catch (Exception e) {
+            System.out.println(2);
             System.out.println(e);
             return null;
         }

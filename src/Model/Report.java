@@ -65,22 +65,27 @@ public class Report {
         return list;
     }
 
-    public void writerThread(){
-
-        new Thread(()->{
-            saveToFile();
-        }).start();
+    public  void writerThread(){
+        Thread thread = new Thread(() -> saveToFile());
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public  void readerThread(){
+        Thread thread = new Thread(() -> loadFromFile());
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
-    public void readerThread(){
 
-        new Thread(()->{
-            loadFromFile();
-        }).start();
-
-    }
-
-    public  void saveToFile() {
+    public void saveToFile() {
         synchronized (object) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Reports.txt"))) {
                 writer.write(String.valueOf(numberOfOrders));
@@ -96,7 +101,7 @@ public class Report {
                 writer.newLine();
 
                 for (Map.Entry<User, Integer> entry : orderingUsers.entrySet()) {
-                    writer.write(entry.getKey().toFileFormat() + "***" + entry.getValue());
+                    writer.write(entry.getKey().toFileFormat() + "=" + entry.getValue());
                     writer.newLine();
                 }
             } catch (IOException e) {
@@ -105,39 +110,59 @@ public class Report {
         }
     }
 
-    public  Report loadFromFile() {
-        synchronized (object){
-        try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
-            int numberOfOrders = Integer.parseInt(reader.readLine());
-            double totalMoney = Double.parseDouble(reader.readLine());
-            Report report = new Report(numberOfOrders, totalMoney);
 
-            String line;
-            while (!(line = reader.readLine()).equals("#####")) {
-                String[] parts = line.split("\\*\\*\\*");
-                if (parts.length != 2) {
-                    throw new IOException("Invalid meal" + line);
+    public Report loadFromFile() {
+        synchronized (object) {
+            try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
+                int numberOfOrders = Integer.parseInt(reader.readLine());
+                double totalMoney = Double.parseDouble(reader.readLine());
+                Report report = new Report(numberOfOrders, totalMoney);
+
+                String line;
+                while (!(line = reader.readLine()).equals("#####")) {
+                    try {
+                        String[] parts = line.split("\\*\\*\\*");
+                        if (parts.length != 2) {
+                            System.out.println("0 " + line);
+                            continue;
+                        }
+                        Meal meal = Meal.fromFileFormat(parts[0]);
+                        if (meal == null) {
+                            System.out.println("1 " + parts[0]);
+                            continue;
+                        }
+                        int cnt = Integer.parseInt(parts[1]);
+                        report.incrementMealCount(meal, cnt);
+                    } catch (Exception e) {
+                        System.out.println("2" + line + " - " + e.getMessage());
+                    }
                 }
-                Meal meal = Meal.fromFileFormat(parts[0]);
-                int cnt = Integer.parseInt(parts[1]);
-                report.incrementMealCount(meal, cnt);
-            }
 
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\\*\\*\\*");
-                if (parts.length != 2) {
-                    throw new IOException("Invalid meal" + line);
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        String[] parts = line.split("\\=");
+                        if (parts.length != 2) {
+                            System.out.println("3" + line);
+                            continue;
+                        }
+                        User user = User.fromFileFormat(parts[0]);
+                        if (user == null) {
+                            System.out.println("4 " + parts[0]);
+                            continue;
+                        }
+                        int cnt = Integer.parseInt(parts[1]);
+                        report.incrementUserCount(user, cnt);
+                    } catch (Exception e) {
+                        System.out.println("Error processing user entry: " + line + " - " + e.getMessage());
+                    }
                 }
-                User user = User.fromFileFormat(parts[0]);
-                int cnt = Integer.parseInt(parts[1]);
-                report.incrementUserCount(user, cnt);
-            }
 
-            return report;
-        } catch (IOException | NumberFormatException e) {
-            System.out.println(e);
-            return new Report(0, 0.0);
-        }
+                return report;
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Error loading report: " + e.getMessage());
+                return new Report(0, 0.0);
+            }
         }
     }
+
 }

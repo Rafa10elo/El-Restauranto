@@ -43,15 +43,23 @@ public class Users {
    }
 
 
-    public void writerThread(){
-        new Thread(()->{
-           saveToFile();
-    }).start();
+    public  void writerThread(){
+        Thread thread = new Thread(() -> saveToFile());
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-    public void readerThread(){
-        new Thread(()->{
-            loadFromFile();
-        }).start();
+    public  void readerThread(){
+        Thread thread = new Thread(() -> loadFromFile());
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

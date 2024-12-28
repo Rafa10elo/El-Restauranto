@@ -62,6 +62,7 @@ public class User {
         for (Order order : orders.getOrdersForUser(this)) {
             userString += order.toFileFormat() + "---";
         }
+
 }
         return userString;
     }

@@ -168,6 +168,7 @@ public class Order {
             return new Order(meals, totalPrice, tip, state, timeOfDelivery, paymentId);
 
         } catch (Exception e) {
+            System.out.println(3);
             System.out.println(e);
             return null;
         }

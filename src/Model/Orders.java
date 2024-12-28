@@ -26,11 +26,11 @@ public class Orders {
         ordersOfUsers.get(user).add(order);
     }
 
-    public ArrayList<Order> getOrdersForUser(User user) {
+    public  ArrayList<Order> getOrdersForUser(User user) {
         return ordersOfUsers.getOrDefault(user, new ArrayList<Order>());
     }
 
-    public ArrayList<Order> getAllOrders() {
+    public  ArrayList<Order> getAllOrders() {
         ArrayList<Order> allOrders = new ArrayList<>();
         for (List<Order> orders : ordersOfUsers.values()) {
             allOrders.addAll(orders);
@@ -44,7 +44,7 @@ public class Orders {
         return allOrders;
     }
 
-    public boolean updateOrder(User user, Order order, Order.Status status) {
+    public  boolean updateOrder(User user, Order order, Order.Status status) {
         List<Order> orders = ordersOfUsers.get(user);
 
         if (orders != null) {
