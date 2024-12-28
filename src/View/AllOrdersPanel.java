@@ -19,6 +19,7 @@ import java.util.Map;
 public class AllOrdersPanel extends JPanel {
     ArrayList <Order> theOrdersOfTheUser ;
     OrderTimerManager timerManager = new OrderTimerManager();
+    JPanel miniAllOrdersPanel ;
 
 
     public AllOrdersPanel (User user, Orders orders){
@@ -175,7 +176,7 @@ public class AllOrdersPanel extends JPanel {
 
 
 
-        timerManager.showRemainingTime(order,timeLabel, stateLabel);
+        timerManager.showRemainingTime(order,timeLabel, stateLabel,timeTagLabel);
         return orderPanel;
     }
 
@@ -199,7 +200,20 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.setBorder(new EmptyBorder(0,30,0,30));
         add(scrollPane,BorderLayout.CENTER);
 
+        this.miniAllOrdersPanel = miniAllOrdersPanel;
+
+
     }
+    public void addNewOrder(Order order, User user, Orders orders) {
+        theOrdersOfTheUser.add(order);
+        JPanel newOrderPanel = createOrderPanel(order, theOrdersOfTheUser.size());
+        newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
+        miniAllOrdersPanel.add(newOrderPanel);
+        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        miniAllOrdersPanel.revalidate();
+        miniAllOrdersPanel.repaint();
+    }
+
 
 
 }

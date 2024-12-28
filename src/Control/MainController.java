@@ -31,13 +31,15 @@ public class MainController {
     Meals meals = new Meals();
     Payments payments = new Payments() ;
     MealsController mealsController;
-    Report report = new Report(0,0);
+    Report report = new Report(0,0) ;
+
 
     public MainController(){
-        users.loadFromFile();
-        meals.loadFromFile();
-        report.loadFromFile();
-        payments.loadFromFile();
+        users.readerThread();
+        meals.readerThread();
+        payments.readerThread();
+        report =report.loadFromFile();
+
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
         loginAndRegisterManager = new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
@@ -91,6 +93,8 @@ public class MainController {
                                         // create order, add to orders, write
                                         order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
                                         orders.addOrderForUser(user, order);
+                                        mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
+
                                         users.writerThread();
                                         // edit the report : total money, number of orders, ordering users, ordered meals
                                         report.addToTotalMoney(payment.getAmount());
@@ -99,7 +103,7 @@ public class MainController {
                                         for (Map.Entry<Meal, Integer> mealCnt : order.getMeals().entrySet()){
                                             report.incrementMealCount(mealCnt.getKey(), mealCnt.getValue());
                                         }
-                                        report.writerThread();
+                                       report.writerThread();
 
                                         // close dialog
                                         mainFrame.mealsPanel.getSidePanel().orderReset();
@@ -110,6 +114,7 @@ public class MainController {
                                         order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
                                                 , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED);
                                         orders.addOrderForUser(user, order);
+                                        mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
                                         users.writerThread();
                                         // edit the report : number of orders X( total money, ordering users, ordered meals)
                                         report.increaseNumberOfOrders();
@@ -120,8 +125,8 @@ public class MainController {
                                         JOptionPane.showMessageDialog(mainFrame, "the credit card ID is not valid, your order will be canceled", "incorrect ID", JOptionPane.ERROR_MESSAGE);
                                     }
                                 }
-
                             }
+
                         };
                         mainFrame.mealsPanel.getSidePanel().getPayButton().addActionListener(addOrderListener);
 
@@ -178,8 +183,8 @@ public class MainController {
         mainFrame.allOrdersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.allOrdersPanel=  new AllOrdersPanel(user,orders);
-                mainFrame.allOrdersPanel.repaint();
+              //  mainFrame.allOrdersPanel=  new AllOrdersPanel(user,orders);
+                //mainFrame.allOrdersPanel.repaint();
               //  mainFrame.cardsPanel.add(updatedAllOrders,"allOrdersPanel") ;
                 mainFrame.cardLayout.show(mainFrame.cardsPanel, "allOrdersPanel");
             }

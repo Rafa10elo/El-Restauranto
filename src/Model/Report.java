@@ -25,19 +25,19 @@ public class Report {
         return totalMoney;
     }
 
-    public synchronized void incrementMealCount(Meal meal, int cnt) {
+    public  void incrementMealCount(Meal meal, int cnt) {
         orderedMeals.put(meal, orderedMeals.getOrDefault(meal, 0) + cnt);
     }
 
-    public synchronized void incrementUserCount(User user, int cnt) {
+    public  void incrementUserCount(User user, int cnt) {
         orderingUsers.put(user, orderingUsers.getOrDefault(user, 0) + cnt);
     }
 
-    public synchronized void increaseNumberOfOrders() {
+    public  void increaseNumberOfOrders() {
         numberOfOrders++;
     }
 
-    public synchronized void addToTotalMoney(double amount) {
+    public  void addToTotalMoney(double amount) {
         totalMoney += amount;
     }
 
@@ -153,13 +153,13 @@ public class Report {
                         int cnt = Integer.parseInt(parts[1]);
                         report.incrementUserCount(user, cnt);
                     } catch (Exception e) {
-                        System.out.println("Error processing user entry: " + line + " - " + e.getMessage());
+                        System.out.println("2.2" + line + " - " + e.getMessage());
                     }
                 }
-
+                System.out.println(report.getTotalMoney());
                 return report;
             } catch (IOException | NumberFormatException e) {
-                System.out.println("Error loading report: " + e.getMessage());
+                System.out.println("1 3");
                 return new Report(0, 0.0);
             }
         }
