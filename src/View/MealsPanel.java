@@ -3,6 +3,7 @@ package View;
 import Model.Meal;
 import Model.Order;
 import Model.Payment;
+import Model.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +18,6 @@ import java.util.HashMap;
 import static java.lang.Math.round;
 
 public class MealsPanel extends JPanel {
-    int userType;
     JPanel mainMenu;
     SidePanel sidePanel;
     HashMap<Meal, MealPanel> allMeals = new HashMap<>() ;
@@ -32,10 +32,9 @@ public class MealsPanel extends JPanel {
     JButton editMeal = new JButton() ;
     JButton deleteMeal = new JButton() ;
 
-    public MealsPanel (int userType) {
-        this.userType = userType ;
+    public MealsPanel (User uset) {
         setLayout(new BorderLayout());
-        sidePanel = new SidePanel(userType) ;
+        sidePanel = new SidePanel(uset) ;
         add(sidePanel, BorderLayout.EAST) ;
 
         mainMenu = new JPanel() ;

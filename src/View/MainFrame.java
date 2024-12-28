@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public  MainFrame(int userType, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel){
+    public  MainFrame(User user, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel){
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         JPanel cardsPanel = new JPanel(cardLayout);
 
-        mealsPanel = new MealsPanel(userType) ;
+        mealsPanel = new MealsPanel(user) ;
         cardsPanel.add(mealsPanel,"mealsPanel") ;
         add(cardsPanel, BorderLayout.CENTER) ;
 

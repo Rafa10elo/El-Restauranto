@@ -47,7 +47,7 @@ public class SidePanel extends JPanel {
         topPanel.setBackground(MainFrame.darkGray);
         topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, MainFrame.orange));
 
-        if (user == 0) {
+        if (user.getUserType() == 0) {
             // Your order :
             JLabel youOrder = new JLabel("Your order :");
             youOrder.setForeground(MainFrame.orange);
@@ -65,7 +65,7 @@ public class SidePanel extends JPanel {
 
         // center panel
         centerPanel = new JPanel();
-        if (userType == 0) {
+        if (user.getUserType() == 0) {
             // order meals
             //centerPanel.setPreferredSize(new Dimension(330, (mealsCntLabels.size() * 500)));
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
@@ -290,7 +290,7 @@ public class SidePanel extends JPanel {
 
 
         // bottom panel
-        if (userType == 0) {
+        if (user.getUserType() == 0) {
             JPanel bottomPanel = new JPanel();
             bottomPanel.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
