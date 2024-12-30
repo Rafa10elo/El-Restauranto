@@ -63,7 +63,7 @@ public class Users {
 
     }
 
-    public  void  loadFromFile() {
+    public void  loadFromFile() {
         synchronized (users) {
             try (BufferedReader br = new BufferedReader(new FileReader("Users.txt"))) {
                 String line;

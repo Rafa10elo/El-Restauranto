@@ -207,7 +207,6 @@ public class AllOrdersPanel extends JPanel {
 
     }
     public void addNewOrder(Order order, User user, Orders orders) {
-        theOrdersOfTheUser.add(order);
         JPanel newOrderPanel = createOrderPanel(order, theOrdersOfTheUser.size());
         newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
         miniAllOrdersPanel.add(newOrderPanel);

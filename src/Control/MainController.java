@@ -38,7 +38,7 @@ public class MainController {
         users.readerThread();
         meals.readerThread();
         payments.readerThread();
-        report =report.loadFromFile();
+        //report =report.loadFromFile();
 
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
@@ -94,7 +94,7 @@ public class MainController {
                                         order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
                                         orders.addOrderForUser(user, order);
                                         mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
-
+                                        System.out.println(order.getTotalPrice());
                                         users.writerThread();
                                         // edit the report : total money, number of orders, ordering users, ordered meals
                                         report.addToTotalMoney(payment.getAmount());
@@ -108,7 +108,8 @@ public class MainController {
                                         // close dialog
                                         mainFrame.mealsPanel.getSidePanel().orderReset();
                                         JOptionPane.showMessageDialog(mainFrame, "Your order is successfully added! :) ", "order added", JOptionPane.INFORMATION_MESSAGE);
-                                    }else{
+                                    }
+                                    else{
                                         // if there's no payment
                                         // create a canceled order, add to orders, write
                                         order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()

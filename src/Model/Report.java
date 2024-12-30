@@ -111,7 +111,7 @@ public class Report {
     }
 
 
-    public Report loadFromFile() {
+    public  Report loadFromFile() {
         synchronized (object) {
             try (BufferedReader reader = new BufferedReader(new FileReader("Reports.txt"))) {
                 int numberOfOrders = Integer.parseInt(reader.readLine());
