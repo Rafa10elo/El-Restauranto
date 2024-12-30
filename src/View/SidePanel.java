@@ -22,7 +22,9 @@ public class SidePanel extends JPanel {
 
 
     // order info
-    JLabel totalPrice = new JLabel("0") ;
+
+    float totalPriceNumber = 0;
+    JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber)) ;
     Float[] tips = new Float[] {0.0f, 5.0f, 10.0f, 15.0f} ;
     JComboBox tipsCombo = new JComboBox(tips) ;
     JPanel centerPanel;
@@ -53,7 +55,8 @@ public class SidePanel extends JPanel {
             youOrder.setForeground(MainFrame.orange);
             youOrder.setFont(MainFrame.fontBold);
             topPanel.add(youOrder);
-        } else {
+        }
+        else {
             // Add new meal :
             JLabel newMeal = new JLabel("Add new meal :");
             newMeal.setForeground(MainFrame.orange);
@@ -72,7 +75,8 @@ public class SidePanel extends JPanel {
             centerPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
             centerPanel.setBackground(MainFrame.darkGray);
             add(new JScrollPane(centerPanel), BorderLayout.CENTER);
-        } else {
+        }
+        else {
             // name, price,ingredients and img path text fields
             centerPanel.setLayout(new GridBagLayout());
             centerPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
@@ -460,7 +464,8 @@ public class SidePanel extends JPanel {
     }
     public void orderReset(){
 
-        totalPrice.setText("0");
+        totalPriceNumber=0;
+        totalPrice.setText(String.valueOf(totalPriceNumber));
         centerPanel.removeAll();
         tipsCombo.setSelectedIndex(0);
         orderMeals.clear();
@@ -505,7 +510,7 @@ public class SidePanel extends JPanel {
         gbc.gridheight = 1;
         gbc.weightx = 2.0;
         gbc.weighty = 1.0;
-        JLabel totalPrice = new JLabel(String.valueOf((float)(Float.parseFloat(this.totalPrice.getText()) + (float)tipsCombo.getSelectedItem() ) ) );
+        JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber + (float) tipsCombo.getSelectedItem() ) ) ;
         totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
         totalPrice.setForeground(MainFrame.orange);
         paymentDialog.add(totalPrice, gbc);
@@ -667,7 +672,7 @@ public class SidePanel extends JPanel {
     }
 
     public Float getPaymentAmount() {
-        return (float) (Float.parseFloat(this.totalPrice.getText()) + tips[tipsCombo.getSelectedIndex()] ) ;
+        return (float) (totalPriceNumber + tips[tipsCombo.getSelectedIndex()] ) ;
     }
 
     public JButton getPayButton() {
@@ -683,7 +688,7 @@ public class SidePanel extends JPanel {
 
     // order
     public Float getTotalPrice() {
-        return (float) Float.parseFloat(totalPrice.getText());
+        return totalPriceNumber;
     }
 
     public Float getTips() {

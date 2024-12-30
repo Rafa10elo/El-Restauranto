@@ -20,7 +20,8 @@ import static java.lang.Math.round;
 public class MealsPanel extends JPanel {
     JPanel mainMenu;
     SidePanel sidePanel;
-    HashMap<Meal, MealPanel> allMeals = new HashMap<>() ;
+//    HashMap<Meal, MealPanel> allMeals = new HashMap<>() ;
+    ArrayList<MealPanel> allMeals = new ArrayList<>();
     Meal currentEditMeal = null ;
 
     // edit meal info
@@ -32,9 +33,9 @@ public class MealsPanel extends JPanel {
     JButton editMeal = new JButton() ;
     JButton deleteMeal = new JButton() ;
 
-    public MealsPanel (User uset) {
+    public MealsPanel (User user) {
         setLayout(new BorderLayout());
-        sidePanel = new SidePanel(uset) ;
+        sidePanel = new SidePanel(user) ;
         add(sidePanel, BorderLayout.EAST) ;
 
         mainMenu = new JPanel() ;
@@ -59,7 +60,7 @@ public class MealsPanel extends JPanel {
         for (Meal m : meals){
             MealPanel mealPanel = createMealPanelTOMenu(m) ;
             mainMenu.add(mealPanel);
-            allMeals.put(m, mealPanel) ;
+            allMeals.add(mealPanel);
         }
 
         int panelWidth = 900; // 900 - gap * 2 --> cell width
@@ -97,7 +98,8 @@ public class MealsPanel extends JPanel {
             //edit label in hashmap
             sidePanel.mealsCntLabels.get(meal).setText(":   " + String.valueOf(sidePanel.orderMeals.get(meal)));
             //edit total price
-            sidePanel.totalPrice.setText(String.valueOf(Float.parseFloat(sidePanel.totalPrice.getText()) + meal.getPrice()));
+            sidePanel.totalPriceNumber+=meal.getPrice();
+            sidePanel.totalPrice.setText(String.valueOf(sidePanel.totalPriceNumber ));
             sidePanel.mealsCntLabels.get(meal).revalidate();
             sidePanel.mealsCntLabels.get(meal).repaint();
             return;
@@ -108,111 +110,6 @@ public class MealsPanel extends JPanel {
         Component smallGap = Box.createRigidArea(new Dimension(0, 10)) ;
 
         MealPanel mealPanel = createMealPanelTOMenu(meal) ;
-//        JPanel mealPanel = new JPanel() ;
-//        mealPanel.setSize(new Dimension(300, 500));
-//        mealPanel.setLayout(new BorderLayout());
-//        mealPanel.setBackground(MainFrame.darkGray);
-//        mealPanel.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-//
-//        // meal image
-//        JPanel mealPhoto = new JPanel() ;
-//        mealPhoto.setBackground(MainFrame.darkGray);
-//        Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(mealPanel.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
-//        JLabel imgLabel = new JLabel(new ImageIcon(img)) ;
-//        mealPhoto.add(imgLabel) ;
-//
-//        // meal info panel
-//        JPanel infoPanel = new JPanel(new GridBagLayout()) ;
-//        infoPanel.setBackground(MainFrame.darkGray);
-//        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.insets = new Insets(0, 10, 10, 0) ;
-//
-//        //the info :
-//        // meal name :
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel name = new JLabel("Name");
-//        name.setForeground(MainFrame.orange);
-//        name.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(name, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel mealName = new JLabel(":   " + meal.getMealName());
-//        mealName.setForeground(MainFrame.orange);
-//        mealName.setFont(MainFrame.fontBold.deriveFont(20f));
-//        infoPanel.add(mealName, gbc);
-//
-//
-//        // meal price :
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel price = new JLabel("Price");
-//        price.setForeground(MainFrame.orange);
-//        price.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(price, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 1;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JLabel mealPrice = new JLabel(":   " + String.valueOf(meal.getPrice()) + " $");
-//        mealPrice.setForeground(MainFrame.orange);
-//        mealPrice.setFont(MainFrame.fontBold.deriveFont(20f));
-//        infoPanel.add(mealPrice, gbc);
-//
-//
-//        //meal ingredients :
-//        gbc.gridx = 0;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 1;
-//        gbc.gridheight = 1;
-//        gbc.weightx = 1;
-//        gbc.weighty = 1.0;
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.anchor = GridBagConstraints.NORTH ;
-//        JLabel ingredients = new JLabel("Ingredients ");
-//        ingredients.setForeground(MainFrame.orange);
-//        ingredients.setFont(MainFrame.fontBold.deriveFont(25f));
-//        infoPanel.add(ingredients, gbc);
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 2;
-//        gbc.gridheight = 2;
-//        gbc.weightx = 2.0;
-//        gbc.weighty = 2.0;
-//        gbc.fill = GridBagConstraints.BOTH;
-//        JTextArea mealIngredients = new JTextArea(":   " + meal.getIngredients());
-//        mealIngredients.setBackground(MainFrame.darkGray);
-//        mealIngredients.setLineWrap(true);
-//        mealIngredients.setWrapStyleWord(true);
-//        mealIngredients.setEditable(false);
-//        mealIngredients.setForeground(MainFrame.orange);
-//        mealIngredients.setFont(MainFrame.fontBold.deriveFont(20f));
-//        mealIngredients.setBorder(BorderFactory.createEmptyBorder());
-//        JScrollPane scrollPane = new JScrollPane(mealIngredients);
-//        scrollPane.setBorder(BorderFactory.createEmptyBorder());
-//        infoPanel.add(scrollPane, gbc);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -314,13 +211,15 @@ public class MealsPanel extends JPanel {
                     delete.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            //delete from labels and meals hashmap
+//                            float newTotalPrice = Float.parseFloat(sidePanel.totalPrice.getText()) - meal.getPrice() * sidePanel.orderMeals.get(meal) ;
+                            sidePanel.totalPriceNumber -= meal.getPrice() * sidePanel.orderMeals.get(meal);
+                            sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber ));
+
+                            // delete from view
                             sidePanel.centerPanel.remove(mealPanel);
                             sidePanel.centerPanel.remove(smallGap);
 
-                            float newTotalPrice = Float.parseFloat(sidePanel.totalPrice.getText()) - meal.getPrice() * sidePanel.orderMeals.get(meal) ;
-                            sidePanel.totalPrice.setText(String.valueOf( round( ((newTotalPrice) * 10.0f) / 10.0f  ) ) );
-
+                            //delete from labels and meals hashmap
                             sidePanel.orderMeals.remove(meal);
                             sidePanel.mealsCntLabels.remove(meal);
                             sidePanel.centerPanel.revalidate();
@@ -336,12 +235,13 @@ public class MealsPanel extends JPanel {
 
         sidePanel.centerPanel.add(mealPanel) ;
         sidePanel.centerPanel.add(smallGap) ;
-        sidePanel.totalPrice.setText(String.valueOf( (float)(Float.parseFloat(sidePanel.totalPrice.getText()) + meal.getPrice())) );
+        sidePanel.totalPriceNumber += meal.getPrice();
+        sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber)) ;
         sidePanel.revalidate();
         sidePanel.repaint();
     }
     public void createEditMealDialog (Meal meal) {
-        currentEditMeal = meal ;
+//        currentEditMeal = meal ;
 
         editMealDialog = new JDialog() ;
         editMealDialog.setSize(new Dimension(400, 550));
@@ -646,7 +546,7 @@ public class MealsPanel extends JPanel {
     public SidePanel getSidePanel() {
         return sidePanel;
     }
-    public HashMap<Meal, MealPanel> getAllMeals () {
+    public ArrayList<MealPanel> getAllMeals () {
         return allMeals ;
     }
 
@@ -670,12 +570,18 @@ public class MealsPanel extends JPanel {
         return meal;
     }
     public MealPanel getMealPanel(Meal meal) {
-        return allMeals.get(meal) ;
+//        return allMeals.get(meal) ;
+        for (MealPanel m: allMeals){
+            if(m.getMeal()==meal)
+                return m;
+        }
+        return null;
     }
-    public void editMeals(Meal oldMeal, Meal newMeal){
-        allMeals.put(newMeal, allMeals.get(oldMeal) ) ;
-        allMeals.remove(oldMeal);
-    }
+//    public void editMeals(Meal oldMeal, Meal newMeal){
+//        allMeals.put(newMeal, allMeals.get(oldMeal) ) ;
+//        allMeals.remove(oldMeal);
+//
+//    }
 
     public JButton getDeleteMeal() {
         return deleteMeal;
