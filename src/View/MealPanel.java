@@ -15,8 +15,9 @@ public class MealPanel extends JPanel {
     JLabel mealPrice ;
     JTextArea mealIngredients ;
     JPanel infoPanel;
+    Meal meal ;
     public MealPanel (Meal meal) {
-//        this.meal = meal ;
+        this.meal = meal ;
 //        setSize(new Dimension(250, 400));
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
@@ -127,6 +128,10 @@ public class MealPanel extends JPanel {
         add(infoPanel, BorderLayout.CENTER);
     }
 
+    public Meal getMeal() {
+        return meal;
+    }
+
     public JLabel getImgLabel() {
         return imgLabel;
     }
@@ -143,7 +148,7 @@ public class MealPanel extends JPanel {
         return mealIngredients;
     }
     public void setMealInfo(Meal mealEdited) {
-//        this.meal = mealEdited ;
+        this.meal = mealEdited ;
         Image img = Toolkit.getDefaultToolkit().getImage(mealEdited.getImgSrc()).getScaledInstance(this.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
 
         imgLabel = new JLabel(new ImageIcon(img)) ;

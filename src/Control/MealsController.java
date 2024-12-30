@@ -24,26 +24,19 @@ public class MealsController {
         this.user = user;
 
         if( user.getUserType() == 0){
+            mealsPanel.fillMainMenu(meals.getMeals());
             // add click action listener to meal panels in main menu : click = add to order
-            for (Map.Entry<Meal, MealPanel> entry : mealsPanel.getAllMeals().entrySet()) {
-                entry.getValue().addMouseListener(new MouseAdapter() {
+            for (MealPanel m : mealsPanel.getAllMeals()) {
+                m.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        mealsPanel.addMealPanelToOrder(entry.getKey());
+                        mealsPanel.addMealPanelToOrder(m.getMeal());
                     }
                 });
             }
         }
         else{
-            // add click action listener to meal panels in main menu : click = EDIT
-            for (Map.Entry<Meal, MealPanel> entry : mealsPanel.getAllMeals().entrySet()) {
-                entry.getValue().addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    mealsPanel.createEditMealDialog(entry.getKey());
-                }
-            });
-            }
+            repaintMainMenu();
             // ADD MEAL BUTTON
             ActionListener addMealListener = new ActionListener() {
                 @Override
@@ -55,7 +48,7 @@ public class MealsController {
                         meals.writerThread();
                         // edit view + add it to hashmap
                         mealsPanel.getSidePanel().newMealReset();
-                        mealsPanel.fillMainMenu(meals.getMeals());
+                        repaintMainMenu();
                         JOptionPane.showMessageDialog(mealsPanel, "Meal added successfully! :)", "", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }};
@@ -69,7 +62,7 @@ public class MealsController {
                         Meal editedMeal = mealsPanel.getEditedMealInfo() ;
                         // edit view
                         mealsPanel.getMealPanel(mealsPanel.getCurrentMeal()).setMealInfo(editedMeal);
-                        mealsPanel.editMeals(mealsPanel.getCurrentMeal(), editedMeal) ;
+//                        mealsPanel.editMeals(mealsPanel.getCurrentMeal(), editedMeal) ;
                         // edit model
                         meals.modifyMeal(mealsPanel.getCurrentMeal(), editedMeal);
                         meals.writerThread();
@@ -94,8 +87,7 @@ public class MealsController {
                     meals.writerThread();
                     // edit view
                     mealsPanel.getAllMeals().remove(mealsPanel.getCurrentMeal()) ;
-                    mealsPanel.fillMainMenu(meals.getMeals());
-
+                    repaintMainMenu();
                     mealsPanel.setCurrentMeal(null);
 
                     mealsPanel.getEditMealDialog().removeAll();
@@ -107,5 +99,17 @@ public class MealsController {
             mealsPanel.getDeleteMeal().addActionListener(deleteMealListener);
         }
 
+    }
+    void repaintMainMenu (){
+        mealsPanel.fillMainMenu(meals.getMeals());
+        for (MealPanel m: mealsPanel.getAllMeals()) {
+            m.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    mealsPanel.setCurrentMeal(m.getMeal());
+                    mealsPanel.createEditMealDialog(m.getMeal());
+                }
+            });
+        }
     }
 }

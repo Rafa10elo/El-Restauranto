@@ -57,7 +57,7 @@ public class MainController {
                     allOrdersPanel= new AllOrdersPanel(user,orders);
                     mainFrame = createMainFrame(user,profilePanel,reportPanel,allOrdersPanel, report, users, meals);
 //                    mainFrame = new MainFrame(user, profilePanel, reportPanel, allOrdersPanel) ;
-                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
+//                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
                     profilePanel.logoutButton.addActionListener(logoutListener);
 
                     mealsController = new MealsController(meals, mainFrame.mealsPanel, user) ;
