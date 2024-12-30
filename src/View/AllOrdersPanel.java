@@ -59,12 +59,14 @@ public class AllOrdersPanel extends JPanel {
         JPanel mealPanel = new JPanel();
         mealPanel.setLayout(new GridBagLayout());
         mealPanel.setBackground(MainFrame.darkGray);
-        mealPanel.setPreferredSize(new Dimension(110,150));
+        mealPanel.setMaximumSize(new Dimension(200,200));
+        mealPanel.setMinimumSize(new Dimension(200,200));
+//        mealPanel.setPreferredSize(new Dimension(150,150));
         mealPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,MainFrame.extraLightGray));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(3,3,3,3);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridwidth=2;
 
@@ -104,18 +106,18 @@ public class AllOrdersPanel extends JPanel {
         multipleMealsPanel.setBackground(MainFrame.lightGray);
         multipleMealsPanel.setBorder(new EmptyBorder(5,5,5,5));
         multipleMealsPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightGray));
-        multipleMealsPanel.setPreferredSize(new Dimension(meals.size()*(115),210));
+        multipleMealsPanel.setPreferredSize(new Dimension(meals.size()*(220),210));
         multipleMealsPanel.setLayout(new BoxLayout(multipleMealsPanel,BoxLayout.X_AXIS));
-
+        multipleMealsPanel.add(Box.createRigidArea(new Dimension(5,0)));
 //        multipleMealsPanel.add(Box.createRigidArea(new Dimension(3,0)));
         List<Map.Entry<Meal, Integer>> entryList = new ArrayList<>(meals.entrySet());
         for (int i=0;i<meals.size();i++){
             Map.Entry<Meal, Integer> entry = entryList.get(i);
             Meal meal = entry.getKey();
             JPanel mealPanel = createMealPanel(meal);
-
             multipleMealsPanel.add(mealPanel);
-            multipleMealsPanel.add(Box.createRigidArea(new Dimension(3,0)));
+            multipleMealsPanel.add(Box.createRigidArea(new Dimension(5,0)));
+
         }
 
         return multipleMealsPanel;
@@ -128,7 +130,7 @@ public class AllOrdersPanel extends JPanel {
         orderPanel.setBackground(MainFrame.darkGray);
         orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightGray));
 
-        JPanel labelsPanel = new JPanel(new FlowLayout(0));
+        JPanel labelsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         orderPanel.add(labelsPanel,BorderLayout.NORTH);
         JLabel orderLabel = createLabel("Order no."+String.valueOf(cnt)+":                     ",MainFrame.fontBold,22);
         orderLabel.setForeground(MainFrame.orange);
@@ -150,6 +152,7 @@ public class AllOrdersPanel extends JPanel {
         labelsPanel.add(priceLabel);
 
         String orderState = "";
+
 //        if(order.getState()== Order.Status.PREPARING) AYAAAAAA
 //            orderState="Prepared";
 //        else if(order.getState()== Order.Status.DELIVERED)
@@ -170,11 +173,10 @@ public class AllOrdersPanel extends JPanel {
         JPanel panel = createMultipleMealsPanel(order.getMeals());
         JScrollPane multiMealScrollPane = new JScrollPane(panel);
         multiMealScrollPane.createHorizontalScrollBar();
+        multiMealScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         multiMealScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
-
-
 
         timerManager.showRemainingTime(order,timeLabel, stateLabel,timeTagLabel);
         return orderPanel;
