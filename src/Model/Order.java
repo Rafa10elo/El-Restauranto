@@ -16,7 +16,7 @@ public class Order {
     public enum Status {PREPARING, DELIVERED, CANCELED}
 
     public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state) {
-        this.meals = meals;
+        this.meals = new HashMap<>(meals);
         this.tip = tip;
         this.state = state;
         this.totalPrice = totalPrice ;
@@ -26,7 +26,7 @@ public class Order {
 
     public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state,
                  LocalDateTime timeOfDelivery, String paymentId) {
-        this.meals = meals;
+        this.meals = new HashMap<>(meals);
         this.totalPrice = totalPrice;
         this.tip = tip;
         this.state = state;

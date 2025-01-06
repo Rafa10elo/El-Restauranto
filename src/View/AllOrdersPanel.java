@@ -20,9 +20,9 @@ public class AllOrdersPanel extends JPanel {
     ArrayList <Order> theOrdersOfTheUser ;
     OrderTimerManager timerManager = new OrderTimerManager();
     JPanel miniAllOrdersPanel ;
+    Orders orders = Orders.getOrdersSing();
 
-
-    public AllOrdersPanel (User user, Orders orders){
+    public AllOrdersPanel (User user){
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
@@ -42,6 +42,9 @@ public class AllOrdersPanel extends JPanel {
             theOrdersOfTheUser = orders.getAllOrders();
         }
         int cnt=0;
+        for(Order order : theOrdersOfTheUser)
+            System.out.println("size of order " +order.getMeals().size());
+
 
 
            cnt=theOrdersOfTheUser.size();

@@ -68,7 +68,7 @@ public class Payment {
 
     }
 
-    private static void saveCounterToFile() {
+    public static void saveCounterToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("CounterOfIDS.txt"))) {
             writer.write(String.valueOf(counter));
         } catch (IOException e) {
