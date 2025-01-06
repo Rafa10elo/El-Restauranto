@@ -101,7 +101,7 @@ public class Report {
                 writer.newLine();
 
                 for (Map.Entry<User, Integer> entry : orderingUsers.entrySet()) {
-                    writer.write(entry.getKey().toFileFormat() + "=" + entry.getValue());
+                    writer.write(toFileFormat(entry.getKey()) + "=" + entry.getValue());
                     writer.newLine();
                 }
             } catch (IOException e) {
@@ -145,7 +145,7 @@ public class Report {
                             System.out.println("3" + line);
                             continue;
                         }
-                        User user = User.fromFileFormat(parts[0]);
+                        User user = fromFileFormat(parts[0]);
                         if (user == null) {
                             System.out.println("4 " + parts[0]);
                             continue;
@@ -164,5 +164,19 @@ public class Report {
             }
         }
     }
+    public User fromFileFormat(String str){
+        String[] userParts = str.split("\\*\\*\\*");
+        String userName = userParts[0];
+        String email = userParts[1];
+        String password = userParts[2];
+        int userType= Integer.parseInt(userParts[3]);
+
+
+        return new User(userName,email,password, userType);
+    }
+    public String toFileFormat(User user) {
+        return user.getUserName() + "***" + user.getEmail() + "***" + user.getPassword() + "***" + user.getUserType() + "***";
+    }
+
 
 }

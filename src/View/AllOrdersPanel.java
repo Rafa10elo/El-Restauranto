@@ -204,7 +204,7 @@ public class AllOrdersPanel extends JPanel {
 
         this.miniAllOrdersPanel = miniAllOrdersPanel;
 
-
+        miniAllOrdersPanel.repaint();
     }
     public void addNewOrder(Order order, User user, Orders orders) {
         JPanel newOrderPanel = createOrderPanel(order, theOrdersOfTheUser.size());

@@ -36,12 +36,12 @@ public class LoginAndRegisterManager {
        String password =loginAndRegistrationFrame.registerPanel.getPassword();
        String checkPass = loginAndRegistrationFrame.registerPanel.getCheckPass();
        String code = loginAndRegistrationFrame.registerPanel.getOptionalText();
-       int test;
+       int test = -1;
        if(loginAndRegistrationFrame.registerPanel.getChooseCustomer())
            test = 0;
        else if (loginAndRegistrationFrame.registerPanel.getChooseEmployee())
            test = 1 ;
-       else
+       else if(loginAndRegistrationFrame.registerPanel.getChooseManager())
            test = 2;
     User user=   users.findUser(username);
     if(user!=null){
@@ -60,6 +60,11 @@ public class LoginAndRegisterManager {
     }
     if (!RegisterPanel.checkingThePass(password,checkPass)){
         JOptionPane.showMessageDialog(loginAndRegistrationFrame, "The Password Confirmation is not correct try again", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if (test == -1)
+    {
+        JOptionPane.showMessageDialog(loginAndRegistrationFrame, "please choose the user type ", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     if (loginAndRegistrationFrame.registerPanel.getChooseEmployee()&&!code.equals("11109"))
