@@ -41,6 +41,20 @@ public class MainController {
         Payment.loadCounterFromFile();
 
         //report =report.loadFromFile();
+        JFrame jFrame = new JFrame();
+        jFrame.setSize(500,500);
+        jFrame.getContentPane().setBackground(MainFrame.darkGray);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.add(new LoadingPage());
+        jFrame.setVisible(true);
+
+        try {
+
+        Thread.sleep(6000);
+        } catch (InterruptedException e) {
+
+        }
+
 
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
