@@ -45,6 +45,7 @@ public class MainController {
         jFrame.setSize(500,500);
         jFrame.getContentPane().setBackground(MainFrame.darkGray);
         jFrame.setLocationRelativeTo(null);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.add(new LoadingPage());
         jFrame.setVisible(true);
 

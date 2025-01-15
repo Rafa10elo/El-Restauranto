@@ -44,7 +44,7 @@ public class Meals {
     public  void writerThread(){
         Thread thread = new Thread(() -> saveToFile());
         thread.start();
-     
+
     }
     public  void readerThread(){
         Thread thread = new Thread(() -> loadFromFile());
