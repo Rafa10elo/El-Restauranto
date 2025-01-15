@@ -55,11 +55,6 @@ public class Users {
     public  void readerThread(){
         Thread thread = new Thread(() -> loadFromFile());
         thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 
