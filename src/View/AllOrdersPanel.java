@@ -126,7 +126,7 @@ public class AllOrdersPanel extends JPanel {
         return multipleMealsPanel;
     }
 
-    JPanel createOrderPanel (Order order, int cnt){
+    JPanel createOrderPanel (User user,Order order, int cnt){
         JPanel orderPanel = new JPanel();
         orderPanel.setPreferredSize(new Dimension(1200,280));
         orderPanel.setLayout(new BorderLayout());
@@ -181,7 +181,7 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
-        timerManager.showRemainingTime(order,timeLabel, stateLabel,timeTagLabel);
+        timerManager.showRemainingTime(user,order,timeLabel, stateLabel,timeTagLabel);
         return orderPanel;
     }
 
@@ -193,7 +193,7 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
 
         for(int i=0; i<cnt;i++){
-            JPanel orderPanel= createOrderPanel(theOrdersOfTheUser.get(i),i+1);
+            JPanel orderPanel= createOrderPanel(user,theOrdersOfTheUser.get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
             miniAllOrdersPanel.add(orderPanel);
             miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -210,7 +210,7 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.repaint();
     }
     public void addNewOrder(Order order, User user, Orders orders) {
-        JPanel newOrderPanel = createOrderPanel(order, theOrdersOfTheUser.size());
+        JPanel newOrderPanel = createOrderPanel(user,order, theOrdersOfTheUser.size());
         newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
         miniAllOrdersPanel.add(newOrderPanel);
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)));

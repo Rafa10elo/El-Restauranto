@@ -12,6 +12,7 @@ public class Order {
     private Status state;
     private LocalDateTime timeOfDelivery;
     private String paymentId;
+    private boolean notification;
 
     public enum Status {PREPARING, DELIVERED, CANCELED}
 
@@ -32,6 +33,10 @@ public class Order {
         this.state = state;
         this.timeOfDelivery = timeOfDelivery;
         this.paymentId = paymentId;
+        if(state== Status.DELIVERED||state == Status.CANCELED)
+            notification=true;
+        else
+            notification=false;
 
     }
 
@@ -41,6 +46,14 @@ public class Order {
 
     public float getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
+    }
+
+    public boolean getNotification() {
+        return notification;
     }
 
     public float getTip() {

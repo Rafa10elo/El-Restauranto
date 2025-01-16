@@ -5,17 +5,14 @@ import Model.*;
 import View.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class MainController {
-    User user;
+   static User user;
     LoginAndRegistrationFrame loginAndRegistrationFrame;
     LoginAndRegisterManager loginAndRegisterManager;
     ActionListener logoutListener;
@@ -61,11 +58,24 @@ public class MainController {
 
         loginAndRegisterManager = new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
 
+        WindowAdapter windowAdapter = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                users.writerThread();
+                for(Order order :            user.getOrders().getOrdersForUser(user))
+                    System.out.println(order.getState());
+                report.writerThread();
+                System.exit(0);
+            }
+        };
+
         loginListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 user =  loginAndRegisterManager.loginCheck();
                 if(user!=null) {
+                     user.setLoggedIn(true);
                     loginAndRegistrationFrame.dispose();
                     profilePanel= new ProfilePanel(user);
                     profileController = new ProfileController(users,profilePanel);
@@ -75,6 +85,7 @@ public class MainController {
                     mainFrame = createMainFrame(user,profilePanel,reportPanel,allOrdersPanel, report, users, meals);
 //                    mainFrame = new MainFrame(user, profilePanel, reportPanel, allOrdersPanel) ;
 //                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
+                    mainFrame.addWindowListener(windowAdapter);
                     profilePanel.logoutButton.addActionListener(logoutListener);
 
                     mealsController = new MealsController(meals, mainFrame.mealsPanel, user) ;
@@ -110,7 +121,7 @@ public class MainController {
                                         payments.writerThread();
 
                                         // create order, add to orders, write
-                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusSeconds(12),  payment.getPaymentId());
                                         orders.addOrderForUser(user, order);
                                         for(Order order1 : orders.getOrdersForUser(user))
                                         for(Map.Entry<Meal, Integer> mealCnt :order1.getMeals().entrySet() )
@@ -177,8 +188,9 @@ public class MainController {
         logoutListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.dispose();
+                user.setLoggedIn(false);
                 user = null;
+                mainFrame.dispose();
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
                 loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
                 loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(loginListener);
@@ -227,6 +239,10 @@ public class MainController {
         mainFrame.repaint();
         return mainFrame;
     }
+    public static User getUser(){
+        return user;
+    }
+
 
 }
 

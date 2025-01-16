@@ -9,6 +9,7 @@ public class User {
     private String password;
     private int userType;
     Orders orders = Orders.getOrdersSing();
+    //private boolean isLoggedIn;
 
     public int getUserType() {
         return userType;
@@ -45,10 +46,16 @@ public class User {
         this.email = email;
         this.password = password;
         this.userType = userType;
+        //this.isLoggedIn=false;
     }
 
-
-
+//    public boolean isLoggedIn() {
+//        return isLoggedIn;
+//    }
+//
+//    public void setLoggedIn(boolean loggedIn) {
+//        isLoggedIn = loggedIn;
+//    }
     //for testing
 
     public void setUserType(int userType) {
