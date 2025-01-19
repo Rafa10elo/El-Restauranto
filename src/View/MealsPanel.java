@@ -145,17 +145,17 @@ public class MealsPanel extends JPanel {
         mealPanel.infoPanel.add(sidePanel.mealsCntLabels.get(meal), gbc);
 
         // adding mouse listener to make the panel act like a button 🐰
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         mealPanel.addMouseListener(new MouseAdapter() {
             JDialog deleteDialog;
             @Override
             public void mouseClicked(MouseEvent e) {
                 mealPanel.setBorder(new LineBorder(Color.RED, 1));
                 if (deleteDialog == null) {
-                    deleteDialog = new JDialog();
+                    deleteDialog = new JDialog(frame, true);
 
                     deleteDialog.setSize(new Dimension(450, 200));
                     deleteDialog.setLocationRelativeTo(null);
-                    deleteDialog.setVisible(true);
                     // -------------------------------------------------------------------------------Modal ?????!!!!!!
                     deleteDialog.setModal(false);
                     deleteDialog.getContentPane().setBackground(MainFrame.darkGray);
@@ -229,6 +229,8 @@ public class MealsPanel extends JPanel {
                         }
                     });
                     deleteDialog.add(delete, gbc);
+
+                    deleteDialog.setVisible(true);
                 }
             }
         });
@@ -243,10 +245,10 @@ public class MealsPanel extends JPanel {
     public void createEditMealDialog (Meal meal) {
 //        currentEditMeal = meal ;
 
-        editMealDialog = new JDialog() ;
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        editMealDialog = new JDialog(frame, true) ;
         editMealDialog.setSize(new Dimension(400, 550));
         editMealDialog.setLocationRelativeTo(null);
-        editMealDialog.setVisible(true);
 //        editMealDialog.getRootPane().setBorder(new EmptyBorder(10, 10, 10, 10 ));
 //        editMealDialog.getContentPane().setBackground(MainFrame.darkGray);
         editMealDialog.setLayout(new BorderLayout());
@@ -510,6 +512,7 @@ public class MealsPanel extends JPanel {
                 editMealDialog.dispose();
             }
         });
+        editMealDialog.setVisible(true);
     }
     public boolean editMealInfoValid(){
         File temp = new File(imgSrcEdit.getText()) ;

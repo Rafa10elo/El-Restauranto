@@ -30,6 +30,9 @@ public class SidePanel extends JPanel {
     JPanel centerPanel;
     HashMap<Meal, Integer> orderMeals = new HashMap<>();
     HashMap<Meal, JLabel> mealsCntLabels = new HashMap<>();
+    JRadioButton  dineIn ;
+    JRadioButton  delivery ;
+    JTextField specialRequests ;
 
     // payment info
     JDialog paymentDialog ;
@@ -313,11 +316,11 @@ public class SidePanel extends JPanel {
             JPanel totalPricePanel = new JPanel();
             totalPricePanel.setBackground(MainFrame.darkGray);
 
-            JLabel totalPriceLabel = new JLabel(" Total Price : ");
-            totalPriceLabel.setForeground(MainFrame.orange);
-            totalPriceLabel.setFont(MainFrame.fontBold);
-            totalPriceLabel.setBackground(MainFrame.darkGray);
-            totalPricePanel.add(totalPriceLabel);
+//            JLabel totalPriceLabel = new JLabel(" Total Price : ");
+//            totalPriceLabel.setForeground(MainFrame.orange);
+//            totalPriceLabel.setFont(MainFrame.fontBold);
+//            totalPriceLabel.setBackground(MainFrame.darkGray);
+//            totalPricePanel.add(totalPriceLabel);
 
             totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
             totalPrice.setBackground(MainFrame.darkGray);
@@ -481,17 +484,18 @@ public class SidePanel extends JPanel {
         this.repaint();
     }
     public void createPaymentDialog () {
-        paymentDialog = new JDialog();
-        paymentDialog.setTitle("payment");
-        paymentDialog.setSize(new Dimension(450, 300));
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        paymentDialog = new JDialog(frame,"payment", true);
+        paymentDialog.setSize(new Dimension(550, 400));
         paymentDialog.setLocationRelativeTo(null);
-        paymentDialog.setVisible(true);
+
 //        paymentDialog.setModal(true);
 //        paymentDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         paymentDialog.getContentPane().setBackground(MainFrame.darkGray);
         paymentDialog.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
+        //payment amount
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -515,6 +519,7 @@ public class SidePanel extends JPanel {
         totalPrice.setForeground(MainFrame.orange);
         paymentDialog.add(totalPrice, gbc);
 
+        // payment method
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -561,7 +566,7 @@ public class SidePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 creditCardId.setBackground(MainFrame.lightGray);
-                creditCardId.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
+                creditCardId.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 creditCardId.setEnabled(true);
                 creditCardId.repaint();
             }
@@ -572,6 +577,7 @@ public class SidePanel extends JPanel {
         group.add(cash) ;
         group.add(creditCard);
 
+        // credit card id
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -598,8 +604,76 @@ public class SidePanel extends JPanel {
         creditCardId.setEnabled(false);
         paymentDialog.add(creditCardId, gbc) ;
 
+        // order type
         gbc.gridx = 0;
         gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel orderType = new JLabel(" Order type :");
+        orderType.setForeground(MainFrame.orange);
+        orderType.setFont(MainFrame.fontBold.deriveFont(25f));
+        paymentDialog.add(orderType, gbc) ;
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        dineIn = new JRadioButton("Dine-in");
+        dineIn.setForeground(MainFrame.orange);
+        dineIn.setFont(MainFrame.fontBold.deriveFont(25f));
+        dineIn.setFocusPainted(false);
+        dineIn.setSelected(true);
+        paymentDialog.add(dineIn, gbc) ;
+
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        delivery = new JRadioButton("Delivery");
+        delivery.setForeground(MainFrame.orange);
+        delivery.setFont(MainFrame.fontBold.deriveFont(25f));
+        delivery.setFocusPainted(false);
+        paymentDialog.add(delivery, gbc) ;
+
+        ButtonGroup orderTypeGroup = new ButtonGroup();
+        orderTypeGroup.add(dineIn) ;
+        orderTypeGroup.add(delivery);
+
+        // Special Requests
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        JLabel specialRequestsLabel = new JLabel(" Special Requests :");
+        specialRequestsLabel.setForeground(MainFrame.orange);
+        specialRequestsLabel.setFont(MainFrame.fontBold.deriveFont(25f));
+        paymentDialog.add(specialRequestsLabel, gbc) ;
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 2.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL ;
+        gbc.insets = new Insets(0, 0, 0, 10);
+        specialRequests = new JTextField("") ;
+        specialRequests.setPreferredSize(new Dimension(0, 30));
+        specialRequests.setBackground(MainFrame.lightGray);
+        specialRequests.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        paymentDialog.add(specialRequests, gbc) ;
+
+        // cancel button
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.weightx = 1.0;
@@ -615,8 +689,9 @@ public class SidePanel extends JPanel {
         cancelPay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
         paymentDialog.add(cancelPay, gbc);
 
+        // pay button
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.weightx = 1.0;
@@ -630,6 +705,8 @@ public class SidePanel extends JPanel {
         pay.setFont(MainFrame.fontBold.deriveFont(25f));
         pay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
         paymentDialog.add(pay, gbc);
+
+        paymentDialog.setVisible(true);
     }
 
 
