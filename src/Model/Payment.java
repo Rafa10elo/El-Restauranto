@@ -2,6 +2,7 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Payment {
     private static int counter = 0;
@@ -24,7 +25,7 @@ public class Payment {
     private String generatePaymentId() {
         counter++;
         saveCounterToFile();
-        return String.format("%08d", counter);
+        return String.format(Locale.ENGLISH,"%08d", counter);
     }
 
     public String getPaymentId() {
@@ -68,7 +69,7 @@ public class Payment {
 
     }
 
-    private static void saveCounterToFile() {
+    public static void saveCounterToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("CounterOfIDS.txt"))) {
             writer.write(String.valueOf(counter));
         } catch (IOException e) {

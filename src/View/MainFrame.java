@@ -63,9 +63,10 @@ public class MainFrame extends JFrame {
 
         setSize(new Dimension(1280,720));
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setLayout(new BorderLayout());
+
 
         // The top panel, which contains the buttons : Meals, Profile, and All Orders
         JPanel navigationBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)) ;

@@ -5,17 +5,14 @@ import Model.*;
 import View.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class MainController {
-    User user;
+   static User user;
     LoginAndRegistrationFrame loginAndRegistrationFrame;
     LoginAndRegisterManager loginAndRegisterManager;
     ActionListener logoutListener;
@@ -38,26 +35,57 @@ public class MainController {
         users.readerThread();
         meals.readerThread();
         payments.readerThread();
+        Payment.loadCounterFromFile();
+
         //report =report.loadFromFile();
+        JFrame jFrame = new JFrame();
+        jFrame.setSize(500,500);
+        jFrame.getContentPane().setBackground(MainFrame.darkGray);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.add(new LoadingPage());
+        jFrame.setVisible(true);
+
+        try {
+
+        Thread.sleep(6000);
+        } catch (InterruptedException e) {
+
+        }
+
 
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
 
         loginAndRegisterManager = new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
+
+        WindowAdapter windowAdapter = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                users.writerThread();
+                for(Order order :            user.getOrders().getOrdersForUser(user))
+                    System.out.println(order.getState());
+                report.writerThread();
+                System.exit(0);
+            }
+        };
 
         loginListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 user =  loginAndRegisterManager.loginCheck();
                 if(user!=null) {
+                     user.setLoggedIn(true);
                     loginAndRegistrationFrame.dispose();
                     profilePanel= new ProfilePanel(user);
                     profileController = new ProfileController(users,profilePanel);
                     reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
                     mealsPanel = new MealsPanel(user);
-                    allOrdersPanel= new AllOrdersPanel(user,orders);
+                    allOrdersPanel= new AllOrdersPanel(user);
                     mainFrame = createMainFrame(user,profilePanel,reportPanel,allOrdersPanel, report, users, meals);
 //                    mainFrame = new MainFrame(user, profilePanel, reportPanel, allOrdersPanel) ;
 //                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
+                    mainFrame.addWindowListener(windowAdapter);
                     profilePanel.logoutButton.addActionListener(logoutListener);
 
                     mealsController = new MealsController(meals, mainFrame.mealsPanel, user) ;
@@ -88,14 +116,20 @@ public class MainController {
                                     if ( payment != null ){
                                         // if there's a payment
                                         // add to payments, write
+                                        Payment.saveCounterToFile();
                                         payments.addPayment(payment);
                                         payments.writerThread();
+
                                         // create order, add to orders, write
-                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusMinutes(2),  payment.getPaymentId());
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusSeconds(12),  payment.getPaymentId());
                                         orders.addOrderForUser(user, order);
-                                        mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
-                                        System.out.println(order.getTotalPrice());
+                                        for(Order order1 : orders.getOrdersForUser(user))
+                                        for(Map.Entry<Meal, Integer> mealCnt :order1.getMeals().entrySet() )
+                                            System.out.println(mealCnt.getKey()+" "+ order1.getPaymentId());
                                         users.writerThread();
+                                        mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
+                                        System.out.println(order);
+
                                         // edit the report : total money, number of orders, ordering users, ordered meals
                                         report.addToTotalMoney(payment.getAmount());
                                         report.increaseNumberOfOrders();
@@ -154,6 +188,8 @@ public class MainController {
         logoutListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                user.setLoggedIn(false);
+                user = null;
                 mainFrame.dispose();
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
                 loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
@@ -203,6 +239,10 @@ public class MainController {
         mainFrame.repaint();
         return mainFrame;
     }
+    public static User getUser(){
+        return user;
+    }
+
 
 }
 

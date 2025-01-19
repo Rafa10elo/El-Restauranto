@@ -1,10 +1,13 @@
 package Control;
 
 import Model.Order;
+import Model.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -34,7 +37,7 @@ public class OrderTimerManager {
         return dateTime.format(formatter);
     }
 
-    public void showRemainingTime(Order order, JLabel timeLabel, JLabel stateLabel,JLabel timeStatment) {
+    public void showRemainingTime(User user, Order order, JLabel timeLabel, JLabel stateLabel, JLabel timeStatment) {
         if (order.getTimeOfDelivery() == null) {
             timeStatment.setText("");
             stateLabel.setText("Canceled");
@@ -52,6 +55,12 @@ public class OrderTimerManager {
                     timeLabel.setText("");
                     timeStatment.setText("");
                 });
+                if(order.getNotification()==false&&user.getUserType()==0&&MainController.getUser()==user)
+                {
+
+                    JOptionPane.showMessageDialog(null,"Your Order Is Ready \n payment ID : " + order.getPaymentId(),"DONE!",JOptionPane.INFORMATION_MESSAGE);
+                    order.setNotification(true);
+                }
                 taskHolder[0].cancel(false);
             } else {
 

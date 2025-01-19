@@ -12,11 +12,12 @@ public class Order {
     private Status state;
     private LocalDateTime timeOfDelivery;
     private String paymentId;
+    private boolean notification;
 
     public enum Status {PREPARING, DELIVERED, CANCELED}
 
     public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state) {
-        this.meals = meals;
+        this.meals = new HashMap<>(meals);
         this.tip = tip;
         this.state = state;
         this.totalPrice = totalPrice ;
@@ -26,12 +27,16 @@ public class Order {
 
     public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state,
                  LocalDateTime timeOfDelivery, String paymentId) {
-        this.meals = meals;
+        this.meals = new HashMap<>(meals);
         this.totalPrice = totalPrice;
         this.tip = tip;
         this.state = state;
         this.timeOfDelivery = timeOfDelivery;
         this.paymentId = paymentId;
+        if(state== Status.DELIVERED||state == Status.CANCELED)
+            notification=true;
+        else
+            notification=false;
 
     }
 
@@ -41,6 +46,14 @@ public class Order {
 
     public float getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
+    }
+
+    public boolean getNotification() {
+        return notification;
     }
 
     public float getTip() {
