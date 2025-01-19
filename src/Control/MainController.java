@@ -36,22 +36,9 @@ public class MainController {
         meals.readerThread();
         payments.readerThread();
         Payment.loadCounterFromFile();
+        report =report.loadFromFile();
 
-        //report =report.loadFromFile();
-        JFrame jFrame = new JFrame();
-        jFrame.setSize(500,500);
-        jFrame.getContentPane().setBackground(MainFrame.darkGray);
-        jFrame.setLocationRelativeTo(null);
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jFrame.add(new LoadingPage());
-        jFrame.setVisible(true);
 
-        try {
-
-        Thread.sleep(6000);
-        } catch (InterruptedException e) {
-
-        }
 
 
         loginAndRegistrationFrame = new LoginAndRegistrationFrame();
@@ -75,7 +62,7 @@ public class MainController {
             public void actionPerformed(ActionEvent e) {
                 user =  loginAndRegisterManager.loginCheck();
                 if(user!=null) {
-                     user.setLoggedIn(true);
+
                     loginAndRegistrationFrame.dispose();
                     profilePanel= new ProfilePanel(user);
                     profileController = new ProfileController(users,profilePanel);
@@ -121,11 +108,13 @@ public class MainController {
                                         payments.writerThread();
 
                                         // create order, add to orders, write
-                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(), mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusSeconds(12),  payment.getPaymentId());
+                                        order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice(),
+                                                mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusSeconds(12),
+                                                payment.getPaymentId(), user.getUserName(), mainFrame.mealsPanel.getSidePanel().getInRestaurant());
                                         orders.addOrderForUser(user, order);
-                                        for(Order order1 : orders.getOrdersForUser(user))
-                                        for(Map.Entry<Meal, Integer> mealCnt :order1.getMeals().entrySet() )
-                                            System.out.println(mealCnt.getKey()+" "+ order1.getPaymentId());
+//                                        for(Order order1 : orders.getOrdersForUser(user))
+//                                        for(Map.Entry<Meal, Integer> mealCnt :order1.getMeals().entrySet() )
+//                                            System.out.println(mealCnt.getKey()+" "+ order1.getPaymentId());
                                         users.writerThread();
                                         mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
                                         System.out.println(order);
@@ -147,7 +136,8 @@ public class MainController {
                                         // if there's no payment
                                         // create a canceled order, add to orders, write
                                         order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
-                                                , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED);
+                                                , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED, user.getUserName(),
+                                                mainFrame.mealsPanel.getSidePanel().getInRestaurant());
                                         orders.addOrderForUser(user, order);
                                         mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
                                         users.writerThread();
@@ -170,7 +160,8 @@ public class MainController {
                             public void actionPerformed(ActionEvent e) {
 //                                // create a canceled order, add to orders, write
                                 Order order = new Order(mainFrame.mealsPanel.getSidePanel().getOrderMeals(), mainFrame.mealsPanel.getSidePanel().getTotalPrice()
-                                        , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED);
+                                        , mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.CANCELED, user.getUserName(),
+                                        mainFrame.mealsPanel.getSidePanel().getInRestaurant());
                                 orders.addOrderForUser(user, order);
                                 users.writerThread();
                                 // edit report --------------------------------------------------------
@@ -188,7 +179,6 @@ public class MainController {
         logoutListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user.setLoggedIn(false);
                 user = null;
                 mainFrame.dispose();
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
@@ -220,9 +210,6 @@ public class MainController {
         mainFrame.allOrdersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //  mainFrame.allOrdersPanel=  new AllOrdersPanel(user,orders);
-                //mainFrame.allOrdersPanel.repaint();
-              //  mainFrame.cardsPanel.add(updatedAllOrders,"allOrdersPanel") ;
                 mainFrame.cardLayout.show(mainFrame.cardsPanel, "allOrdersPanel");
             }
         });

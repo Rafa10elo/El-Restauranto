@@ -6,7 +6,7 @@ import Model.Order;
 import Model.Orders;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
-
+import BHswing.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +21,7 @@ public class AllOrdersPanel extends JPanel {
     OrderTimerManager timerManager = new OrderTimerManager();
     JPanel miniAllOrdersPanel ;
     Orders orders = Orders.getOrdersSing();
+
 
     public AllOrdersPanel (User user){
         try{
@@ -113,6 +114,7 @@ public class AllOrdersPanel extends JPanel {
         multipleMealsPanel.setLayout(new BoxLayout(multipleMealsPanel,BoxLayout.X_AXIS));
         multipleMealsPanel.add(Box.createRigidArea(new Dimension(5,0)));
 //        multipleMealsPanel.add(Box.createRigidArea(new Dimension(3,0)));
+
         List<Map.Entry<Meal, Integer>> entryList = new ArrayList<>(meals.entrySet());
         for (int i=0;i<meals.size();i++){
             Map.Entry<Meal, Integer> entry = entryList.get(i);
@@ -141,38 +143,43 @@ public class AllOrdersPanel extends JPanel {
 
         JLabel timeTagLabel = createLabel("Time: ",MainFrame.fontBold,22);
         labelsPanel.add(timeTagLabel);
-//        JLabel timeLabel = createLabel(order.getTimeOfDelivery().toString()+"          ",fontRegular);
-//        JLabel timeLabel = createLabel("20:23:42"+"          ",MainFrame.fontRegular,22);
-//        JLabel timeLabel = createLabel(order.getTimeOfDelivery().toString()+"          ",MainFrame.fontRegular, 22); //AYAAA
+
         JLabel timeLabel = createLabel("",MainFrame.fontRegular, 22); //AYAAA
         labelsPanel.add(timeLabel);
 
         JLabel priceTagLabel = createLabel("TotalPrice: ",MainFrame.fontBold,22);
         labelsPanel.add(priceTagLabel);
-//        JLabel priceLabel = createLabel(String.valueOf(order.getTotalPrice()),fontRegular);
-//        JLabel priceLabel = createLabel(String.valueOf(3782)+"          ",MainFrame.fontRegular,22);
+
         JLabel priceLabel = createLabel(String.valueOf(order.getTotalPrice()) +"          ",MainFrame.fontRegular, 22); //AYAAAA
         labelsPanel.add(priceLabel);
 
         String orderState = "";
 
-//        if(order.getState()== Order.Status.PREPARING) AYAAAAAA
-//            orderState="Prepared";
-//        else if(order.getState()== Order.Status.DELIVERED)
-//            orderState="Delivered";
-//        else
-//            orderState="Canceled"; AYAAAA
-
         JLabel stateTagLabel = createLabel("Order State: ",MainFrame.fontBold,22);
         labelsPanel.add(stateTagLabel);
-       // timeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
 
-        JLabel stateLabel = createLabel(orderState,MainFrame.fontRegular,22);
+        JLabel stateLabel = createLabel(orderState+"          ",MainFrame.fontRegular,22);
         labelsPanel.add(stateLabel);
 
 
-        //
+        JLabel dineTagLabel = createLabel("          Order Type: ",MainFrame.fontBold,22);
+        labelsPanel.add(dineTagLabel);
+
+        String type;
+        if(order.getInRestaurant())
+            type="Dine-In";
+        else type="Delivery";
+        JLabel dineLabel = createLabel(type+"          ",MainFrame.fontRegular,22);
+        labelsPanel.add(dineLabel);
+
+        if(user.getUserType()!=0){
+            JLabel userTagLabel = createLabel("User: ",MainFrame.fontBold,22);
+            labelsPanel.add(userTagLabel);
+            JLabel userLabel = createLabel(order.getUsername(),MainFrame.fontRegular,22);
+            labelsPanel.add(userLabel);
+        }
+
         JPanel panel = createMultipleMealsPanel(order.getMeals());
         JScrollPane multiMealScrollPane = new JScrollPane(panel);
         multiMealScrollPane.createHorizontalScrollBar();
@@ -195,8 +202,8 @@ public class AllOrdersPanel extends JPanel {
         for(int i=0; i<cnt;i++){
             JPanel orderPanel= createOrderPanel(user,theOrdersOfTheUser.get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
-            miniAllOrdersPanel.add(orderPanel);
-            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
+            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)),0);
+            miniAllOrdersPanel.add(orderPanel,0);
         }
 
         JScrollPane scrollPane = new JScrollPane(miniAllOrdersPanel);
@@ -211,9 +218,10 @@ public class AllOrdersPanel extends JPanel {
     }
     public void addNewOrder(Order order, User user, Orders orders) {
         JPanel newOrderPanel = createOrderPanel(user,order, theOrdersOfTheUser.size());
+
         newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
-        miniAllOrdersPanel.add(newOrderPanel);
-        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)),0);
+        miniAllOrdersPanel.add(newOrderPanel,0);
         miniAllOrdersPanel.revalidate();
         miniAllOrdersPanel.repaint();
     }

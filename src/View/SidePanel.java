@@ -775,4 +775,10 @@ public class SidePanel extends JPanel {
     public HashMap<Meal, Integer> getOrderMeals() {
         return orderMeals;
     }
+    public Boolean getInRestaurant() {
+        if ( delivery.isSelected() )
+            return false ;
+        return true ;
+    }
+
 }

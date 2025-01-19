@@ -20,6 +20,7 @@ public class LoadingPage extends JPanel {
      int timeStep = 0;
 
     public LoadingPage() {
+
         setBackground(MainFrame.darkGray);
         for (int i = 0; i < numOfDots; i++) {
             diffOfDots[i] = i * waveDiff;
@@ -60,10 +61,11 @@ public class LoadingPage extends JPanel {
 
             Timer hideTimer = new Timer(800, e -> {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);// فيني ما استخدمها بس رح احطها لاجرب لو بتخدم فكرة اية
-                frame.dispose();
+                frame.remove(this);
             });
             hideTimer.setRepeats(false);
             hideTimer.start();
+
         }
         repaint();
     }

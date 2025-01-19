@@ -1,9 +1,10 @@
 3
-85.94500136375427
-patata&@potato, ketchub&@1.2&@src\pics\1.jpg&@***3
+52.433998584747314
+avocado with eggs&@look at the meal name&@7.3&@src\pics\8.jpg&@***1
+noodles&@noodles, pepper, soy sauce&@5.0&@src\pics\5.jpg&@***2
 fried shrimp&@shrimpies :D&@3.4&@src\pics\3.jpg&@***1
-noodles&@noodles, pepper, soy sauce&@5.0&@src\pics\5.jpg&@***1
-siniyah bl furn&@chicken, spices&@50.0&@src\pics\6.jpg&@***1
-pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@***5
+burger&@bread, beef, tomato, cheese&@2.0&@src\pics\7.jpg&@***6
+hotdog edited&@hotdog ... idk&@1.0&@src\pics\4.jpg&@***3
+pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@***6
 #####
-AYA***a@gmail.com***123212321***0***pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@##_1||@@71.956@@10.0@@PREPARING@@2025-01-01T23:11:52.786855700@@00000001---pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@##_1||@@3.989@@0.0@@PREPARING@@2025-01-01T23:12:08.014670400@@00000002---pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@##_1||@@3.989@@0.0@@CANCELED@@null@@null---pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@##_1||@@2.789@@0.0@@CANCELED@@null@@null---=2
+r***e@ee.com***123123123***0***=3
