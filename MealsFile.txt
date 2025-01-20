@@ -1,15 +1,15 @@
-patata&@potato, ketchub&@1.2&@src\pics\1.jpg&@
-fried shrimp&@shrimpies :D&@3.4&@src\pics\3.jpg&@
-hotdog edited&@hotdog ... idk&@1.0&@src\pics\4.jpg&@
-noodles&@noodles, pepper, soy sauce&@5.0&@src\pics\5.jpg&@
-siniyah bl furn&@chicken, spices&@50.0&@src\pics\6.jpg&@
-burger&@bread, beef, tomato, cheese&@2.0&@src\pics\7.jpg&@
-avocado with eggs&@look at the meal name&@7.3&@src\pics\8.jpg&@
-magical soup&@it's a surprise !&@4.0&@src\pics\9.jpg&@
-sheeeeeesh&@chicken breast maybe and yummy spices&@5.0&@src\pics\10.jpg&@
-kmageh&@wheat and water ...&@0.3&@src\pics\11.jpg&@
-spaghetti&@i bet you know them&@2.7&@src\pics\13.jpg&@
-apple pie&@apples and so yummy stuff&@2.8&@src\pics\14.jpg&@
+patata&@potato, ketchub&@1.2&@src/pics/1.jpg&@
+fried shrimp&@shrimpies :D&@3.4&@src/pics/3.jpg&@
+hotdog edited&@hotdog ... idk&@1.0&@src/pics/4.jpg&@
+noodles&@noodles, pepper, soy sauce&@5.0&@src/pics/5.jpg&@
+siniyah bl furn&@chicken, spices&@50.0&@src/pics/6.jpg&@
+burger&@bread, beef, tomato, cheese&@2.0&@src/pics/7.jpg&@
+avocado with eggs&@look at the meal name&@7.3&@src/pics/8.jpg&@
+magical soup&@it's a surprise !&@4.0&@src/pics/9.jpg&@
+sheeeeeesh&@chicken breast maybe and yummy spices&@5.0&@src/pics/10.jpg&@
+kmageh&@wheat and water ...&@0.3&@src/pics/11.jpg&@
+spaghetti&@i bet you know them&@2.7&@src/pics/13.jpg&@
+apple pie&@apples and so yummy stuff&@2.8&@src/pics/14.jpg&@
 mac and cheese (idk)&@macaroni, cheese sauce&@5.0&@src/pics/15.jpg&@
 sushi_&@rice and other stuff&@12.24&@src/pics/16.jpg&@
 CARROTS...&@C, A, R, R O, T, S&@37.172&@src/pics/12.jpg&@

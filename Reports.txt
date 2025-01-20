@@ -1,16 +1,16 @@
 21
 620.6699910163879
-avocado with eggs&@look at the meal name&@7.3&@src\pics\8.jpg&@***1
+hotdog edited&@hotdog ... idk&@1.0&@src/pics/4.jpg&@***3
+pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src/pics/2.jpg&@***10
 Pizza&@cheese,peperoni,paste&@2.76&@src/pics/2.jpg&@***39
-spaghetti&@i bet you know them&@2.7&@src\pics\13.jpg&@***1
-noodles&@noodles, pepper, soy sauce&@5.0&@src\pics\5.jpg&@***2
-fried shrimp&@shrimpies :D&@3.4&@src\pics\3.jpg&@***25
-burger&@bread, beef, tomato, cheese&@2.0&@src\pics\7.jpg&@***7
-sushi&@rice and other stuff&@12.24&@src\pics\16.jpg&@***1
-hotdog edited&@hotdog ... idk&@1.0&@src\pics\4.jpg&@***3
-siniyah bl furn&@chicken, spices&@50.0&@src\pics\6.jpg&@***7
-pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@***10
-kmageh&@wheat and water ...&@0.3&@src\pics\11.jpg&@***3
+kmageh&@wheat and water ...&@0.3&@src/pics/11.jpg&@***3
+spaghetti&@i bet you know them&@2.7&@src/pics/13.jpg&@***1
+burger&@bread, beef, tomato, cheese&@2.0&@src/pics/7.jpg&@***7
+avocado with eggs&@look at the meal name&@7.3&@src/pics/8.jpg&@***1
+fried shrimp&@shrimpies :D&@3.4&@src/pics/3.jpg&@***25
+noodles&@noodles, pepper, soy sauce&@5.0&@src/pics/5.jpg&@***2
+siniyah bl furn&@chicken, spices&@50.0&@src/pics/6.jpg&@***7
+sushi&@rice and other stuff&@12.24&@src/pics/16.jpg&@***1
 #####
 AYA***a@gmail.com***123212321***0***=1
 r***e@ee.com***123123123***0***=20

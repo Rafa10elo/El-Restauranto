@@ -179,7 +179,8 @@ public class Order {
                     String[] mealData = mealStr.split("##_");
                     Meal meal = Meal.fromFileFormat(mealData[0]);
                     int count = Integer.parseInt(mealData[1]);
-                    meals.put(meal, count);
+                    if (meal != null)
+                        meals.put(meal, count);
                 }
             }
 

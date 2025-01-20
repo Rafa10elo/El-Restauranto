@@ -15,7 +15,6 @@ public class Meal {
     String ingredients;
     float price;
     String imgSrc;
-    ImageIcon img;
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -33,17 +32,9 @@ public class Meal {
         this.imgSrc = imgSrc;
     }
 
-    public void setImg(ImageIcon img) {
-        this.img = img;
-    }
-
 
     public String getIngredients() {
         return ingredients;
-    }
-
-    public ImageIcon getImg() {
-        return img;
     }
 
     public String getImgSrc() {
@@ -63,7 +54,6 @@ public class Meal {
         this.ingredients = ingredients;
         this.price = price;
         this.imgSrc = imgSrc;
-        this.img = new ImageIcon(imgSrc);
     }
 
     public static Meal fromFileFormat(String str) {
@@ -72,7 +62,20 @@ public class Meal {
             String mealName = mealStrings[0];
             String ingredients = mealStrings[1];
             float price = Float.parseFloat(mealStrings[2]);
-            String imgSrc = mealStrings[3];
+
+            // checking the path for the img
+            String imgSrc;
+            String path = mealStrings[3].replace("\\", "/") ;
+            File temp = new File(path) ;
+            boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
+                    || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
+            if (temp.exists() && tempIsImg && path.contains("src/pics")){
+                imgSrc = path.substring(path.indexOf("src")) ;
+            }else{
+                System.out.println("There is a problem within the path of one of the meals' images while reading it from the file");
+                imgSrc = "src/pics/default.jpg" ;
+            }
+
             return new Meal(mealName, ingredients, price, imgSrc);
         } catch (Exception e) {
             System.out.println("There is a problem within the format of one of the meals while reading it from the file");
@@ -102,12 +105,11 @@ public class Meal {
     }
 
     public boolean saveImgToProject() {
-        boolean saveImg = true;
         if(!imgSrc.contains("src/pics")){
             try{
                 BufferedImage localImg = ImageIO.read(new File(imgSrc));
                 File file = new File("src/pics", new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS").format(new Date()) + ".jpg");
-                saveImg = ImageIO.write(localImg, "jpg", file) ;
+                boolean saveImg = ImageIO.write(localImg, "jpg", file) ;
                 if(saveImg){
                     System.out.println("img saved successfully :]");
                     imgSrc = file.getPath();
@@ -118,11 +120,12 @@ public class Meal {
                 return saveImg;
             }catch (IOException e){
                 System.out.println("IO exception in image saving");
+                imgSrc = "src/pics/default.jpg" ;
+                return false;
             }
         }
-        String s = imgSrc.substring(imgSrc.indexOf("src"));
-        imgSrc = s ;
-        return saveImg;
+        imgSrc = imgSrc.substring(imgSrc.indexOf("src")) ;
+        return true;
     }
 
 }
