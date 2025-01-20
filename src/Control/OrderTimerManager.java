@@ -37,7 +37,7 @@ public class OrderTimerManager {
         return dateTime.format(formatter);
     }
 
-    public void showRemainingTime(User user, Order order, JLabel timeLabel, JLabel stateLabel, JLabel timeStatment) {
+    public void showRemainingTime(User user, Order order, JLabel timeLabel, JLabel stateLabel, JLabel timeStatment,JPanel panel) {
         if (order.getTimeOfDelivery() == null) {
             timeStatment.setText("");
             stateLabel.setText("Canceled");
@@ -60,6 +60,8 @@ public class OrderTimerManager {
 
                     JOptionPane.showMessageDialog(null,"Your Order Is Ready \n payment ID : " + order.getPaymentId(),"DONE!",JOptionPane.INFORMATION_MESSAGE);
                     order.setNotification(true);
+                    (  (JFrame) SwingUtilities.getWindowAncestor(panel)).setExtendedState(JFrame.NORMAL);
+
                 }
                 taskHolder[0].cancel(false);
             } else {

@@ -8,6 +8,7 @@ import View.RegisterPanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -33,7 +34,8 @@ public class ProfileController {
                 } else {
                     // Switch to edit panel
                     String passwordDialog = JOptionPane.showInputDialog(profilePanel.fillProfile(wantedUser), "Enter your password:");
-                    if(passwordDialog.equals(wantedUser.getPassword())){
+
+                    if(passwordDialog!=null &&passwordDialog.equals(wantedUser.getPassword())){
                         profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "edit");
                         inEditMode = true;
                         profilePanel.editProfileButton.setText("Save");
@@ -57,12 +59,30 @@ public class ProfileController {
              JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct password formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
              return;
          }
+         if(!RegisterPanel.isValidEmail(profilePanel.getEditedEmail()))
+         {
+             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct email formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
+             return;
+         }
+
+         ArrayList<Order> ordersOfTheUsers;
+
+         if(!wantedUser.getUserName().equals(profilePanel.getEditedUsername())){
+             ordersOfTheUsers= wantedUser.getOrders().getOrdersForUser(wantedUser);
+             wantedUser.setUserName(profilePanel.getEditedUsername());
+             wantedUser.setEmail(profilePanel.getEditedEmail());
+             wantedUser.setPassword(profilePanel.getEditedPassword());
+             for(Order order : ordersOfTheUsers)
+                 wantedUser.getOrders().addOrderForUser(wantedUser,order);
+
+         }
+         else {
+             wantedUser.setEmail(profilePanel.getEditedEmail());
+             wantedUser.setPassword(profilePanel.getEditedPassword());
+         }
 
 
 
-            wantedUser.setUserName(profilePanel.getEditedUsername());
-            wantedUser.setEmail(profilePanel.getEditedEmail());
-            wantedUser.setPassword(profilePanel.getEditedPassword());
             users.writerThread();
 
          profilePanel.mainPanel = profilePanel.fillProfile(wantedUser);

@@ -187,7 +187,7 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setBorder(null);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
-        timerManager.showRemainingTime(user,order,timeLabel, stateLabel,timeTagLabel);
+        timerManager.showRemainingTime(user,order,timeLabel, stateLabel,timeTagLabel,this);
         return orderPanel;
     }
 

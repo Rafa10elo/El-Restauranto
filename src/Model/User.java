@@ -100,13 +100,12 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return userType == user.userType &&
-                Objects.equals(userName, user.userName) &&
-                Objects.equals(email, user.email) ;
+                Objects.equals(userName, user.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName, email);
+        return Objects.hash(userName);
     }
 
 }
