@@ -34,8 +34,8 @@ public class MealsController {
             }
         }
         else{
-            repaintMainMenu();
             // ADD MEAL BUTTON
+            repaintMainMenu();
             ActionListener addMealListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -99,12 +99,12 @@ public class MealsController {
                     meals.writerThread();
                     // edit view
                     mealsPanel.getAllMeals().remove(mealsPanel.getCurrentMeal()) ;
-                    repaintMainMenu();
                     mealsPanel.setCurrentMeal(null);
 
                     mealsPanel.getEditMealDialog().removeAll();
                     mealsPanel.getEditMealDialog().dispose();
 
+                    repaintMainMenu();
                     JOptionPane.showMessageDialog(mealsPanel, "Meal deleted successfully!", "", JOptionPane.INFORMATION_MESSAGE);
                 }
             };

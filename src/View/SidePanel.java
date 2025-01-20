@@ -40,7 +40,7 @@ public class SidePanel extends JPanel {
     JRadioButton creditCard ;
     JTextField creditCardId ;
     JButton pay = new JButton();
-    JButton cancelPay = new JButton();
+    JButton resetOrder = new JButton();
     public SidePanel(User user) {
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
@@ -681,13 +681,13 @@ public class SidePanel extends JPanel {
         gbc.fill = GridBagConstraints.NONE ;
         gbc.anchor = GridBagConstraints.WEST ;
         gbc.insets = new Insets(0, 30, 0, 0);
-        cancelPay.setText("cancel order"); ;
-        cancelPay.setPreferredSize(new Dimension(100, 40));
-        cancelPay.setBackground(MainFrame.lightGray);
-        cancelPay.setForeground(MainFrame.orange);
-        cancelPay.setFont(MainFrame.fontBold.deriveFont(25f));
-        cancelPay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-        paymentDialog.add(cancelPay, gbc);
+        resetOrder.setText("reset order"); ;
+        resetOrder.setPreferredSize(new Dimension(100, 40));
+        resetOrder.setBackground(MainFrame.lightGray);
+        resetOrder.setForeground(MainFrame.orange);
+        resetOrder.setFont(MainFrame.fontBold.deriveFont(25f));
+        resetOrder.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        paymentDialog.add(resetOrder, gbc);
 
         // pay button
         gbc.gridx = 2;
@@ -753,8 +753,8 @@ public class SidePanel extends JPanel {
     public JButton getPayButton() {
         return pay;
     }
-    public JButton getCancelPayButton() {
-        return cancelPay;
+    public JButton getResetOrderButton() {
+        return resetOrder;
     }
     public Float getTotalPrice() {
         return totalPriceNumber;

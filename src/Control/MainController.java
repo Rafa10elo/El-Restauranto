@@ -146,7 +146,7 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
                         };
                         mainFrame.mealsPanel.getSidePanel().getPayButton().addActionListener(addOrderListener);
 
-                        ActionListener cancelOrderListener = new ActionListener() {
+                        ActionListener resetOrderListener = new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
 //                                // create a canceled order, add to orders, write
@@ -157,10 +157,10 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
                                 users.writerThread();
                                 // edit report --------------------------------------------------------
                                 mainFrame.mealsPanel.getSidePanel().orderReset();
-                                JOptionPane.showMessageDialog(mainFrame, "Your order is canceled", "", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(mainFrame, "Your order is reset", "", JOptionPane.INFORMATION_MESSAGE);
                             }
                         };
-                        mainFrame.mealsPanel.getSidePanel().getCancelPayButton().addActionListener(cancelOrderListener);
+                        mainFrame.mealsPanel.getSidePanel().getResetOrderButton().addActionListener(resetOrderListener);
 
                     }
                 }
