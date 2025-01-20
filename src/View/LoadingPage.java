@@ -34,7 +34,7 @@ public class LoadingPage extends JPanel {
 
     private void animateDots(ActionEvent e) {
         if (showWelcome) {
-            ((Timer) e.getSource()).stop();//لأوقف التايمر بعد ما يصير مالو فايدة بس مؤقتاً لاتاكد انو شغال
+            ((Timer) e.getSource()).stop();
             return;
         }
         timeStep += 4;
@@ -60,7 +60,7 @@ public class LoadingPage extends JPanel {
             welcomeFadeTimer.stop();
 
             Timer hideTimer = new Timer(800, e -> {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);// فيني ما استخدمها بس رح احطها لاجرب لو بتخدم فكرة اية
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                 frame.remove(this);
             });
             hideTimer.setRepeats(false);

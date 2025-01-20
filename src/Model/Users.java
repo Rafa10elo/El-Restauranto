@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -69,7 +70,7 @@ public class Users {
                     }
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null,"Something went wrong  while reading from users file ","Error",JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -83,7 +84,7 @@ public class Users {
                     bw.newLine();
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null,"Something went wrong  while writing to users file ","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

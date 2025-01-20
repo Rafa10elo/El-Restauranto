@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -13,23 +14,23 @@ public class Meals {
         meals.add(meal);
     }
 
-    public synchronized boolean deleteMeal(String mealName) {
-        return meals.removeIf(meal -> meal.mealName.equals(mealName));
-    }
+//    public synchronized boolean deleteMeal(String mealName) {
+//        return meals.removeIf(meal -> meal.mealName.equals(mealName));
+//    }
     public synchronized  boolean deleteMeal(Meal meal) {
         return meals.removeIf(meal :: equals);
     }
 
 
-    public synchronized boolean modifyMeal(String mealName, Meal updatedMeal) {
-        for (int i = 0; i < meals.size(); i++) {
-            if (meals.get(i).mealName.equals(mealName)) {
-                meals.set(i, updatedMeal);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public synchronized boolean modifyMeal(String mealName, Meal updatedMeal) {
+//        for (int i = 0; i < meals.size(); i++) {
+//            if (meals.get(i).mealName.equals(mealName)) {
+//                meals.set(i, updatedMeal);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public synchronized boolean modifyMeal(Meal oldMeal, Meal updatedMeal) {
         for (int i = 0; i < meals.size(); i++){
@@ -64,7 +65,7 @@ public class Meals {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,"Something went wrong  while reading from meals file ","Error",JOptionPane.ERROR_MESSAGE);
         }
         }
     }
@@ -77,7 +78,8 @@ public class Meals {
                     bw.newLine();
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null,"Something went wrong while writing to meals file ","Error",JOptionPane.ERROR_MESSAGE);
+
             }
         }
     }

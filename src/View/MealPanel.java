@@ -18,7 +18,6 @@ public class MealPanel extends JPanel {
     Meal meal ;
     public MealPanel (Meal meal) {
         this.meal = meal ;
-//        setSize(new Dimension(250, 400));
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
         setBorder(new LineBorder(MainFrame.extraLightGray, 1));

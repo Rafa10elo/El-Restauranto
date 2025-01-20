@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -202,8 +203,7 @@ public class Order {
             return new Order(meals, totalPrice, tip, state, timeOfDelivery, paymentId,username,inRestaurant);
 
         } catch (Exception e) {
-            System.out.println(3);
-            System.out.println(e);
+            System.out.println("There is a problem within the format of one of the orders while reading it from the file");
             return null;
         }
     }

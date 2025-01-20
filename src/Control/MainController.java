@@ -35,9 +35,8 @@ public class MainController {
         users.readerThread();
         meals.readerThread();
         payments.readerThread();
-        Payment.loadCounterFromFile();
+//        Payment.loadCounterFromFile();
         report =report.loadFromFile();
-
 
 
 
@@ -103,7 +102,7 @@ public class MainController {
                                     if ( payment != null ){
                                         // if there's a payment
                                         // add to payments, write
-                                        Payment.saveCounterToFile();
+//                                        Payment.saveCounterToFile();
                                         payments.addPayment(payment);
                                         payments.writerThread();
 

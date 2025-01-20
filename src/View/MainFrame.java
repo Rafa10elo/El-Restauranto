@@ -107,8 +107,7 @@ public class MainFrame extends JFrame {
         this.profilePanel = profilePanel;
         cardsPanel.add(profilePanel, "profilePanel");
 
-//        this.reportPanel = reportPanel;
-//        cardsPanel.add(reportPanel, "reportPanel");
+
 
         this.allOrdersPanel = allOrdersPanel;
         cardsPanel.add(allOrdersPanel, "allOrdersPanel");
@@ -119,22 +118,16 @@ public class MainFrame extends JFrame {
         add(loadingPanel, "loading");
         add(panel, "main");
 
-        Timer showMainPanel = new Timer(1, e -> {
+        Timer showMainPanel = new Timer(6000, e -> {
             cardLayout1.show(this.getContentPane(), "main");
             panel.remove(loadingPanel);
         });
-//        try {
-//            Thread.sleep(6000);
-//        } catch (InterruptedException e) {
-//        }
-//        cardLayout1.show(this.getContentPane(), "main");
-//        revalidate();
-//        repaint();
+        showMainPanel.start();
     }
 
-    public void switchCard(JPanel parent,String child){
-        cardLayout.show(parent,child);
-    }
+//    public void switchCard(JPanel parent,String child){
+//        cardLayout.show(parent,child);
+//    }
 
 
     JButton createButton(String buttonText) {

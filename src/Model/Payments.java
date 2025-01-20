@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -42,7 +43,8 @@ public class Payments {
                     }
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null,"Something went wrong  while reading from payments file ","Error",JOptionPane.ERROR_MESSAGE);
+
             }
         }
     }
@@ -56,7 +58,8 @@ public class Payments {
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,"Something went wrong  while writing to payments file ","Error",JOptionPane.ERROR_MESSAGE);
+
         }
         }
     }

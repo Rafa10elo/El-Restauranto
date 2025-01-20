@@ -2,7 +2,6 @@ package Control;
 
 import Model.*;
 import View.LoginAndRegistrationFrame;
-import View.LoginPanel;
 import View.RegisterPanel;
 
 import javax.swing.*;

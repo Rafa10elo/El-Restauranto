@@ -17,6 +17,7 @@ public class Payment {
     }
 
     public Payment(String paymentId, double amount, String method ) {
+        counter++;
         this.paymentId = paymentId;
         this.amount = amount;
         this.method = method;
@@ -24,7 +25,6 @@ public class Payment {
 
     private String generatePaymentId() {
         counter++;
-        saveCounterToFile();
         return String.format(Locale.ENGLISH,"%08d", counter);
     }
 
@@ -50,42 +50,9 @@ public class Payment {
             String[] parts = str.split("\\*\\*\\*");
             return new Payment(parts[0],  Double.parseDouble(parts[1]),parts[2]);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("There is a problem within the format of one of the payments while reading it from the file");
+
             return null;
-        }
-    }
-    public void writerThread(){
-
-        new Thread(()->{
-            saveCounterToFile();
-        });
-
-    }
-    public void readerThread(){
-
-        new Thread(()->{
-            loadCounterFromFile();
-        });
-
-    }
-
-    public static void saveCounterToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("CounterOfIDS.txt"))) {
-            writer.write(String.valueOf(counter));
-        } catch (IOException e) {
-            System.out.println( e);
-        }
-    }
-
-    public static void loadCounterFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("CounterOfIDS.txt"))) {
-            String line = reader.readLine();
-            if (line != null) {
-                counter = Integer.parseInt(line);
-            }
-        } catch (IOException e) {
-            System.out.println( e);
-            counter = 0;
         }
     }
 }

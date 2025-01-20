@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -97,7 +98,7 @@ public class Report {
                     writer.newLine();
                 }
             } catch (IOException e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null,"Something went wrong  while writing to report file ","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -115,18 +116,16 @@ public class Report {
                     try {
                         String[] parts = line.split("\\*\\*\\*");
                         if (parts.length != 2) {
-                            System.out.println("0 " + line);
                             continue;
                         }
                         Meal meal = Meal.fromFileFormat(parts[0]);
                         if (meal == null) {
-                            System.out.println("1 " + parts[0]);
                             continue;
                         }
                         int cnt = Integer.parseInt(parts[1]);
                         report.incrementMealCount(meal, cnt);
                     } catch (Exception e) {
-                        System.out.println("2" + line + " - " + e.getMessage());
+                        System.out.println("Something went wrong  while reading some data within the report file ");
                     }
                 }
 
@@ -148,10 +147,9 @@ public class Report {
                         System.out.println("2.2" + line + " - " + e.getMessage());
                     }
                 }
-                System.out.println(report.getTotalMoney());
                 return report;
             } catch (IOException | NumberFormatException e) {
-                System.out.println("1 3");
+                JOptionPane.showMessageDialog(null,"Something went wrong  while reading from report file ","Error",JOptionPane.ERROR_MESSAGE);
                 return new Report(0, 0.0);
             }
         }
@@ -162,7 +160,6 @@ public class Report {
         String email = userParts[1];
         String password = userParts[2];
         int userType= Integer.parseInt(userParts[3]);
-
 
         return new User(userName,email,password, userType);
     }

@@ -45,10 +45,8 @@ public class LoginAndRegistrationFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        // Create CardLayout to switch between panels
          cardLayout = new CardLayout();
          mainPanel = new JPanel(cardLayout);
-
          loginPanel = new LoginPanel(mainPanel, cardLayout);
          registerPanel = new RegisterPanel(mainPanel, cardLayout);
 

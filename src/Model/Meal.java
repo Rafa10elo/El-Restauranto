@@ -75,8 +75,7 @@ public class Meal {
             String imgSrc = mealStrings[3];
             return new Meal(mealName, ingredients, price, imgSrc);
         } catch (Exception e) {
-            System.out.println(2);
-            System.out.println(e);
+            System.out.println("There is a problem within the format of one of the meals while reading it from the file");
             return null;
         }
     }

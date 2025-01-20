@@ -38,36 +38,35 @@ public class Orders {
         return allOrders;
     }
 
-    public List<Order> sortedListOfOrderes() {
-        ArrayList<Order> allOrders = getAllOrders();
-        allOrders.sort(Comparator.comparing(Order::getTimeOfDelivery));
-        return allOrders;
-    }
-
-    public  boolean updateOrder(User user, Order order, Order.Status status) {
-        List<Order> orders = ordersOfUsers.get(user);
-
-        if (orders != null) {
-            for (Order existingOrder : orders) {
-                if (existingOrder.equals(order)) {
-                    existingOrder.setState(status);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean removeOrder(User user, Order order) {
-        List<Order> orders = ordersOfUsers.get(user);
-        if (orders != null) {
-            boolean removed = orders.remove(order);
-            if (removed) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public List<Order> sortedListOfOrders() {
+//        ArrayList<Order> allOrders = getAllOrders();
+//        allOrders.sort(Comparator.comparing(Order::getTimeOfDelivery));
+//        return allOrders;
+//    }
+//    public  boolean updateOrder(User user, Order order, Order.Status status) {
+//        List<Order> orders = ordersOfUsers.get(user);
+//
+//        if (orders != null) {
+//            for (Order existingOrder : orders) {
+//                if (existingOrder.equals(order)) {
+//                    existingOrder.setState(status);
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public boolean removeOrder(User user, Order order) {
+//        List<Order> orders = ordersOfUsers.get(user);
+//        if (orders != null) {
+//            boolean removed = orders.remove(order);
+//            if (removed) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
 }

@@ -747,31 +747,21 @@ public class SidePanel extends JPanel {
     public JTextField getCreditCardId() {
         return creditCardId;
     }
-
     public Float getPaymentAmount() {
         return (float) (totalPriceNumber + tips[tipsCombo.getSelectedIndex()] ) ;
     }
-
     public JButton getPayButton() {
         return pay;
     }
     public JButton getCancelPayButton() {
         return cancelPay;
     }
-
-    public JDialog getPaymentDialog() {
-        return paymentDialog;
-    }
-
-    // order
     public Float getTotalPrice() {
         return totalPriceNumber;
     }
-
     public Float getTips() {
         return (float) tipsCombo.getSelectedItem();
     }
-
     public HashMap<Meal, Integer> getOrderMeals() {
         return orderMeals;
     }

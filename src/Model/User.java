@@ -46,21 +46,13 @@ public class User {
         this.email = email;
         this.password = password;
         this.userType = userType;
-        //this.isLoggedIn=false;
     }
 
-//    public boolean isLoggedIn() {
-//        return isLoggedIn;
-//    }
-//
-//    public void setLoggedIn(boolean loggedIn) {
-//        isLoggedIn = loggedIn;
-//    }
-    //for testing
 
-    public void setUserType(int userType) {
-        this.userType = userType;
-    }
+
+//    public void setUserType(int userType) {
+//        this.userType = userType;
+//    }
 
     public String toFileFormat() {
         String userString = userName + "***" + email + "***"+ password + "***" + userType + "***";
@@ -96,9 +88,9 @@ public class User {
                 }
             }
             return user;
-
-        } catch (Exception e) {
-            System.out.println(e);
+        }
+        catch (Exception e) {
+            System.out.println("There is a problem within the format of one of the users while reading it from the file");
             return null;
         }
     }

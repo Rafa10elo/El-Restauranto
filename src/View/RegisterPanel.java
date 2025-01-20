@@ -163,14 +163,10 @@ public class RegisterPanel extends JPanel {
             }
         });
         passwordEntryPanel.add(passField,gbc1);
-
-//        centralPanel.add(passField, gbc);
-
         JCheckBox showPasswordCheckbox = new JCheckBox();
         showPasswordCheckbox.setForeground(MainFrame.orange);
         showPasswordCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckbox.setOpaque(false);
-//        gbc.gridx = 2;
        gbc1.gridx = 10;
        gbc1.weightx = 0.2;
        gbc1.gridwidth = 1;
@@ -181,10 +177,8 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel.add(showPasswordCheckbox,gbc1);
         passwordEntryPanel.setBackground(new Color(70,73,75));
         passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightGray,1));
-//        gbc.insets= new Insets (0 , 0 , 0 , 1);
         gbc.gridx = 1;
        centralPanel.add(passwordEntryPanel, gbc);
-//        gbc.insets = new Insets(20, 20, 20, 20);
 
         showPasswordCheckbox.addActionListener(e -> {
             if (showPasswordCheckbox.isSelected()) {
@@ -238,12 +232,10 @@ public class RegisterPanel extends JPanel {
         gbc1.fill=GridBagConstraints.BOTH;
         passwordEntryPanel1.add(passCheckField,gbc1);
 
-//        centralPanel.add(passField, gbc);
         JCheckBox showPasswordCheckCheckbox = new JCheckBox();
         showPasswordCheckCheckbox.setForeground(MainFrame.orange);
         showPasswordCheckCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckCheckbox.setOpaque(false);
-//        gbc.gridx = 2;
         gbc1.gridx = 10;
         gbc1.weightx = 0.2;
         gbc1.gridwidth = 1;
@@ -254,11 +246,8 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel1.add(showPasswordCheckCheckbox,gbc1);
         passwordEntryPanel1.setBackground(new Color(70,73,75));
         passwordEntryPanel1.setBorder(new LineBorder(MainFrame.extraLightGray,1));
-//        gbc.insets= new Insets (0 , 0 , 0 , 1);
         gbc.gridx = 1;
         centralPanel.add(passwordEntryPanel1, gbc);
-//        gbc.insets = new Insets(20, 20, 20, 20);
-//
         showPasswordCheckCheckbox.addActionListener(e -> {
             if (showPasswordCheckCheckbox.isSelected()) {
                 passCheckField.setEchoChar((char) 0);

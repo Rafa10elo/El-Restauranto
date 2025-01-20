@@ -15,9 +15,7 @@ public class LoginPanel extends JPanel {
     public static Color lightGray = new Color(43, 45, 48) ;
     public static Color darkGray = new Color(30, 31, 34) ;
     public static Color orange = new Color(206, 129, 76) ;
-//    public static Font fontBold = null ;
-//    public static Font fontRegular = null ;
-//    public static Font fieldsFont = LoginAndRegistrationFrame. ;
+
 
    public JTextField userField;
    public JPasswordField passField;
@@ -87,10 +85,8 @@ public class LoginPanel extends JPanel {
         passwordEntryPanel.add(showPasswordCheckbox,gbc1);
         passwordEntryPanel.setBackground(new Color(70,73,75));
         passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightGray,1));
-//        gbc.insets= new Insets (0 , 0 , 0 , 1);
         gbc.gridx = 1;
         centralPanel.add(passwordEntryPanel, gbc);
-//        gbc.insets = new Insets(20, 20, 20, 20);
 
         // Login Button
 
