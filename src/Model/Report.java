@@ -133,18 +133,16 @@ public class Report {
                     try {
                         String[] parts = line.split("\\=");
                         if (parts.length != 2) {
-                            System.out.println("3" + line);
                             continue;
                         }
                         User user = fromFileFormat(parts[0]);
                         if (user == null) {
-                            System.out.println("4 " + parts[0]);
                             continue;
                         }
                         int cnt = Integer.parseInt(parts[1]);
                         report.incrementUserCount(user, cnt);
                     } catch (Exception e) {
-                        System.out.println("2.2" + line + " - " + e.getMessage());
+                        System.out.println("something went wrong within the format of the report data");
                     }
                 }
                 return report;

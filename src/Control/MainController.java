@@ -49,13 +49,13 @@ public class MainController {
             @Override
             public void windowClosing(WindowEvent e) {
                 users.writerThread();
-                for(Order order :            user.getOrders().getOrdersForUser(user))
-                    System.out.println(order.getState());
                 report.writerThread();
+                payments.writerThread();
+                meals.writerThread();
                 System.exit(0);
             }
         };
-
+loginAndRegistrationFrame.addWindowListener(windowAdapter);
         loginListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,8 +69,6 @@ public class MainController {
                     mealsPanel = new MealsPanel(user);
                     allOrdersPanel= new AllOrdersPanel(user);
                     mainFrame = createMainFrame(user,profilePanel,reportPanel,allOrdersPanel, report, users, meals);
-//                    mainFrame = new MainFrame(user, profilePanel, reportPanel, allOrdersPanel) ;
-//                    mainFrame.mealsPanel.fillMainMenu(meals.getMeals());
                     mainFrame.addWindowListener(windowAdapter);
                     profilePanel.logoutButton.addActionListener(logoutListener);
 
@@ -111,13 +109,8 @@ public class MainController {
                                                 mainFrame.mealsPanel.getSidePanel().getTips(), Order.Status.PREPARING,LocalDateTime.now().plusSeconds(12),
                                                 payment.getPaymentId(), user.getUserName(), mainFrame.mealsPanel.getSidePanel().getInRestaurant());
                                         orders.addOrderForUser(user, order);
-//                                        for(Order order1 : orders.getOrdersForUser(user))
-//                                        for(Map.Entry<Meal, Integer> mealCnt :order1.getMeals().entrySet() )
-//                                            System.out.println(mealCnt.getKey()+" "+ order1.getPaymentId());
                                         users.writerThread();
                                         mainFrame.allOrdersPanel.addNewOrder(order,user,orders);
-                                        System.out.println(order);
-
                                         // edit the report : total money, number of orders, ordering users, ordered meals
                                         report.addToTotalMoney(payment.getAmount());
                                         report.increaseNumberOfOrders();
@@ -182,6 +175,7 @@ public class MainController {
                 mainFrame.dispose();
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
                 loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
+                loginAndRegistrationFrame.addWindowListener(windowAdapter);
                 loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(loginListener);
             }
         };

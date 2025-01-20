@@ -103,8 +103,6 @@ public class Meal {
 
     public boolean saveImgToProject() {
         boolean saveImg = true;
-        System.out.println(imgSrc);
-        System.out.println(imgSrc.contains("src/pics"));
         if(!imgSrc.contains("src/pics")){
             try{
                 BufferedImage localImg = ImageIO.read(new File(imgSrc));
