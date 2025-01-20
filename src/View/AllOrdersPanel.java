@@ -44,7 +44,7 @@ public class AllOrdersPanel extends JPanel {
         }
         int cnt=0;
         for(Order order : theOrdersOfTheUser)
-            System.out.println("size of order " +order.getMeals().size());
+//            System.out.println("size of order " +order.getMeals().size());
 
 
 

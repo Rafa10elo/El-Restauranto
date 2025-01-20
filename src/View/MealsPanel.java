@@ -541,8 +541,10 @@ public class MealsPanel extends JPanel {
 
     // for add new meal
     public Meal getNewMealInfo () {
+        String path = sidePanel.getImgSrcField().replace("\\", "/");
         Meal meal = new Meal(sidePanel.getNameField(), sidePanel.getIngredientsField(),
-                sidePanel.getPriceField(), sidePanel.getImgSrcField());
+                sidePanel.getPriceField(), path);
+        System.out.println(path);
         return meal;
     }
 
@@ -568,8 +570,9 @@ public class MealsPanel extends JPanel {
         currentEditMeal = meal;
     }
     public Meal getEditedMealInfo() {
+        String path = imgSrcEdit.getText().replace("\\", "/");
         Meal meal = new Meal( nameEdit.getText(), ingredientsEdit.getText(),
-                Float.parseFloat(priceEdit.getText()), imgSrcEdit.getText()) ;
+                Float.parseFloat(priceEdit.getText()), path) ;
         return meal;
     }
     public MealPanel getMealPanel(Meal meal) {
@@ -580,11 +583,6 @@ public class MealsPanel extends JPanel {
         }
         return null;
     }
-//    public void editMeals(Meal oldMeal, Meal newMeal){
-//        allMeals.put(newMeal, allMeals.get(oldMeal) ) ;
-//        allMeals.remove(oldMeal);
-//
-//    }
 
     public JButton getDeleteMeal() {
         return deleteMeal;

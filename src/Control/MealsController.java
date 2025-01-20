@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Map;
 
 public class MealsController {
@@ -43,6 +44,13 @@ public class MealsController {
                 public void actionPerformed(ActionEvent e) {
                     if (mealsPanel.getSidePanel().mealInfoValid()){
                         Meal newMeal = mealsPanel.getNewMealInfo() ;
+
+                        //saving the image to the pics file
+                        boolean saved = newMeal.saveImgToProject();
+                        if(!saved){
+                            JOptionPane.showMessageDialog(mealsPanel, "Something happened while saving the image to the project :(\nthe image will be set to the default one, try editing it later", "", JOptionPane.ERROR_MESSAGE);
+                        }
+
                         // add to model + write
                         meals.addMeal(newMeal);
                         meals.writerThread();
@@ -60,6 +68,13 @@ public class MealsController {
                 public void actionPerformed(ActionEvent e) {
                     if (mealsPanel.editMealInfoValid()){
                         Meal editedMeal = mealsPanel.getEditedMealInfo() ;
+                        //saving the image to the pics file
+                        boolean saved = editedMeal.saveImgToProject();
+                        if(!saved){
+                            JOptionPane.showMessageDialog(mealsPanel, "Something happened while saving the new image to the project :(", "", JOptionPane.ERROR_MESSAGE);
+                            editedMeal.setImgSrc(mealsPanel.getCurrentMeal().getImgSrc());
+                        }
+
                         // edit view
                         mealsPanel.getMealPanel(mealsPanel.getCurrentMeal()).setMealInfo(editedMeal);
 //                        mealsPanel.editMeals(mealsPanel.getCurrentMeal(), editedMeal) ;

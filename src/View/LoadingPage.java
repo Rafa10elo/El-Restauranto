@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class LoadingPage extends JPanel {
-     static int numOfDots = 4;
+     static int numOfDots = 5;
      static  int dotDiameter = 20;
      static  int hSpace = 10;
      static  int highestPoint = 15;

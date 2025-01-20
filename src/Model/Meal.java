@@ -1,6 +1,13 @@
 package Model;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class Meal {
@@ -93,6 +100,32 @@ public class Meal {
     @Override
     public int hashCode() {
         return Objects.hash(mealName, ingredients, price, imgSrc);
+    }
+
+    public boolean saveImgToProject() {
+        boolean saveImg = true;
+        System.out.println(imgSrc);
+        System.out.println(imgSrc.contains("src/pics"));
+        if(!imgSrc.contains("src/pics")){
+            try{
+                BufferedImage localImg = ImageIO.read(new File(imgSrc));
+                File file = new File("src/pics", new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS").format(new Date()) + ".jpg");
+                saveImg = ImageIO.write(localImg, "jpg", file) ;
+                if(saveImg){
+                    System.out.println("img saved successfully :]");
+                    imgSrc = file.getPath();
+                }else{
+                    System.out.println("img not saved for some reason");
+                    imgSrc = "src/pics/default.jpg" ;
+                }
+                return saveImg;
+            }catch (IOException e){
+                System.out.println("IO exception in image saving");
+            }
+        }
+        String s = imgSrc.substring(imgSrc.indexOf("src"));
+        imgSrc = s ;
+        return saveImg;
     }
 
 }

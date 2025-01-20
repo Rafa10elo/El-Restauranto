@@ -151,7 +151,7 @@ public class MealPanel extends JPanel {
         this.meal = mealEdited ;
         Image img = Toolkit.getDefaultToolkit().getImage(mealEdited.getImgSrc()).getScaledInstance(this.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
 
-        imgLabel = new JLabel(new ImageIcon(img)) ;
+        imgLabel.setIcon(new ImageIcon(img)); ;
 
         this.mealName.setText(mealEdited.getMealName());
 

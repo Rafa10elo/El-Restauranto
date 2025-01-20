@@ -1,10 +1,14 @@
-3
-52.433998584747314
+4
+68.2739987373352
 avocado with eggs&@look at the meal name&@7.3&@src\pics\8.jpg&@***1
+spaghetti&@i bet you know them&@2.7&@src\pics\13.jpg&@***1
 noodles&@noodles, pepper, soy sauce&@5.0&@src\pics\5.jpg&@***2
 fried shrimp&@shrimpies :D&@3.4&@src\pics\3.jpg&@***1
 burger&@bread, beef, tomato, cheese&@2.0&@src\pics\7.jpg&@***6
+sushi&@rice and other stuff&@12.24&@src\pics\16.jpg&@***1
 hotdog edited&@hotdog ... idk&@1.0&@src\pics\4.jpg&@***3
 pizzaaaa&@lots of things, but i swear it's delicious&@2.789&@src\pics\2.jpg&@***6
+kmageh&@wheat and water ...&@0.3&@src\pics\11.jpg&@***3
 #####
+AYA***a@gmail.com***123212321***0***=1
 r***e@ee.com***123123123***0***=3

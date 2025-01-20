@@ -3,6 +3,9 @@ import Model.Meal;
 import Model.Order;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
+import com.sun.source.doctree.ThrowsTree;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +20,7 @@ public class MainFrame extends JFrame {
     public ProfilePanel profilePanel ;
     public ReportPanel reportPanel;
     public AllOrdersPanel allOrdersPanel;
+    public JPanel panel;
 
 
     public static Color darkGray = new Color(30, 31, 34) ;
@@ -53,87 +57,79 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public  MainFrame(User user, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel){
+    public  MainFrame(User user, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel) {
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        setSize(new Dimension(1280,720));
+        CardLayout cardLayout1 = new CardLayout();
+        setSize(new Dimension(1280, 720));
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(cardLayout1);
         setVisible(true);
 
+        // loading panel
+        JPanel loadingPanel = new LoadingPage();
+        cardLayout1.show(this.getContentPane(), "loading");
+
+        // main panel
+        panel = new JPanel(new BorderLayout());
+        panel.setSize(new Dimension(this.getWidth(), this.getHeight()));
+
         // The top panel, which contains the buttons : Meals, Profile, and All Orders
-        JPanel navigationBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)) ;
+        JPanel navigationBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         navigationBarPanel.setBackground(lightGray);
-        navigationBarPanel.setPreferredSize(new Dimension(this.getWidth() , 50));
+        navigationBarPanel.setPreferredSize(new Dimension(this.getWidth(), 50));
         navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, orange));
         profileButton = createButton("Your Profile");
-        mainMenuButton = createButton("Main Menu") ;
-        allOrdersButton = createButton("All Orders") ;
-        reportButton = createButton("Report") ;
+        mainMenuButton = createButton("Main Menu");
+        allOrdersButton = createButton("All Orders");
+        reportButton = createButton("Report");
 
         navigationBarPanel.add(profileButton);
         navigationBarPanel.add(mainMenuButton);
         navigationBarPanel.add(allOrdersButton);
-        if (user.getUserType()==2)
+        if (user.getUserType() == 2)
             navigationBarPanel.add(reportButton);
 
-        add(navigationBarPanel, BorderLayout.NORTH) ;
+        panel.add(navigationBarPanel, BorderLayout.NORTH);
 
         // cards panel
         cardLayout = new CardLayout();
         cardsPanel = new JPanel(cardLayout);
 
-        mealsPanel = new MealsPanel(user) ;
-        cardsPanel.add(mealsPanel,"mealsPanel") ;
-        add(cardsPanel, BorderLayout.CENTER) ;
+        mealsPanel = new MealsPanel(user);
+        cardsPanel.add(mealsPanel, "mealsPanel");
 
-        this.profilePanel = profilePanel ;
-        cardsPanel.add(profilePanel,"profilePanel");
+        this.profilePanel = profilePanel;
+        cardsPanel.add(profilePanel, "profilePanel");
 
 //        this.reportPanel = reportPanel;
 //        cardsPanel.add(reportPanel, "reportPanel");
 
-        this.allOrdersPanel = allOrdersPanel ;
-        cardsPanel.add(allOrdersPanel,"allOrdersPanel");
+        this.allOrdersPanel = allOrdersPanel;
+        cardsPanel.add(allOrdersPanel, "allOrdersPanel");
+        panel.add(cardsPanel, BorderLayout.CENTER);
 
-        //
-//        cardsPanel.add(allOrdersPanel,"allOrdersPanel") ;
-//        profileButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cardLayout.show(cardsPanel, "profilePanel");
-//            }
-//        });
-//
-//        mainMenuButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cardLayout.show(cardsPanel, "mealsPanel");
-//            }
-//        });
-//
-//        allOrdersButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cardLayout.show(cardsPanel, "allOrdersPanel");
-//            }
-//        });
+        //we could've put the buttons actions listeners here
 
-//        reportButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cardLayout.show(cardsPanel, "reportPanel");
-//            }
-//        });
+        add(loadingPanel, "loading");
+        add(panel, "main");
 
-        revalidate();
-        repaint();
+        Timer showMainPanel = new Timer(1, e -> {
+            cardLayout1.show(this.getContentPane(), "main");
+            panel.remove(loadingPanel);
+        });
+//        try {
+//            Thread.sleep(6000);
+//        } catch (InterruptedException e) {
+//        }
+//        cardLayout1.show(this.getContentPane(), "main");
+//        revalidate();
+//        repaint();
     }
 
     public void switchCard(JPanel parent,String child){

@@ -203,7 +203,7 @@ public class MainController {
         mainFrame.mainMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.cardLayout.show(mainFrame.cardsPanel, "mealsPanel");
+                mainFrame.cardLayout.show(MainFrame.cardsPanel, "mealsPanel");
             }
         });
 
@@ -216,8 +216,8 @@ public class MainController {
         mainFrame.reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ReportPanel updatedReport = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
-                mainFrame.cardsPanel.add(updatedReport,"reportPanel");
+                ReportPanel updatedReport = new ReportPanel(report, users.getUsers().size(), meals.getMeals().size());
+                mainFrame.cardsPanel.add(updatedReport, "reportPanel");
                 mainFrame.cardLayout.show(mainFrame.cardsPanel, "reportPanel");
             }
         });
