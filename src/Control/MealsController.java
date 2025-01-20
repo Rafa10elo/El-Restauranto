@@ -83,6 +83,7 @@ public class MealsController {
 
                         mealsPanel.getEditMealDialog().removeAll();
                         mealsPanel.getEditMealDialog().dispose();
+                        repaintMainMenu();
 
                         JOptionPane.showMessageDialog(mealsPanel, "Meal edited successfully!", "", JOptionPane.INFORMATION_MESSAGE);
                     }
