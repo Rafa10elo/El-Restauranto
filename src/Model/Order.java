@@ -48,6 +48,10 @@ public class Order {
 
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public HashMap<Meal, Integer> getMeals() {
         return meals;
     }

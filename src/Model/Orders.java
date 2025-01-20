@@ -11,7 +11,12 @@ public class Orders {
     public Orders() {
         this.ordersOfUsers = new HashMap<>();
     }
-
+    public void removeKey(User user){
+        ordersOfUsers.remove(user);
+    }
+    public void addKey(User user){
+        ordersOfUsers.put(user,new ArrayList<>());
+    }
     public static Orders getOrdersSing() {
         if (orders == null) {
             orders = new Orders();

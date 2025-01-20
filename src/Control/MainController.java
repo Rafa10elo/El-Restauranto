@@ -63,7 +63,7 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
 
                     loginAndRegistrationFrame.dispose();
                     profilePanel= new ProfilePanel(user);
-                    profileController = new ProfileController(users,profilePanel);
+                    profileController = new ProfileController(users,profilePanel,report);
                     reportPanel = new ReportPanel(report,users.getUsers().size(),meals.getMeals().size());
                     mealsPanel = new MealsPanel(user);
                     allOrdersPanel= new AllOrdersPanel(user);

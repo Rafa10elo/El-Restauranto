@@ -42,8 +42,6 @@ public class AllOrdersPanel extends JPanel {
             theOrdersOfTheUser = orders.getAllOrders();
         }
         int cnt=0;
-        for(Order order : theOrdersOfTheUser)
-//            System.out.println("size of order " +order.getMeals().size());
 
 
 
@@ -216,8 +214,7 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.repaint();
     }
     public void addNewOrder(Order order, User user, Orders orders) {
-        JPanel newOrderPanel = createOrderPanel(user,order, theOrdersOfTheUser.size());
-
+        JPanel newOrderPanel = createOrderPanel(user,order, orders.getOrdersForUser(user).size());
         newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)),0);
         miniAllOrdersPanel.add(newOrderPanel,0);

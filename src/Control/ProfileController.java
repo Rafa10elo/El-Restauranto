@@ -17,9 +17,11 @@ public class ProfileController {
     ProfilePanel profilePanel;
     User wantedUser;
     public boolean inEditMode;
+    Report report;
 
-    ProfileController(Users users ,ProfilePanel profilePanel)
+    ProfileController(Users users ,ProfilePanel profilePanel , Report report)
     {
+        this.report= report;
         this.users = users;
         this.profilePanel =profilePanel;
         wantedUser= profilePanel.getUser();
@@ -68,12 +70,24 @@ public class ProfileController {
          ArrayList<Order> ordersOfTheUsers;
 
          if(!wantedUser.getUserName().equals(profilePanel.getEditedUsername())){
-             ordersOfTheUsers= wantedUser.getOrders().getOrdersForUser(wantedUser);
+             int userType = wantedUser.getUserType();
+             ordersOfTheUsers = new ArrayList<>(wantedUser.getOrders().getOrdersForUser(wantedUser));
+             wantedUser.getOrders().removeKey(wantedUser);
+             report.getOrderingUsers().remove(wantedUser)
+
+ ;
              wantedUser.setUserName(profilePanel.getEditedUsername());
              wantedUser.setEmail(profilePanel.getEditedEmail());
              wantedUser.setPassword(profilePanel.getEditedPassword());
-             for(Order order : ordersOfTheUsers)
-                 wantedUser.getOrders().addOrderForUser(wantedUser,order);
+             wantedUser.getOrders().addKey(new User(profilePanel.getEditedUsername(),profilePanel.getEditedEmail(),profilePanel.getEditedPassword(),userType));
+
+             for(Order order : ordersOfTheUsers) {
+                 order.setUsername(wantedUser.getUserName());
+                 wantedUser.getOrders().addOrderForUser(wantedUser, order);
+             }
+             report.incrementUserCount(wantedUser,ordersOfTheUsers.size());
+
+            report.writerThread();
 
          }
          else {

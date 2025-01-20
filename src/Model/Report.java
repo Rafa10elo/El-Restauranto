@@ -18,6 +18,10 @@ public class Report {
         this.orderingUsers = new HashMap<>();
     }
 
+    public HashMap<User, Integer> getOrderingUsers() {
+        return orderingUsers;
+    }
+
     public int getNumberOfOrders() {
         return numberOfOrders;
     }
